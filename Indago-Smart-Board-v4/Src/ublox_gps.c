@@ -36,6 +36,20 @@ bool UBX_GPS_Init(UART_HandleTypeDef *uart){
   SET_BIT(huart->Instance->CR3, USART_CR3_EIE);                                 // Turn on RNE IRQ (Main UART IRQ)
   SET_BIT(huart->Instance->CR1, USART_CR1_RXNEIE);                              // CR1|RE&UE already set from HAL_UART_Init()
 
+
+  // Change the port config over to UBX
+  UBX_Port_Config_t portConfig = {
+    .portId = UBX_UART_PORT,
+    .txReady = 0,
+    .mode = UBX_CFG_PRT_MODE_8BIT | 
+            UBX_CFG_PRT_MODE_PARITY_NONE |
+            UBX_CFG_PRT_MODE_STOP_1,
+    .inProtoMask = UBX_CFG_PRT_PROTO_UBX,
+    .outProtoMask = UBX_CFG_PRT_PROTO_UBX,
+    .flags = 0,
+  };
+  UBX_Set_Port_Config(portConfig);
+
   return true;
 }
 
@@ -56,6 +70,24 @@ void UBX_Set_Port_Config(UBX_Port_Config_t config){
 
   UBX_Send_Packet(UBX_CFG_PRT_CLASS, UBX_CFG_PRT_ID, payload, 20);
 }
+
+// Allows you to clear, save, load configs
+void UBX_Manage_Config(UBX_Config_Storage_t config){
+  uint8_t payload[13];
+  memcpy(payload, &config.clearmask, 4);
+  memcpy(payload, &config.savemask, 4);
+  memcpy(payload, &config.loadmask, 4);
+  
+  uint8_t len = 12;
+  if(config.deviceMask){
+    len = 13;
+    payload[12] = config.deviceMask;
+  }
+
+  UBX_Send_Packet(UBX_CFG_CFG_CLASS, UBX_CFG_CFG_ID, payload, len);
+}
+
+
 
 // Receive data streaming
 
