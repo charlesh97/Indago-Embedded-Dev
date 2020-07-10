@@ -1214,6 +1214,9 @@
             <file>
                 <name>$PROJ_DIR$\..\Inc\ublox_gps.h</name>
             </file>
+            <file>
+                <name>$PROJ_DIR$\..\Inc\ublox_r4.h</name>
+            </file>
         </group>
         <group>
             <name>Src</name>
@@ -1234,6 +1237,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\ublox_gps.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\ublox_r4.c</name>
             </file>
         </group>
     </group>

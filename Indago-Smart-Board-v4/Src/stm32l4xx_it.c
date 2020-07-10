@@ -23,8 +23,9 @@
 #include "stm32l4xx_it.h"
 
 #include "ublox_gps.h"
+#include "ublox_r4.h"
 
-extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart1, huart2;
 
 /******************************************************************************/
 /*           Cortex-M4 Processor Interruption and Exception Handlers          */
@@ -168,6 +169,14 @@ void SysTick_Handler(void)
 void USART1_IRQHandler(void)
 {
   UBX_IRQ_Handler(&huart1);
+}
+
+/**
+  * @brief This function handles USART1 global interupt
+  */
+void USART2_IRQHandler(void)
+{
+  SARA_R4_IRQ_Handler(&huart2);
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -9,6 +9,7 @@
 #include "main.h"
 
 #include "ublox_gps.h"
+#include "ublox_r4.h"
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1; //MAX-8Q
@@ -44,10 +45,21 @@ int main(void)
     HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
     HAL_Delay(250);
   }
-  HAL_Delay(2000);
 
-  UBX_GPS_Init(&huart1);
-  UBX_Get_Port_Config(UBX_UART_PORT);
+  // PA1     ------> USART2_RTS
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
+
+  SARA_R4_HW_Power_On();
+
+  //UBX_GPS_Init(&huart1);
+  SARA_R4_Init(&huart2);
+
 
 
   /* Infinite loop */
@@ -143,7 +155,7 @@ static void MX_USART1_UART_Init(void)
 static void MX_USART2_UART_Init(void)
 {
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 9600;
+  huart2.Init.BaudRate = 115200;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -174,28 +186,34 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, CELL_POWER_Pin|LED4_Pin|LED3_Pin
+  HAL_GPIO_WritePin(GPIOC, LED4_Pin|LED3_Pin
                           |LED2_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(GPIOC, GPS_RESET_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, GPS_RESET_Pin|CELL_POWER_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, CELL_ON_Pin|CELL_RESET_Pin|LED1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, CELL_RESET_Pin|CELL_ON_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPS_POWER_GPIO_Port, GPS_POWER_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pins : GPS_RESET_Pin CELL_POWER_Pin LED4_Pin LED3_Pin
-                           LED2_Pin */
-  GPIO_InitStruct.Pin = GPS_RESET_Pin|CELL_POWER_Pin|LED4_Pin|LED3_Pin
-                          |LED2_Pin;
+  /*Configure GPIO pins : GPS_RESET_Pin CELL_POWER_Pin LED4_Pin LED3_Pin LED2_Pin */
+  GPIO_InitStruct.Pin = GPS_RESET_Pin|CELL_POWER_Pin|LED4_Pin|LED3_Pin|LED2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : CELL_ON_Pin CELL_RESET_Pin LED1_Pin */
-  GPIO_InitStruct.Pin = CELL_ON_Pin|CELL_RESET_Pin|LED1_Pin;
+  /*Configure GPIO pins : LED1_Pin */
+  GPIO_InitStruct.Pin = LED1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : CELL_ON_Pin | CELL_RESET_Pin */
+  GPIO_InitStruct.Pin = CELL_ON_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);

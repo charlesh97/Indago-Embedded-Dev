@@ -1010,7 +1010,7 @@
                 </option>
                 <option>
                     <name>IlinkTrustzoneImportLibraryOut</name>
-                    <state>###Unitialized###</state>
+                    <state>Indago-Smart-Board-v4_import_lib.o</state>
                 </option>
                 <option>
                     <name>OILinkExtraOption</name>
@@ -1089,6 +1089,9 @@
             <file>
                 <name>$PROJ_DIR$\..\Inc\ublox_gps.h</name>
             </file>
+            <file>
+                <name>$PROJ_DIR$\..\Inc\ublox_r4.h</name>
+            </file>
         </group>
         <group>
             <name>Src</name>
@@ -1109,6 +1112,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\ublox_gps.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\ublox_r4.c</name>
             </file>
         </group>
     </group>

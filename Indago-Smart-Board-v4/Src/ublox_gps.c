@@ -14,8 +14,8 @@
 
 
 // Globals
-UART_HandleTypeDef *huart;
-Queue_t tx_queue;
+static UART_HandleTypeDef *huart;
+static Queue_t uart_tx_queue;
 
 
 // Static Functions
@@ -23,12 +23,11 @@ static bool UBX_Send_Packet(uint8_t msg_class, uint8_t id, uint8_t *payload, uin
 static uint16_t UBX_Calculate_Checksum(uint8_t *payload, uint16_t len);
 
 
-
 // Init
 bool UBX_GPS_Init(UART_HandleTypeDef *uart){
   huart = uart;
 
-  if(Queue_Init(&tx_queue, sizeof(uint8_t), 100) != QUEUE_OK)
+  if(Queue_Init(&uart_tx_queue, sizeof(uint8_t), 100) != QUEUE_OK)
     return false;
 
   SET_BIT(huart->Instance->RQR, UART_RXDATA_FLUSH_REQUEST);                     // Clear RX ISR flags
@@ -41,14 +40,18 @@ bool UBX_GPS_Init(UART_HandleTypeDef *uart){
   UBX_Port_Config_t portConfig = {
     .portId = UBX_UART_PORT,
     .txReady = 0,
-    .mode = UBX_CFG_PRT_MODE_8BIT | 
+    .mode = UBX_CFG_PRT_MODE_8BIT |
             UBX_CFG_PRT_MODE_PARITY_NONE |
             UBX_CFG_PRT_MODE_STOP_1,
+    .baudRate = 9600,
     .inProtoMask = UBX_CFG_PRT_PROTO_UBX,
     .outProtoMask = UBX_CFG_PRT_PROTO_UBX,
     .flags = 0,
   };
   UBX_Set_Port_Config(portConfig);
+
+  HAL_Delay(500);
+  UBX_Set_Message_Rate(UBX_NAV_PVT_CLASS, UBX_NAV_PVT_ID, 1);
 
   return true;
 }
@@ -62,7 +65,9 @@ void UBX_Set_Port_Config(UBX_Port_Config_t config){
   uint8_t payload[20];
   payload[0] = config.portId;
   memcpy(payload + 2, &config.txReady, 2);
-  payload[5] = config.mode;
+  memcpy(payload + 4, &config.mode, 2);
+  payload[6] = 0;
+  payload[7] = 0;
   memcpy(payload + 8, &config.baudRate, 4);
   memcpy(payload + 12, &config.inProtoMask, 2);
   memcpy(payload + 14, &config.outProtoMask, 2);
@@ -74,10 +79,10 @@ void UBX_Set_Port_Config(UBX_Port_Config_t config){
 // Allows you to clear, save, load configs
 void UBX_Manage_Config(UBX_Config_Storage_t config){
   uint8_t payload[13];
-  memcpy(payload, &config.clearmask, 4);
-  memcpy(payload, &config.savemask, 4);
-  memcpy(payload, &config.loadmask, 4);
-  
+  memcpy(payload, &config.clearMask, 4);
+  memcpy(payload, &config.saveMask, 4);
+  memcpy(payload, &config.loadMask, 4);
+
   uint8_t len = 12;
   if(config.deviceMask){
     len = 13;
@@ -87,7 +92,18 @@ void UBX_Manage_Config(UBX_Config_Storage_t config){
   UBX_Send_Packet(UBX_CFG_CFG_CLASS, UBX_CFG_CFG_ID, payload, len);
 }
 
+void UBX_Set_Message_Rate(uint8_t msg_class, uint8_t msg_id, uint8_t rate){
+  uint8_t payload[3];
+  payload[0] = msg_class;
+  payload[1] = msg_id;
+  payload[2] = rate;
+  UBX_Send_Packet(UBX_CFG_MSG_CLASS, UBX_CFG_MSG_ID, payload, 3);
+}
 
+void UBX_Get_Message_Rate(uint8_t msg_class, uint8_t msg_id){
+  uint8_t payload[2] = {msg_class, msg_id};
+  UBX_Send_Packet(UBX_CFG_MSG_CLASS, UBX_CFG_MSG_ID, payload, 2);
+}
 
 // Receive data streaming
 
@@ -108,11 +124,11 @@ static bool UBX_Send_Packet(uint8_t msg_class, uint8_t id, uint8_t *payload, uin
   packet[6 + len] = (chksum & 0xFF00) >> 8;     // CK_A
   packet[7 + len] = (chksum & 0x00FF);          // CK_B
 
-  bool ret = Queue_IsEmpty(&tx_queue);
-  if(ret)
+  bool ret = Queue_IsFull(&uart_tx_queue);
+  if(!ret)
   {
     for (uint16_t i = 1; i < 8+len; i++){
-      if(Queue_Append(&tx_queue, packet + i) == QUEUE_FULL){
+      if(Queue_Append(&uart_tx_queue, packet + i) == QUEUE_FULL){
         free(packet);
         return false;
       }
@@ -162,7 +178,7 @@ void UBX_IRQ_Handler(UART_HandleTypeDef *huart)
   if (isrflags & USART_ISR_TXE && huart->Instance->CR1 & USART_CR1_TXEIE)
   {
     uint8_t tx;
-    if (Queue_Get(&tx_queue, &tx) == QUEUE_OK) // Push new data
+    if (Queue_Get(&uart_tx_queue, &tx) == QUEUE_OK) // Push new data
       huart->Instance->TDR = tx;
     else{
       CLEAR_BIT(huart->Instance->CR1, USART_CR1_TXEIE); // Turn off TX interrupts
