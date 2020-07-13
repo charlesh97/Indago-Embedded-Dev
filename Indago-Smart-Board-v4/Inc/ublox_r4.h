@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "stm32l4xx_hal.h"
+#include "ublox_gps.h"
 
 
 // Defines
@@ -17,25 +18,49 @@
 #define MSG_BUFFER_SIZE     5
 
 
-typedef enum SARA_R4_Msg_Type{
+typedef enum SARA_R4_Msg {
   AT_COMMAND_ECHO,
   AT_COMMAND_RESPONSE,
   AT_COMMAND_OK,
   AT_COMMAND_ERROR,
   AT_COMMAND_UNKNOWN
-} SARA_R4_Msg_Type_t;
+} SARA_R4_Msg_t;
 
-
-typedef struct SARA_R4_Resp{
-  uint8_t len;
-  char message[40];
-  SARA_R4_Msg_Type_t msgType;
-} SARA_R4_Resp_t;
-
-typedef enum SARA_R4_Status{
+typedef enum SARA_R4_Status {
   SARA_OK,
+  SARA_TIMEOUT,
   SARA_ERROR, //TODO: List some of the other errors
 } SARA_R4_Status_t;
+
+typedef struct SARA_R4_Resp {
+  uint8_t len;
+  char message[40];
+  SARA_R4_Msg_t msgType;
+} SARA_R4_Resp_t;
+
+typedef struct SARA_R4_Indication {  //TODO LABEL Values accordingly
+  uint8_t battchg;
+  uint8_t signal;
+  uint8_t service;
+  uint8_t sounder;
+  uint8_t message;
+  uint8_t call;
+  uint8_t roam;
+  uint8_t smsfull;
+  uint8_t gprs;
+  uint8_t callsetup;
+  uint8_t callheld;
+  uint8_t simind;
+  TimeStamp_t timestamp;
+} SARA_R4_Indication_t;
+
+typedef struct SARA_R4_Operator {
+  uint8_t mode;
+  uint8_t format;
+  char operator[24];
+  uint8_t status;
+  uint8_t accessTechnology;
+} SARA_R4_Operator_t;
 
 // Function Definitions
 bool SARA_R4_Init(UART_HandleTypeDef *uart);

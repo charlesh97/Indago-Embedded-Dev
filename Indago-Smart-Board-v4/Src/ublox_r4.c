@@ -22,8 +22,8 @@ SARA_R4_Resp_t tempMsg;
 
 char testing[30];
 
-bool SARA_R4_Send(char* msg);
-SARA_R4_Status_t SARA_R4_Receive(char* msg, bool checkOK, uint16_t timeout);
+bool SARA_R4_Send(char *msg);
+SARA_R4_Status_t SARA_R4_Receive(SARA_R4_Msg_t msgType, char *msg, uint16_t timeout);
 
 /** MAIN UBLOX FUNCTIONS **/
 
@@ -84,61 +84,211 @@ void SARA_R4_HW_Reset(void){
 /* UBLOX AT-COMMAND ACCESS FUNCTIONS */
 
 // Ublox Phone Settings
-SARA_R4_Status_t SARA_R4_Get_Manaufacturer_ID(char* id){
-  if(!SARA_R4_Send("at+cgmi\r\n"))
-    return SARA_ERROR;
-  return SARA_R4_Receive(id, true, 1000);
+SARA_R4_Status_t SARA_R4_Get_Manaufacturer_ID(char *id){
+  SARA_R4_Status_t ret = SARA_R4_Send("at+cgmi\r\n");
+  if(ret != SARA_OK)
+    return ret;
+
+  ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, id, 1000);
+  if(ret != SARA_OK)
+    return ret;
+
+  // Do something with the id
+  // Store and manipulate
+
+  return ret;
 }
-SARA_R4_Status_t SARA_R4_Get_Model_ID(char* id){
-  if(!SARA_R4_Send("at+cgmm\r\n"))
-    return SARA_ERROR;
-  return SARA_R4_Receive(id, true, 1000);
+SARA_R4_Status_t SARA_R4_Get_Model_ID(char *id){
+  SARA_R4_Status_t ret = SARA_R4_Send("at+cgmm\r\n");
+  if(ret != SARA_OK)
+    return ret;
+
+  ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, id, 1000);
+  if(ret != SARA_OK)
+    return ret;
 }
 
-SARA_R4_Status_t SARA_R4_Get_Firmware_ID(char* id){
-  if(!SARA_R4_Send("at+cgmr\r\n"))
-      return SARA_ERROR;
-    return SARA_R4_Receive(id, true, 1000);
+SARA_R4_Status_t SARA_R4_Get_Firmware_ID(char *id){
+  SARA_R4_Status_t ret = SARA_R4_Send("at+cgmm\r\n");
+  if(ret != SARA_OK)
+    return ret;
+
+  ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, id, 1000);
+  if(ret != SARA_OK)
+    return ret;
 }
 
-SARA_R4_Status_t SARA_R4_Get_IMEI(char* id){
-  if(!SARA_R4_Send("at+gsn\r\n"))
+SARA_R4_Status_t SARA_R4_Get_IMEI(char *id){
+  /*if(!SARA_R4_Send("at+gsn\r\n"))
       return SARA_ERROR;
-    return SARA_R4_Receive(id, true, 1000);
+    return SARA_R4_Receive(id, true, 1000);*/
 }
 
-SARA_R4_Status_t SARA_R4_Get_IMSI(char* id){
-  if(!SARA_R4_Send("at+cimi\r\n"))
+SARA_R4_Status_t SARA_R4_Get_IMSI(char *id){
+  /*if(!SARA_R4_Send("at+cimi\r\n"))
       return SARA_ERROR;
-    return SARA_R4_Receive(id, true, 1000);
+    return SARA_R4_Receive(id, true, 1000);*/
 }
 
-SARA_R4_Status_t SARA_R4_Get_ICCID(char* id){
-    if(!SARA_R4_Send("at+ccid\r\n"))
+SARA_R4_Status_t SARA_R4_Get_ICCID(char *id){
+    /*if(!SARA_R4_Send("at+ccid\r\n"))
       return SARA_ERROR;
-    return SARA_R4_Receive(id, true, 1000);
+    return SARA_R4_Receive(id, true, 1000);*/
 }
 
 // Ublox Phone Configuration
-void SARA_R4_Shutdown(void){}
+void SARA_R4_Shutdown(void){
+    SARA_R4_Status_t ret = SARA_R4_Send("at+cpwroff\r\n");
+    if(ret != SARA_OK)
+      return ret;
 
-void SARA_R4_Get_Functionality_Level(void){}
-void SARA_R4_Set_Functionality_Level(void){}
+    return SARA_R4_Receive(AT_COMMAND_OK, NULL, 1000);
+}
 
-void SARA_R4_Get_Indications(void){}
+void SARA_R4_Get_Functionality_Level(uint8_t *power){   
+  SARA_R4_Status_t ret = SARA_R4_Send("at+cfun?\r\n");
+  if(ret != SARA_OK)
+    return ret;
+  
+  uint8_t msg[10];
+  ret = SARA_R4_Receive(AT_COMMAND_OK, msg, 1000);
+  if(ret != SARA_OK)
+    return ret;
+
+  *power = msg[6]; // This is the ascii representation
+  return ret;
+}
+
+void SARA_R4_Set_Functionality_Level(uint8_t fun, bool reset){
+    SARA_R4_Status_t ret = SARA_R4_Send(sprintf("at+cfun=%d,%d\r\n",fun, reset));
+    if(ret != SARA_OK)
+      return ret;
+
+    return SARA_R4_Receive(AT_COMMAND_OK, NULL, 1000);
+}
+
+void SARA_R4_Get_Indications(SARA_R4_Indication_t *status){
+    SARA_R4_Status_t ret = SARA_R4_Send("at+cind?\r\n");
+    if(ret != SARA_OK)
+      return ret;
+
+    uint8_t msg[50];
+    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000);
+    if(ret != SARA_OK)
+      return ret;
+
+    status->battchg = msg[6]; //Should include some checks. This is placing ascii representations. Should convert.
+    status->signal = msg[8];
+    status->service = msg[10];
+    status->sounder = msg[12];
+    status->message = msg[14];
+    status->call = msg[16];
+    status->roam = msg[18];
+    status->smsfull = msg[20];
+    status->gprs = msg[22];
+    status->callsetup = msg[24];
+    status->callheld = msg[26];
+    status->simind = msg[28];
+
+    return ret;
+}
+
 void SARA_R4_Set_Event_Reporting(void){} //CMER?
 void SARA_R4_Set_Timezone_Update(void){}
 
 // UBlox Cellular Network Registration
 void SARA_R4_Get_Subscriber_Number(void){}
-void SARA_R4_Get_Signal_Quality(void){}
-void SARA_R4_Get_Extended_Signal_Quality(void){}
-void SARA_R4_Get_RAT(void){}
-void SARA_R4_Get_RSRP(void){}
-void SARA_R4_Get_RSRQ(void){}
 
-void SARA_R4_Get_Operator(void){}
-void SARA_R4_Set_Operator(void){}
+void SARA_R4_Get_Signal_Quality(uint8_t *dbm){
+    SARA_R4_Status_t ret = SARA_R4_Send("at+csq\r\n");
+    if(ret != SARA_OK)
+      return ret;
+
+    uint8_t msg[10];
+    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000); 
+    if(ret != SARA_OK)
+      return ret;
+
+
+    // Need to map values
+    // Need to use string split to parse the numbers out of the commas
+    *dbm = msg[5];
+}
+
+void SARA_R4_Get_Extended_Signal_Quality(uint8_t *rxlev, uint8_t *ber, uint8_t *rscp, uint8_t *enc0, uint8_t *rsrq, uint8_t *rsrp){
+    SARA_R4_Status_t ret = SARA_R4_Send("at+cesq\r\n");
+    if(ret != SARA_OK)
+      return ret;
+
+    uint8_t msg[25];
+    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000); 
+    if(ret != SARA_OK)
+      return ret;
+
+    //TODO: MAP VALUES
+    //TODO: REVIEW THE ERROR CHECKING
+    //TODO: TEST THIS PARSING
+    //TOOD: MODIFY THE OTHER COMMANDS TO USE THE : SEARCH TO INDICATE START OF THE DATA FROM THE MESSAGE
+    //TODO: CHANGE THE 0x30 to a #DEFINE
+
+    // Need to use string split to parse the numbers out of the commas
+    uint8_t idx1 = strchr(msg,':') + 1; // Find the start of the response
+
+    if(strlen(msg) - idx1 < 20) // Check the length before parsing
+      return SARA_ERROR;
+
+    // Start parsing the message
+    uint8_t idx2 = strchr(msg, ',');
+    *rxlev = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
+    
+    idx1 = idx2 + 1;
+    idx2 = strchr(msg + idx1, ',');
+    *ber = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
+
+    idx1 = idx2 + 1;
+    idx2 = strchr(msg + idx1, ',');
+    *rscp = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
+
+    idx1 = idx2 + 1;
+    idx2 = strchr(msg + idx1, ',');
+    *enc0 = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
+    
+    idx1 = idx2 + 1;
+    idx2 = strchr(msg + idx1, ',');
+    *rsrq = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
+
+    idx1 = idx2 + 1;
+    idx2 = strchr(msg + idx1, ',');
+    *rsrp = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
+}
+
+void SARA_R4_Get_RAT(uint8_t *rat){
+    SARA_R4_Status_t ret = SARA_R4_Send("at+urat?\r\n");
+    if(ret != SARA_OK)
+      return ret;
+
+    uint8_t msg[10];
+    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000); 
+    if(ret != SARA_OK)
+      return ret;
+
+    uint8_t idx = strchr(msg, ':') + 1;
+    *rat = msg[idx] - 0x30;
+}
+
+void SARA_R4_Get_Operator(SARA_R4_Operator_t *oper){
+    SARA_R4_Status_t ret = SARA_R4_Send("at+urat?\r\n");
+      if(ret != SARA_OK)
+        return ret;
+
+    uint8_t msg[40];
+    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000); 
+    if(ret != SARA_OK)
+      return ret;
+
+    
+}
+void SARA_R4_Set_Operator(SARA_R4_Operator_t *oper){}
 
 void SARA_R4_Get_Network_Registration(void){}
 void SARA_R4_Set_Network_Registration(void){}
@@ -157,31 +307,32 @@ void SARA_R4_Set_Band_Selection(void){}
 
 
 /* Low Level Functions */
-bool SARA_R4_Send(char* msg){
+SARA_R4_Status_t SARA_R4_Send(char* msg){
   uint16_t len = strlen(msg);
 
   bool ret = Queue_IsEmpty(&cell_tx_queue);
   if(ret){
     for (uint16_t i = 1; i < len; i++){
       if(Queue_Append(&cell_tx_queue, msg + i) == QUEUE_FULL){
-        return false; //TODO you should undo the mess you just made in the buffer
+        return SARA_ERROR; //TODO you should undo the mess you just made in the buffer
       }
     }
     huart->Instance->TDR = msg[0];
     SET_BIT(huart->Instance->CR1, USART_CR1_TXEIE); // Turn on TX interrupts
   }
-  return ret;
+  return ret ? SARA_OK : SARA_ERROR;
 }
 
-SARA_R4_Status_t SARA_R4_Receive(char* msg, bool checkOK, uint16_t timeout){  //check at_ok, timeout in ms
+SARA_R4_Status_t SARA_R4_Receive(SARA_R4_Msg_t msgType, char* msg, uint16_t timeout){  // Message type to look for, response
   do{
     if(!Queue_IsEmpty(&message_queue))
     {
       SARA_R4_Resp_t resp;
       if(Queue_Get(&message_queue, &resp) == QUEUE_OK){
 
-        if(resp.msgType == AT_COMMAND_RESPONSE || resp.msgType == AT_COMMAND_UNKNOWN){ //Temporary
-          memcpy(msg, resp.message, strlen(resp.message));
+        if(resp.msgType == msgType){ //Temporary
+          if(msg != NULL)
+            memcpy(msg, resp.message, strlen(resp.message));
           break;
 
         }else if(resp.msgType == AT_COMMAND_ERROR){
@@ -192,10 +343,7 @@ SARA_R4_Status_t SARA_R4_Receive(char* msg, bool checkOK, uint16_t timeout){  //
     HAL_Delay(1);
   }while(timeout-- > 0); //Timeout
 
-  if(checkOK){ //Wait for next message
-
-  }
-  return SARA_OK;
+  return SARA_TIMEOUT;
 }
 
 void SARA_R4_IRQ_Handler(UART_HandleTypeDef *huart)
@@ -255,6 +403,17 @@ void SARA_R4_IRQ_Handler(UART_HandleTypeDef *huart)
 
 static void Process_AT_Command(void){ //Should pass pointer to queue message to process
 
+}
+
+uint32_t Convert_From_ASCII(uint8_t *msg, uint8_t len){
+  uint8_t i;
+  uint32_t total = 0;
+  uint32_t multiplier = 1;
+  for(i = len - 1; i > 0; i--){
+    total += multiplier * (msg[i] - 0x30);
+    multiplier *= 10;
+  }
+  return total;
 }
 
 

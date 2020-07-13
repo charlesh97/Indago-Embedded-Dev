@@ -34,6 +34,15 @@ typedef struct UBX_Config_Storage {
   uint8_t deviceMask; // This is optional
 } UBX_Config_Storage_t;
 
+typedef struct TimeStamp { // TODO THIS NEEDS TO BE REPLACED WITH A REAL TIMESTAMP STRUCT
+  uint8_t year;
+  uint8_t month;
+  uint8_t day;
+  uint8_t hour;
+  uint8_t min;
+  uint8_t sec;
+} TimeStamp_t;
+
 
 // UBX Packet Header Definitions
 #define UBX_SYNC_CHAR1          0xB5
