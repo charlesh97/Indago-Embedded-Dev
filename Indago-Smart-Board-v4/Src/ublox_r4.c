@@ -83,6 +83,12 @@ void SARA_R4_HW_Reset(void){
 
 /* UBLOX AT-COMMAND ACCESS FUNCTIONS */
 
+// Hex Mode Configuration
+SARA_R4_Status_t SARA_R4_Hex_Mode_Config(uint8_t mode){
+  //sprintf
+  SARA_R4_Status_t ret = SARA_R4_SEND("at+udconf=1");
+}
+
 // Ublox Phone Settings
 SARA_R4_Status_t SARA_R4_Get_Manaufacturer_ID(char *id){
   SARA_R4_Status_t ret = SARA_R4_Send("at+cgmi\r\n");
@@ -304,6 +310,36 @@ void SARA_R4_Set_Band_Selection(void){}
 
 
 // Internet & Security
+// Security Layer Profile Manager
+void SARA_R4_CPRF_Set_TLS(uint8_t profile, uint8_t ssl_level, uint8_t cipher_suite, string root_cert, string client_cert, string client_key){
+  SARA_R4_Status_t ret;
+
+  // Set the cert validation
+  ret = SARA_R4_Send("at+urat?\r\n");
+  if(ret != SARA_OK)
+    return ret;
+
+  // Set the tls version
+  // Set the cipher suite
+  // Set the root cert
+  // Set the client cert
+  // Set the client key
+}
+
+// Socket Connection
+uint8_t SARA_R4_Create_Socket(uint8_t protocol){
+
+}
+
+void SARA_R4_SSL_Mode_Config(uint8_t socket, uint8_t ssl_enable, uint8_t profile){
+
+}
+void SARA_R4_Setup_Socket(void){
+
+}
+void SARA_R4_Write_Socket(uint8_t socket, uint8_t *data, uint16_t len){
+
+}
 
 
 /* Low Level Functions */
