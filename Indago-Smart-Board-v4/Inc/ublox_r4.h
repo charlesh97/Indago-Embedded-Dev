@@ -75,3 +75,5 @@ SARA_R4_Status_t SARA_R4_Get_Firmware_ID(char* id);
 SARA_R4_Status_t SARA_R4_Get_IMEI(char* id);
 SARA_R4_Status_t SARA_R4_Get_IMSI(char* id);
 SARA_R4_Status_t SARA_R4_Get_ICCID(char* id);
+
+SARA_R4_Status_t SARA_R4_Download_Block(char* f_name, uint8_t f_len, char* data, uint16_t data_len);

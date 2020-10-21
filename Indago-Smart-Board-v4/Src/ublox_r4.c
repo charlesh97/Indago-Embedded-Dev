@@ -151,11 +151,11 @@ void SARA_R4_Shutdown(void){
     return SARA_R4_Receive(AT_COMMAND_OK, NULL, 1000);
 }
 
-void SARA_R4_Get_Functionality_Level(uint8_t *power){   
+void SARA_R4_Get_Functionality_Level(uint8_t *power){
   SARA_R4_Status_t ret = SARA_R4_Send("at+cfun?\r\n");
   if(ret != SARA_OK)
     return ret;
-  
+
   uint8_t msg[10];
   ret = SARA_R4_Receive(AT_COMMAND_OK, msg, 1000);
   if(ret != SARA_OK)
@@ -211,7 +211,7 @@ void SARA_R4_Get_Signal_Quality(uint8_t *dbm){
       return ret;
 
     uint8_t msg[10];
-    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000); 
+    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000);
     if(ret != SARA_OK)
       return ret;
 
@@ -227,7 +227,7 @@ void SARA_R4_Get_Extended_Signal_Quality(uint8_t *rxlev, uint8_t *ber, uint8_t *
       return ret;
 
     uint8_t msg[25];
-    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000); 
+    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000);
     if(ret != SARA_OK)
       return ret;
 
@@ -246,7 +246,7 @@ void SARA_R4_Get_Extended_Signal_Quality(uint8_t *rxlev, uint8_t *ber, uint8_t *
     // Start parsing the message
     uint8_t idx2 = strchr(msg, ',');
     *rxlev = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
-    
+
     idx1 = idx2 + 1;
     idx2 = strchr(msg + idx1, ',');
     *ber = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
@@ -258,7 +258,7 @@ void SARA_R4_Get_Extended_Signal_Quality(uint8_t *rxlev, uint8_t *ber, uint8_t *
     idx1 = idx2 + 1;
     idx2 = strchr(msg + idx1, ',');
     *enc0 = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
-    
+
     idx1 = idx2 + 1;
     idx2 = strchr(msg + idx1, ',');
     *rsrq = (uint8_t)Convert_From_ASCII(msg+idx1, idx2-idx1);
@@ -274,7 +274,7 @@ void SARA_R4_Get_RAT(uint8_t *rat){
       return ret;
 
     uint8_t msg[10];
-    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000); 
+    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000);
     if(ret != SARA_OK)
       return ret;
 
@@ -288,11 +288,11 @@ void SARA_R4_Get_Operator(SARA_R4_Operator_t *oper){
         return ret;
 
     uint8_t msg[40];
-    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000); 
+    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000);
     if(ret != SARA_OK)
       return ret;
 
-    
+
 }
 void SARA_R4_Set_Operator(SARA_R4_Operator_t *oper){}
 
@@ -341,11 +341,66 @@ void SARA_R4_Write_Socket(uint8_t socket, uint8_t *data, uint16_t len){
 
 }
 
+/* File System Functions */
+// Clears the files in the file system
+SARA_R4_Status_t SARA_R4_Clear_Files(void){
+
+}
+
+// Downloads the whole file
+// Maximum file name length 248B
+// Not recommended if HW flow control not enabled, and will need to manage TX buffer size depending on file size
+SARA_R4_Status_t SARA_R4_Download_File(char* f_name, uint8_t len, char* data, uint16_t data_len){
+
+
+}
+
+// Downloads a file into the file system
+// Automatically splits the data up into blocks
+SARA_R4_Status_t SARA_R4_Download_Block(char* f_name, uint8_t f_len, char* data, uint16_t data_len){
+  string cmd_prefix = "at+udwnblock=\"";
+  strncat(cmd_prefix, f_name, f_len);
+
+  // Loop through this n times in 100 byte chunks until all the data is received
+  uint8_t i;
+  for(i = 0; i < (data_len / 100)+1; i++)
+  {
+    uint8_t block_size =  i*100 < data_len ? 100 : data_len - i*100;
+    string send;
+    string cmd2 = "\",0,";
+    sprintf(cmd2, "%d\r\n", block_size); // Use the block size or what is left over
+
+    strcpy(send, cmd_prefix);
+    strcat(send, cmd2);
+
+    // Send the first command
+    SARA_R4_Status_t ret = SARA_R4_Send(send);
+    if(ret != SARA_OK)
+      return ret;
+
+    // Check device is ready to receive
+    uint8_t msg[10];
+    ret = SARA_R4_Receive(AT_COMMAND_UNKNOWN, msg, 1000); //Expecting a '>'
+    if(ret != SARA_OK)
+      return ret;
+
+    // Send the block
+    SARA_R4_Status_t ret = SARA_R4_Send(data+i*100, block_size);
+    if(ret != SARA_OK)
+      return ret;
+
+
+    // Verify receipt of data
+    uint8_t msg[10];
+    ret = SARA_R4_Receive(AT_COMMAND_OK, msg, 1000);
+    if(ret != SARA_OK)
+      return ret;
+  }
+
+}
 
 /* Low Level Functions */
-SARA_R4_Status_t SARA_R4_Send(char* msg){
-  uint16_t len = strlen(msg);
-
+SARA_R4_Status_t SARA_R4_Send(char* msg, uint16_t len){
   bool ret = Queue_IsEmpty(&cell_tx_queue);
   if(ret){
     for (uint16_t i = 1; i < len; i++){
