@@ -12,6 +12,7 @@
 #include "ublox_r4.h"
 #include "queue.h"
 #include "main.h"
+#include "aws.h"
 
 // Globals
 static UART_HandleTypeDef *huart;
@@ -21,9 +22,6 @@ Queue_t message_queue;
 SARA_R4_Resp_t tempMsg;
 
 char testing[30];
-
-bool SARA_R4_Send(char *msg);
-SARA_R4_Status_t SARA_R4_Receive(SARA_R4_Msg_t msgType, char *msg, uint16_t timeout);
 
 /** MAIN UBLOX FUNCTIONS **/
 
@@ -49,13 +47,21 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
   SET_BIT(huart->Instance->CR3, USART_CR3_EIE);                                 // Turn on RNE IRQ (Main UART IRQ)
   SET_BIT(huart->Instance->CR1, USART_CR1_RXNEIE);
 
-
+  // Test functionality w/ standard device information 
   SARA_R4_Get_Manaufacturer_ID(testing);
-  SARA_R4_Get_Model_ID(testing);
+  /*SARA_R4_Get_Model_ID(testing);
   SARA_R4_Get_Firmware_ID(testing);
   SARA_R4_Get_IMEI(testing);
   SARA_R4_Get_IMSI(testing);
-  SARA_R4_Get_ICCID(testing);
+  SARA_R4_Get_ICCID(testing);*/
+
+
+  //Setup the network etc
+  // Start storing the files
+  SARA_R4_Status_t status = SARA_R4_Download_Block("rootca", AWS_ROOT_CA, strlen(AWS_ROOT_CA));
+  //Now do this for the private key
+
+
 
   return true;
 }
@@ -86,11 +92,11 @@ void SARA_R4_HW_Reset(void){
 // Hex Mode Configuration
 SARA_R4_Status_t SARA_R4_Hex_Mode_Config(uint8_t mode){
   //sprintf
-  SARA_R4_Status_t ret = SARA_R4_SEND("at+udconf=1");
+  SARA_R4_Status_t ret = SARA_R4_Send("at+udconf=1");
 }
 
 // Ublox Phone Settings
-SARA_R4_Status_t SARA_R4_Get_Manaufacturer_ID(char *id){
+SARA_R4_Status_t SARA_R4_Get_Manufacturer_ID(char *id){
   SARA_R4_Status_t ret = SARA_R4_Send("at+cgmi\r\n");
   if(ret != SARA_OK)
     return ret;
@@ -142,7 +148,7 @@ SARA_R4_Status_t SARA_R4_Get_ICCID(char *id){
     return SARA_R4_Receive(id, true, 1000);*/
 }
 
-// Ublox Phone Configuration
+/* UBLOX PHONE CONFIGURATION */
 void SARA_R4_Shutdown(void){
     SARA_R4_Status_t ret = SARA_R4_Send("at+cpwroff\r\n");
     if(ret != SARA_OK)
@@ -202,7 +208,7 @@ void SARA_R4_Get_Indications(SARA_R4_Indication_t *status){
 void SARA_R4_Set_Event_Reporting(void){} //CMER?
 void SARA_R4_Set_Timezone_Update(void){}
 
-// UBlox Cellular Network Registration
+/* UBLOX CELLULAR NETWORK REGISTRATION */
 void SARA_R4_Get_Subscriber_Number(void){}
 
 void SARA_R4_Get_Signal_Quality(uint8_t *dbm){
@@ -306,11 +312,13 @@ void SARA_R4_Get_Band_Selection(void){}
 void SARA_R4_Set_Band_Selection(void){}
 
 
-// SIM Management
+/* SIM MANAGEMENT */
 
 
-// Internet & Security
-// Security Layer Profile Manager
+/* INTERNET AND SECURITY CONFIGURATION */
+// SSL/TLS Certification / Key Management 
+void SARA_R4_ TODO:10/20/20
+// Security Layer Profile Management
 void SARA_R4_CPRF_Set_TLS(uint8_t profile, uint8_t ssl_level, uint8_t cipher_suite, string root_cert, string client_cert, string client_key){
   SARA_R4_Status_t ret;
 
@@ -318,6 +326,8 @@ void SARA_R4_CPRF_Set_TLS(uint8_t profile, uint8_t ssl_level, uint8_t cipher_sui
   ret = SARA_R4_Send("at+urat?\r\n");
   if(ret != SARA_OK)
     return ret;
+
+  
 
   // Set the tls version
   // Set the cipher suite
@@ -327,21 +337,61 @@ void SARA_R4_CPRF_Set_TLS(uint8_t profile, uint8_t ssl_level, uint8_t cipher_sui
 }
 
 // Socket Connection
-uint8_t SARA_R4_Create_Socket(uint8_t protocol){
+uint8_t SARA_R4_Clear_Socket(uint8_t socket){}
+uint8_t SARA_R4_Create_Socket(uint8_t protocol, uint8_t* socket){
+  SARA_R4_Status_t ret;
 
+  string send = "at+usocr=";
+  sprintf(send, "%d\r\n", protocol);
+  ret = SARA_R4_Send(send);
+  if(ret != SARA_OK)
+    return ret;
+
+  char msg[10];
+  ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 2000);
+  if(ret != SARA_OK)
+    return ret;
+
+  // Store the socket number to be used
+  *socket = msg[6]; // Double check this is the right index
+
+  return SARA_OK;
 }
 
-void SARA_R4_SSL_Mode_Config(uint8_t socket, uint8_t ssl_enable, uint8_t profile){
+void SARA_R4_SSL_Mode_Config(uint8_t socket, uint8_t ssl_enable, uint8_t profile_id){
+  SARA_R4_Status_t ret;
 
-}
-void SARA_R4_Setup_Socket(void){
+  string send = "at+usosec=";
+  sprintf(send, "%d,%d,%d\r\n", socket, ssl_enable, profile_id);
+  ret = SARA_R4_Send(send);
+  if(ret != SARA_OK)
+    return ret;
 
+  // Optional check the message for errors
+  char msg[10];
+  return SARA_R4_Receive(AT_COMMAND_OK, msg, 1000); 
 }
+
+void SARA_R4_Setup_Socket(void){ } // TODO: 
+
+void SARA_R4_Connect_Socket(uint8_t socket, char* addr, uint16_t port){ //TODO: Optional async param
+  SARA_R4_Status_t ret;
+  string send = "at+usoco=";
+  sprintf(send, "%d,%s,%d\r\n");
+  ret = SARA_R4_Send(send);
+  if(ret != SARA_OK)
+    return ret;
+  
+  // Check for connection
+  char msg[50];
+  return SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 10000); //TODO: Debug the responses here
+}
+
 void SARA_R4_Write_Socket(uint8_t socket, uint8_t *data, uint16_t len){
 
 }
 
-/* File System Functions */
+/* FILE SYSTEM MANAGEMENT */
 // Clears the files in the file system
 SARA_R4_Status_t SARA_R4_Clear_Files(void){
 
@@ -350,16 +400,16 @@ SARA_R4_Status_t SARA_R4_Clear_Files(void){
 // Downloads the whole file
 // Maximum file name length 248B
 // Not recommended if HW flow control not enabled, and will need to manage TX buffer size depending on file size
-SARA_R4_Status_t SARA_R4_Download_File(char* f_name, uint8_t len, char* data, uint16_t data_len){
+SARA_R4_Status_t SARA_R4_Download_File(char* f_name, char* data, uint16_t data_len){
 
 
 }
 
 // Downloads a file into the file system
 // Automatically splits the data up into blocks
-SARA_R4_Status_t SARA_R4_Download_Block(char* f_name, uint8_t f_len, char* data, uint16_t data_len){
+SARA_R4_Status_t SARA_R4_Download_Block(char* f_name, char* data, uint16_t data_len){
   string cmd_prefix = "at+udwnblock=\"";
-  strncat(cmd_prefix, f_name, f_len);
+  strncat(cmd_prefix, f_name, strlen(f_name));
 
   // Loop through this n times in 100 byte chunks until all the data is received
   uint8_t i;
@@ -385,7 +435,7 @@ SARA_R4_Status_t SARA_R4_Download_Block(char* f_name, uint8_t f_len, char* data,
       return ret;
 
     // Send the block
-    SARA_R4_Status_t ret = SARA_R4_Send(data+i*100, block_size);
+    SARA_R4_Status_t ret = SARA_R4_SendN(data+i*100, block_size);
     if(ret != SARA_OK)
       return ret;
 
@@ -400,6 +450,22 @@ SARA_R4_Status_t SARA_R4_Download_Block(char* f_name, uint8_t f_len, char* data,
 }
 
 /* Low Level Functions */
+SARA_R4_Status_t SARA_R4_Send(char* msg){
+  uint16_t len = strlen(msg);
+
+  bool ret = Queue_IsEmpty(&cell_tx_queue);
+  if(ret){
+    for (uint16_t i = 1; i < len; i++){
+      if(Queue_Append(&cell_tx_queue, msg + i) == QUEUE_FULL){
+        return SARA_ERROR; //TODO you should undo the mess you just made in the buffer
+      }
+    }
+    huart->Instance->TDR = msg[0];
+    SET_BIT(huart->Instance->CR1, USART_CR1_TXEIE); // Turn on TX interrupts
+  }
+  return ret ? SARA_OK : SARA_ERROR;
+}
+
 SARA_R4_Status_t SARA_R4_Send(char* msg, uint16_t len){
   bool ret = Queue_IsEmpty(&cell_tx_queue);
   if(ret){
