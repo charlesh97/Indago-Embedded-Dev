@@ -890,7 +890,7 @@
                     <item>message_queue</item>
                     <item>tempMsg</item>
                     <item>testing</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>
