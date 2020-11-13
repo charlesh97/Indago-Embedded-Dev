@@ -6,6 +6,9 @@
   * @date       : July 2020
   *
 *********************************************************************************/
+#ifndef __UBLOX_GPS_H
+#define __UBLOX_GPS_H
+
 #include <stdint.h>
 #include <stdbool.h>
 #include "stm32l4xx_hal.h"
@@ -111,3 +114,5 @@ void UBX_Manage_Config(UBX_Config_Storage_t config);
 
 
 void UBX_IRQ_Handler(UART_HandleTypeDef *huart);
+
+#endif //__UBLOX_GPS_H

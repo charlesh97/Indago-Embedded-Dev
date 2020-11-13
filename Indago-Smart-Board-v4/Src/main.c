@@ -10,6 +10,8 @@
 
 #include "ublox_gps.h"
 #include "ublox_r4.h"
+#include "print.h"
+#include <stdio.h>
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1; //MAX-8Q
@@ -20,6 +22,15 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
+
+
+
+extern uint32_t __stack_chk_guard = 0xEE;
+
+__interwork __nounwind __noreturn void __stack_chk_fail(void){
+  while(1)
+    ;
+}
 
 /**
   * @brief  The application entry point.
@@ -40,6 +51,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
 
+  printf("Testing");
 
   for(uint8_t i = 0; i < 4; i++){
     HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
@@ -56,11 +68,10 @@ int main(void)
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
 
   SARA_R4_HW_Power_On();
+  HAL_Delay(4000);
 
   //UBX_GPS_Init(&huart1);
   SARA_R4_Init(&huart2);
-
-
 
   /* Infinite loop */
   while (1)
@@ -132,7 +143,7 @@ void SystemClock_Config(void)
 static void MX_USART1_UART_Init(void)
 {
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 9600;
+  huart1.Init.BaudRate = 115200;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -197,6 +208,8 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPS_POWER_GPIO_Port, GPS_POWER_Pin, GPIO_PIN_SET);
 
+  HAL_GPIO_WritePin(LORA_RESET_GPIO_Port, LORA_RESET_Pin, GPIO_PIN_RESET);
+
   /*Configure GPIO pins : GPS_RESET_Pin CELL_POWER_Pin LED4_Pin LED3_Pin LED2_Pin */
   GPIO_InitStruct.Pin = GPS_RESET_Pin|CELL_POWER_Pin|LED4_Pin|LED3_Pin|LED2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -210,6 +223,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LORA_RESET_Pin */
+  GPIO_InitStruct.Pin = LORA_RESET_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 
   /*Configure GPIO pins : CELL_ON_Pin | CELL_RESET_Pin */
   GPIO_InitStruct.Pin = CELL_ON_Pin;
@@ -233,9 +254,13 @@ static void MX_GPIO_Init(void)
 
 }
 
-/* USER CODE BEGIN 4 */
+void debugPrintln(char _out[]){
+  HAL_UART_Transmit(&huart1, (uint8_t *) _out, strlen(_out), 10);
+  char newline[2] = "\r\n";
+  HAL_UART_Transmit(&huart1, (uint8_t *) newline, 2, 10);
+}
 
-/* USER CODE END 4 */
+
 
 /**
   * @brief  This function is executed in case of error occurrence.
@@ -245,7 +270,8 @@ void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
-
+  while(1)
+    ;
   /* USER CODE END Error_Handler_Debug */
 }
 
