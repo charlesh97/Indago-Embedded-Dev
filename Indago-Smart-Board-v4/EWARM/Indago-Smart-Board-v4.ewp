@@ -1078,6 +1078,9 @@
                 <name>$PROJ_DIR$\..\Inc\main.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Inc\print.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Inc\queue.h</name>
             </file>
             <file>
@@ -1100,6 +1103,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\main.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\print.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\queue.c</name>

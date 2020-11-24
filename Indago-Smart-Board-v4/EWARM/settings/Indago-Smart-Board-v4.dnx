@@ -14,21 +14,21 @@
     <StLinkDriver>
         <stlinkserialNo>066FFF535353897167073852</stlinkserialNo>
         <stlinkfoundProbes />
-        <stlinkResetStyle>0</stlinkResetStyle>
-        <stlinkResetStrategy>2</stlinkResetStrategy>
         <CStepIntDis>_ 0</CStepIntDis>
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+        <stlinkResetStyle>0</stlinkResetStyle>
+        <stlinkResetStrategy>2</stlinkResetStrategy>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>885199257</Checksum>
+        <Checksum>1270308846</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
         <StopOnThrow>_ 0</StopOnThrow>
     </Exceptions>
     <Disassembly>
-        <MixedMode>1</MixedMode>
         <InstrCount>0</InstrCount>
+        <MixedMode>1</MixedMode>
     </Disassembly>
     <CodeCoverage>
         <Enabled>0</Enabled>
@@ -101,6 +101,12 @@
         <ShowTimeSum>1</ShowTimeSum>
         <SumSortOrder>0</SumSortOrder>
     </EventLog>
+    <DisassembleMode>
+        <mode>0</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Count>0</Count>
+    </Breakpoints2>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -110,6 +116,21 @@
         <LogFile>_ ""</LogFile>
         <Category>_ 0</Category>
     </LogFile>
+    <Aliases>
+        <A0>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal.c" ""</A0>
+        <A1>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_cortex.c" ""</A1>
+        <A2>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_gpio.c" ""</A2>
+        <A3>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_pwr_ex.c" ""</A3>
+        <A4>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_rcc.c" ""</A4>
+        <A5>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_rcc_ex.c" ""</A5>
+        <A6>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_uart.c" ""</A6>
+        <A7>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Src\main.c" ""</A7>
+        <A8>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Src\queue.c" ""</A8>
+        <A9>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Src\stm32l4xx_hal_msp.c" ""</A9>
+        <A10>_ "C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev-3\Indago-Smart-Board-v4\Src\stm32l4xx_it.c" ""</A10>
+        <Count>11</Count>
+        <SuppressDialog>0</SuppressDialog>
+    </Aliases>
     <DriverProfiling>
         <Enabled>0</Enabled>
         <Mode>3</Mode>
@@ -123,14 +144,4 @@
     <CallStackStripe>
         <ShowTiming>1</ShowTiming>
     </CallStackStripe>
-    <DisassembleMode>
-        <mode>0</mode>
-    </DisassembleMode>
-    <Breakpoints2>
-        <Count>0</Count>
-    </Breakpoints2>
-    <Aliases>
-        <Count>0</Count>
-        <SuppressDialog>0</SuppressDialog>
-    </Aliases>
 </settings>

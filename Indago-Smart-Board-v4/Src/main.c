@@ -68,7 +68,7 @@ int main(void)
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
 
   SARA_R4_HW_Power_On();
-  HAL_Delay(4000);
+  HAL_Delay(8000);
 
   //UBX_GPS_Init(&huart1);
   SARA_R4_Init(&huart2);

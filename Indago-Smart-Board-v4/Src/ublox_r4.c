@@ -60,7 +60,7 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
 //  HAL_Delay(50);
 //  SARA_R4_Get_IMSI(testing);
 //  HAL_Delay(50);
-//  SARA_R4_Get_ICCID(testing);
+  SARA_R4_Get_ICCID(testing);
   HAL_Delay(100);
 
   //Setup the network etc
@@ -80,6 +80,21 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
   SARA_R4_CPRF_Set_TLS(profile_id, 0, 0, "rootca", "privateca", "privatekey");
   HAL_Delay(50);
 
+  HAL_Delay(50);
+  SARA_R4_Operator_t oper;
+  oper.status = 0;
+  while(oper.status == 0 || oper.status == 2){
+    SARA_R4_Get_Operator(&oper);
+    HAL_Delay(100);
+  }
+  HAL_Delay(50);
+  SARA_R4_Get_RAT(0);
+  HAL_Delay(50);
+  SARA_R4_Get_Network_Registration();
+  HAL_Delay(50);
+  SARA_R4_Get_Network_Selection();
+  HAL_Delay(50);
+
   uint8_t socket;
   SARA_R4_Create_Socket(6, &socket);
 
@@ -90,7 +105,7 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
   SARA_R4_Connect_Socket(socket, (char*)AWS_ADDR, AWS_PORT);
 
   HAL_Delay(50);
-  char send[150] = "AT+USOWR=0,59,\"3239000d696f7464656d6f2f7075622f3100027b226d657373616765223a202268656c6c6f776f726c64222c202273657175656e6365223a20307d\"\r\n";
+  char send[150] = "AT+USOWR=0,32,\"301E0009746573742F64617465323032302D31312D32335432303A34363A3235\"\r\n";
   SARA_R4_Send(send);
 
   //HAL_Delay(5000);
@@ -101,6 +116,8 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
 //  if(ret != SARA_OK)
 //    Error_Handler();
 //  printf("%d, %d, %d, %d, %d, %d", rxlev, ber, rscp, enc0, rsrq, rsrp);
+
+
 
   return true;
 }
@@ -377,38 +394,78 @@ SARA_R4_Status_t SARA_R4_Get_Extended_Signal_Quality(uint8_t *rxlev, uint8_t *be
 }
 
 SARA_R4_Status_t SARA_R4_Get_RAT(uint8_t *rat){
-    /*SARA_R4_Status_t ret = SARA_R4_Send("at+urat?\r\n");
-    if(ret != SARA_OK)
-      return ret;
+  SARA_R4_Status_t ret = SARA_R4_Send("at+urat?\r\n");
+  if(ret != SARA_OK)
+    return ret;
 
-    uint8_t msg[10];
-    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000);
-    if(ret != SARA_OK)
-      return ret;
+  SARA_R4_Resp_t msg;
+  ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, &msg, 1000);
+  if(ret != SARA_OK)
+    return ret;
 
-    uint8_t idx = strchr(msg, ':') + 1;
-    *rat = msg[idx] - 0x30;*/
+  printf(msg.message);
+  printf("\n");
+
+  return SARA_OK;
+
+    //uint8_t idx = strchr(msg, ':') + 1;
+    //*rat = msg[idx] - 0x30;
   return SARA_OK;
 }
 
 SARA_R4_Status_t SARA_R4_Get_Operator(SARA_R4_Operator_t *oper){
-    /*SARA_R4_Status_t ret = SARA_R4_Send("at+urat?\r\n");
-      if(ret != SARA_OK)
-        return ret;
+  SARA_R4_Status_t ret = SARA_R4_Send("at+cops?\r\n");
+  if(ret != SARA_OK)
+    return ret;
 
-    uint8_t msg[40];
-    ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, msg, 1000);
-    if(ret != SARA_OK)
-      return ret;
-  */
+  SARA_R4_Resp_t msg;
+  ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, &msg, 1000);
+  if(ret != SARA_OK)
+    return ret;
+
+  oper->status = msg.message[9];
+
+  printf(msg.message);
+  printf("\n");
+
+  //GET OPERATOR HERE
+
   return SARA_OK;
 }
 SARA_R4_Status_t SARA_R4_Set_Operator(SARA_R4_Operator_t *oper){return SARA_OK;}
 
-SARA_R4_Status_t SARA_R4_Get_Network_Registration(void){return SARA_OK;}
+SARA_R4_Status_t SARA_R4_Get_Network_Registration(void){
+  SARA_R4_Status_t ret = SARA_R4_Send("at+creg?\r\n");
+  if(ret != SARA_OK)
+    return ret;
+
+  SARA_R4_Resp_t msg;
+  ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, &msg, 1000);
+  if(ret != SARA_OK)
+    return ret;
+
+  printf(msg.message);
+  printf("\n");
+
+  return SARA_OK;
+}
 SARA_R4_Status_t SARA_R4_Set_Network_Registration(void){return SARA_OK;}
 
-SARA_R4_Status_t SARA_R4_Get_Network_Selection(void){return SARA_OK;}
+SARA_R4_Status_t SARA_R4_Get_Network_Selection(void){
+  SARA_R4_Status_t ret = SARA_R4_Send("at+ucged?\r\n");
+  if(ret != SARA_OK)
+    return ret;
+
+  SARA_R4_Resp_t msg;
+  ret = SARA_R4_Receive(AT_COMMAND_RESPONSE, &msg, 1000);
+  if(ret != SARA_OK)
+    return ret;
+
+  printf(msg.message);
+  printf("\n");
+  return SARA_OK;
+}
+
 SARA_R4_Status_t SARA_R4_Set_Network_Selection(void){return SARA_OK;}
 
 SARA_R4_Status_t SARA_R4_Get_Band_Selection(void){return SARA_OK;}
@@ -599,7 +656,7 @@ SARA_R4_Status_t SARA_R4_Connect_Socket(uint8_t socket, char* addr, uint16_t por
     return ret;
 
   // Check for connection
-  return SARA_R4_Receive(AT_COMMAND_RESPONSE, &msg, 10000); //TODO: Debug the responses here*/
+  return SARA_R4_Receive(AT_COMMAND_RESPONSE, &msg, 5000); //TODO: Debug the responses here*/
 }
 
 SARA_R4_Status_t SARA_R4_Write_Socket(uint8_t socket, uint8_t *data, uint16_t len){
