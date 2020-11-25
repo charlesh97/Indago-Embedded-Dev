@@ -16,6 +16,8 @@
 #include "print.h"
 #include "aws.h"
 
+
+
 // Globals
 static UART_HandleTypeDef *huart;
 Queue_t cell_tx_queue;//, cell_rx_queue;
@@ -49,6 +51,11 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
   SET_BIT(huart->Instance->CR3, USART_CR3_EIE);                                 // Turn on RNE IRQ (Main UART IRQ)
   SET_BIT(huart->Instance->CR1, USART_CR1_RXNEIE);
 
+#if PASS_THROUGH_UART
+  while(1)
+    ;
+#endif
+
   // Test functionality w/ standard device information
 //  SARA_R4_Get_Manufacturer_ID(testing);
 //  HAL_Delay(50);
@@ -72,6 +79,14 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
   HAL_Delay(50);
   SARA_R4_Download_Block("privatekey", (char*)AWS_PRIVATE_KEY, strlen(AWS_PRIVATE_KEY));
 #endif //AWS_LOAD_CA
+
+  HAL_Delay(50);
+  SARA_R4_List_File("rootca");
+  HAL_Delay(50);
+  SARA_R4_List_File("privateca");
+  HAL_Delay(50);
+  SARA_R4_List_File("privatekey");
+  HAL_Delay(50);
 
   SARA_R4_Hex_Mode(1);
   HAL_Delay(50);
@@ -101,11 +116,14 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
   HAL_Delay(50);
   SARA_R4_SSL_Mode_Config(socket, 1, profile_id);
 
-  HAL_Delay(50);
+  HAL_Delay(100);
   SARA_R4_Connect_Socket(socket, (char*)AWS_ADDR, AWS_PORT);
 
-  HAL_Delay(50);
+  HAL_Delay(150);
   char send[150] = "AT+USOWR=0,32,\"301E0009746573742F64617465323032302D31312D32335432303A34363A3235\"\r\n";
+  SARA_R4_Send(send);
+
+  HAL_Delay(150);
   SARA_R4_Send(send);
 
   //HAL_Delay(5000);
@@ -410,7 +428,6 @@ SARA_R4_Status_t SARA_R4_Get_RAT(uint8_t *rat){
 
     //uint8_t idx = strchr(msg, ':') + 1;
     //*rat = msg[idx] - 0x30;
-  return SARA_OK;
 }
 
 SARA_R4_Status_t SARA_R4_Get_Operator(SARA_R4_Operator_t *oper){
@@ -518,10 +535,19 @@ SARA_R4_Status_t SARA_R4_CPRF_Set_TLS(uint8_t profile, uint8_t ssl_level, uint8_
 
   HAL_Delay(100);
 
+  sprintf(send, "at+usecmng=3\r\n");
+  ret = SARA_R4_Send(send);
+  if(ret != SARA_OK)
+    return ret;
+
+  ret = SARA_R4_Receive(AT_COMMAND_OK, &msg, 1000);
+  if(ret != SARA_OK)
+    return ret;
+
+  HAL_Delay(100);
+
   // Set the certificate validation level
-  //printf("testing");
-  char errr[20];
-  sprintf(errr, "at+usecprf=%d,0,0\r\n", profile);
+  sprintf(send, "at+usecprf=%d,0,0\r\n", profile);
   ret = SARA_R4_Send(send);
   if(ret != SARA_OK)
     return ret;
@@ -667,6 +693,22 @@ SARA_R4_Status_t SARA_R4_Write_Socket(uint8_t socket, uint8_t *data, uint16_t le
 // Clears the files in the file system
 SARA_R4_Status_t SARA_R4_Clear_File(char* f_name){
   char send[50] = "at+udelfile=\"";
+  strncat(send, f_name, strlen(f_name));
+  strncat(send, "\"\r\n", 3);
+
+  SARA_R4_Status_t ret = SARA_R4_Send(send);
+  if(ret != SARA_OK)
+    return ret;
+
+  // Optional check the message for errors
+  SARA_R4_Resp_t msg;
+  return SARA_R4_Receive(AT_COMMAND_OK, &msg, 1000);
+}
+
+// List the file
+//TODO: Add the op_code
+SARA_R4_Status_t SARA_R4_List_File(char* f_name){
+  char send[50] = "at+ulstfile=2,\"";
   strncat(send, f_name, strlen(f_name));
   strncat(send, "\"\r\n", 3);
 

@@ -114,6 +114,7 @@ SARA_R4_Status_t SARA_R4_Write_Socket(uint8_t socket, uint8_t *data, uint16_t le
 
 /* FILE SYSTEM MANAGEMENT */
 SARA_R4_Status_t SARA_R4_Clear_File(char* f_name);
+SARA_R4_Status_t SARA_R4_List_File(char* f_name);
 SARA_R4_Status_t SARA_R4_Download_File(char* f_name, char* data, uint16_t data_len);
 SARA_R4_Status_t SARA_R4_Download_Block(char* f_name, char* data, uint16_t data_len);
 

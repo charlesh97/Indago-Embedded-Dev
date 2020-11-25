@@ -26,6 +26,7 @@
 #include "ublox_r4.h"
 
 extern UART_HandleTypeDef huart1, huart2;
+extern uint8_t pass_through;
 
 /******************************************************************************/
 /*           Cortex-M4 Processor Interruption and Exception Handlers          */
@@ -168,15 +169,46 @@ void SysTick_Handler(void)
   */
 void USART1_IRQHandler(void)
 {
-  UBX_IRQ_Handler(&huart1);
+#if PASS_THROUGH_UART
+    uint32_t isrflags = huart1.Instance->ISR;
+    uint32_t errorflags = (isrflags & (uint32_t)(USART_ISR_PE | USART_ISR_FE | USART_ISR_ORE | USART_ISR_NE | USART_ISR_RTOF));
+    // Handle these errors accordingly and throw away the whole message
+    if (errorflags != 0x00)
+    {
+      SET_BIT(huart1.Instance->ICR, 0xFFFF);              // Clear error ISR flags
+      return;
+    }
+
+    // RX UART ISR
+    if (isrflags & USART_ISR_RXNE)
+      huart2.Instance->TDR = huart1.Instance->RDR; // Read out data
+#else
+    UBX_IRQ_Handler(&huart1);
+#endif
+
 }
 
 /**
-  * @brief This function handles USART1 global interupt
+  * @brief This function handles USART2 global interupt
   */
 void USART2_IRQHandler(void)
 {
-  SARA_R4_IRQ_Handler(&huart2);
+#if PASS_THROUGH_UART
+    uint32_t isrflags = huart2.Instance->ISR;
+    uint32_t errorflags = (isrflags & (uint32_t)(USART_ISR_PE | USART_ISR_FE | USART_ISR_ORE | USART_ISR_NE | USART_ISR_RTOF));
+    // Handle these errors accordingly and throw away the whole message
+    if (errorflags != 0x00)
+    {
+      SET_BIT(huart2.Instance->ICR, 0xFFFF);              // Clear error ISR flags
+      return;
+    }
+
+    // RX UART ISR
+    if (isrflags & USART_ISR_RXNE)
+      huart1.Instance->TDR = huart2.Instance->RDR; // Read out data
+#else
+    SARA_R4_IRQ_Handler(&huart2);
+#endif
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

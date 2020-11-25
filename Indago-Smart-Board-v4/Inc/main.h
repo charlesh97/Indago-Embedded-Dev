@@ -31,6 +31,8 @@ extern "C" {
 #include "stm32l4xx_hal.h"
 
 
+#define PASS_THROUGH_UART       (1)
+
 void debugPrintln(char _out[]);
 
 /* Exported functions prototypes ---------------------------------------------*/

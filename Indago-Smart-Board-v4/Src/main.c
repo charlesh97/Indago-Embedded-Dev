@@ -24,7 +24,6 @@ static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 
 
-
 extern uint32_t __stack_chk_guard = 0xEE;
 
 __interwork __nounwind __noreturn void __stack_chk_fail(void){
@@ -50,6 +49,8 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
+  SET_BIT(huart1.Instance->CR3, USART_CR3_EIE);                                 // Turn on RNE IRQ (Main UART IRQ)
+  SET_BIT(huart1.Instance->CR1, USART_CR1_RXNEIE);
 
   printf("Testing");
 
@@ -68,7 +69,7 @@ int main(void)
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
 
   SARA_R4_HW_Power_On();
-  HAL_Delay(8000);
+  HAL_Delay(5000);
 
   //UBX_GPS_Init(&huart1);
   SARA_R4_Init(&huart2);

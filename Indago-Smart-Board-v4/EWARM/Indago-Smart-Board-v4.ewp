@@ -1072,6 +1072,9 @@
         <group>
             <name>Inc</name>
             <file>
+                <name>$PROJ_DIR$\..\Inc\aws.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Inc\list.h</name>
             </file>
             <file>
