@@ -1,0 +1,18 @@
+MQTTConnectClient.pbi: \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTConnectClient.c \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src/MQTTPacket.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src/MQTTConnect.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src/MQTTPublish.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src/MQTTSubscribe.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src/MQTTUnsubscribe.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src/MQTTFormat.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src/StackTrace.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\stdio.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\ycheck.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\yvals.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\DLib_Defaults.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\DLib_Config_Full.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\DLib_Product.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\ysizet.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\string.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\DLib_Product_string.h

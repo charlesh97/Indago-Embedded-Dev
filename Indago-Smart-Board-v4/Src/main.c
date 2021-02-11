@@ -12,6 +12,7 @@
 #include "ublox_r4.h"
 #include "print.h"
 #include <stdio.h>
+//#include <jansson.h>
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1; //MAX-8Q
@@ -38,7 +39,8 @@ __interwork __nounwind __noreturn void __stack_chk_fail(void){
 int main(void)
 {
   /* MCU Configuration--------------------------------------------------------*/
-
+  //json_t *root; 
+	
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
@@ -52,7 +54,7 @@ int main(void)
   SET_BIT(huart1.Instance->CR3, USART_CR3_EIE);                                 // Turn on RNE IRQ (Main UART IRQ)
   SET_BIT(huart1.Instance->CR1, USART_CR1_RXNEIE);
 
-  printf("Testing");
+  //printf("Testing");
 
   for(uint8_t i = 0; i < 4; i++){
     HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
@@ -60,7 +62,7 @@ int main(void)
   }
 
   // PA1     ------> USART2_RTS
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  /*GPIO_InitTypeDef GPIO_InitStruct = {0};
   GPIO_InitStruct.Pin = GPIO_PIN_1;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -74,7 +76,7 @@ int main(void)
   //UBX_GPS_Init(&huart1);
   SARA_R4_Init(&huart2);
 
-  /* Infinite loop */
+  Infinite loop */
   while (1)
   {
   }

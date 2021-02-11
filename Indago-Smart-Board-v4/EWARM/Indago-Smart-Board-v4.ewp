@@ -66,7 +66,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>8.42.2.24202</state>
+                    <state>8.50.9.33458</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -355,6 +355,8 @@
                     <state>$PROJ_DIR$/../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Device/ST/STM32L4xx/Include</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
+                    <state>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src</state>
+                    <state>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -482,7 +484,7 @@
             <name>AARM</name>
             <archiveVersion>2</archiveVersion>
             <data>
-                <version>10</version>
+                <version>11</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
@@ -637,6 +639,10 @@
                 <option>
                     <name>AsmNoLiteralPool</name>
                     <state>0</state>
+                </option>
+                <option>
+                    <name>PreInclude</name>
+                    <state></state>
                 </option>
             </data>
         </settings>
@@ -1133,6 +1139,69 @@
             <name>CMSIS</name>
             <file>
                 <name>$PROJ_DIR$\..\Src\system_stm32l4xx.c</name>
+            </file>
+        </group>
+        <group>
+            <name>Jansson</name>
+        </group>
+        <group>
+            <name>Paho MQTT</name>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src\MQTTClient.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src\MQTTClient.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTConnect.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTConnectClient.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTConnectServer.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTDeserializePublish.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTFormat.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTFormat.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTPacket.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTPacket.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTPublish.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTSerializePublish.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTSubscribe.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTSubscribeClient.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTSubscribeServer.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTUnsubscribe.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTUnsubscribeClient.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTUnsubscribeServer.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\StackTrace.h</name>
             </file>
         </group>
         <group>

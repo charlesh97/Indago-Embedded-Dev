@@ -1,0 +1,2192 @@
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"queue.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.align	1
+  16              		.global	Queue_Init
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  22              		.type	Queue_Init, %function
+  23              	Queue_Init:
+  24              	.LVL0:
+  25              	.LFB133:
+  26              		.file 1 "../Src/queue.c"
+   1:../Src/queue.c **** /********************************************************************************
+   2:../Src/queue.c ****   * @file       : queue.c
+   3:../Src/queue.c ****   * @brief      : This is a generic light-weight ring buffer / queue library to hold
+   4:../Src/queue.c ****                   objects in a FIFO fashion. See the comments below for example implementation.
+   5:../Src/queue.c ****   * @author     : Charles H
+   6:../Src/queue.c ****   * @date       : Feb 2020
+   7:../Src/queue.c ****   *
+   8:../Src/queue.c ****   *******************************************************************************/
+   9:../Src/queue.c **** 
+  10:../Src/queue.c **** #include <stdlib.h>
+  11:../Src/queue.c **** 
+  12:../Src/queue.c **** #include "queue.h"
+  13:../Src/queue.c **** 
+  14:../Src/queue.c **** /**
+  15:../Src/queue.c ****   * @brief Initialize a new queue dynamically and set up the ring buffer
+  16:../Src/queue.c ****   * @param
+  17:../Src/queue.c ****   * @retval
+  18:../Src/queue.c ****   * @note None
+  19:../Src/queue.c ****   */
+  20:../Src/queue.c **** QueueStatus_t Queue_Init(Queue_t *queue, uint16_t obj_size, uint16_t len)
+  21:../Src/queue.c **** {
+  27              		.loc 1 21 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		.loc 1 21 1 is_stmt 0 view .LVU1
+  32 0000 70B5     		push	{r4, r5, r6, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 16
+  35              		.cfi_offset 4, -16
+  36              		.cfi_offset 5, -12
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 2
+
+
+  37              		.cfi_offset 6, -8
+  38              		.cfi_offset 14, -4
+  39 0002 0446     		mov	r4, r0
+  40 0004 0D46     		mov	r5, r1
+  41 0006 1646     		mov	r6, r2
+  22:../Src/queue.c ****   // Malloc appropriate memory for queue length * CCB_Packet_t and queue struct
+  23:../Src/queue.c ****   queue->object = malloc(len * obj_size);
+  42              		.loc 1 23 3 is_stmt 1 view .LVU2
+  43              		.loc 1 23 19 is_stmt 0 view .LVU3
+  44 0008 01FB02F0 		mul	r0, r1, r2
+  45              	.LVL1:
+  46              		.loc 1 23 19 view .LVU4
+  47 000c FFF7FEFF 		bl	malloc
+  48              	.LVL2:
+  49              		.loc 1 23 17 view .LVU5
+  50 0010 2060     		str	r0, [r4]
+  24:../Src/queue.c ****   if(queue->object == NULL)
+  51              		.loc 1 24 3 is_stmt 1 view .LVU6
+  52              		.loc 1 24 5 is_stmt 0 view .LVU7
+  53 0012 38B1     		cbz	r0, .L3
+  25:../Src/queue.c ****     return QUEUE_FAILED;
+  26:../Src/queue.c **** 
+  27:../Src/queue.c ****   // Set parameters
+  28:../Src/queue.c ****   queue->len = len;
+  54              		.loc 1 28 3 is_stmt 1 view .LVU8
+  55              		.loc 1 28 14 is_stmt 0 view .LVU9
+  56 0014 6681     		strh	r6, [r4, #10]	@ movhi
+  29:../Src/queue.c ****   queue->obj_size = obj_size;
+  57              		.loc 1 29 3 is_stmt 1 view .LVU10
+  58              		.loc 1 29 19 is_stmt 0 view .LVU11
+  59 0016 A581     		strh	r5, [r4, #12]	@ movhi
+  30:../Src/queue.c ****   queue->head = 0;
+  60              		.loc 1 30 3 is_stmt 1 view .LVU12
+  61              		.loc 1 30 15 is_stmt 0 view .LVU13
+  62 0018 0020     		movs	r0, #0
+  63 001a A080     		strh	r0, [r4, #4]	@ movhi
+  31:../Src/queue.c ****   queue->tail = 0;
+  64              		.loc 1 31 3 is_stmt 1 view .LVU14
+  65              		.loc 1 31 15 is_stmt 0 view .LVU15
+  66 001c E080     		strh	r0, [r4, #6]	@ movhi
+  32:../Src/queue.c ****   queue->isEmpty = true;
+  67              		.loc 1 32 3 is_stmt 1 view .LVU16
+  68              		.loc 1 32 18 is_stmt 0 view .LVU17
+  69 001e 0123     		movs	r3, #1
+  70 0020 2372     		strb	r3, [r4, #8]
+  33:../Src/queue.c **** 
+  34:../Src/queue.c ****   return QUEUE_OK;
+  71              		.loc 1 34 3 is_stmt 1 view .LVU18
+  72              	.L2:
+  35:../Src/queue.c **** }
+  73              		.loc 1 35 1 is_stmt 0 view .LVU19
+  74 0022 70BD     		pop	{r4, r5, r6, pc}
+  75              	.LVL3:
+  76              	.L3:
+  25:../Src/queue.c **** 
+  77              		.loc 1 25 12 view .LVU20
+  78 0024 0320     		movs	r0, #3
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 3
+
+
+  79 0026 FCE7     		b	.L2
+  80              		.cfi_endproc
+  81              	.LFE133:
+  82              		.size	Queue_Init, .-Queue_Init
+  83              		.align	1
+  84              		.global	Queue_Get
+  85              		.syntax unified
+  86              		.thumb
+  87              		.thumb_func
+  88              		.fpu softvfp
+  89              		.type	Queue_Get, %function
+  90              	Queue_Get:
+  91              	.LVL4:
+  92              	.LFB135:
+  36:../Src/queue.c **** 
+  37:../Src/queue.c **** /**
+  38:../Src/queue.c ****   * @brief Add an item to a specified FIFO queue. Check the return result in the case that the queu
+  39:../Src/queue.c ****             or the operation fails
+  40:../Src/queue.c ****   * @param
+  41:../Src/queue.c ****   * @retval
+  42:../Src/queue.c ****   * @note None
+  43:../Src/queue.c ****   */
+  44:../Src/queue.c **** QueueStatus_t Queue_Append(Queue_t *queue, void *data)
+  45:../Src/queue.c **** {
+  46:../Src/queue.c ****   if (Queue_IsFull(queue)) // If it's full, don't overwrite old data
+  47:../Src/queue.c ****     return QUEUE_FULL;
+  48:../Src/queue.c **** 
+  49:../Src/queue.c ****   memcpy(queue->object + queue->obj_size * queue->head++, data, queue->obj_size);
+  50:../Src/queue.c **** 
+  51:../Src/queue.c ****   if (queue->head == queue->len) // Reset head if over size of array
+  52:../Src/queue.c ****     queue->head = 0;
+  53:../Src/queue.c ****   if (queue->head != queue->tail)
+  54:../Src/queue.c ****     queue->isEmpty = false;
+  55:../Src/queue.c ****   return QUEUE_OK;
+  56:../Src/queue.c **** }
+  57:../Src/queue.c **** 
+  58:../Src/queue.c **** /**
+  59:../Src/queue.c ****   * @brief Get the first item out of a specified FIFO queue. Check the return result prior to using
+  60:../Src/queue.c ****             in the case that the queue is empty or the operation fails
+  61:../Src/queue.c ****   * @param
+  62:../Src/queue.c ****   * @retval
+  63:../Src/queue.c ****   * @note None
+  64:../Src/queue.c ****   */
+  65:../Src/queue.c **** QueueStatus_t Queue_Get(Queue_t *queue, void *data)
+  66:../Src/queue.c **** {
+  93              		.loc 1 66 1 is_stmt 1 view -0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97              		.loc 1 66 1 is_stmt 0 view .LVU22
+  98 0028 10B5     		push	{r4, lr}
+  99              	.LCFI1:
+ 100              		.cfi_def_cfa_offset 8
+ 101              		.cfi_offset 4, -8
+ 102              		.cfi_offset 14, -4
+ 103 002a 0446     		mov	r4, r0
+ 104 002c 0846     		mov	r0, r1
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 4
+
+
+ 105              	.LVL5:
+  67:../Src/queue.c ****   if (!Queue_IsEmpty(queue)) // Only if not empty yet
+ 106              		.loc 1 67 3 is_stmt 1 view .LVU23
+ 107              	.LBB4:
+ 108              	.LBI4:
+  68:../Src/queue.c ****     memcpy(data, queue->object + queue->obj_size * queue->tail++, queue->obj_size);
+  69:../Src/queue.c ****   else
+  70:../Src/queue.c ****     return QUEUE_EMPTY;
+  71:../Src/queue.c **** 
+  72:../Src/queue.c ****   if (queue->tail == queue->len) // Reset tail if over size of array
+  73:../Src/queue.c ****     queue->tail = 0;
+  74:../Src/queue.c ****   if (queue->tail == queue->head)
+  75:../Src/queue.c ****     queue->isEmpty = true;
+  76:../Src/queue.c ****   return QUEUE_OK;
+  77:../Src/queue.c **** }
+  78:../Src/queue.c **** 
+  79:../Src/queue.c **** /**
+  80:../Src/queue.c ****   * @brief Clear all items out of a specified FIFO queue. This doesn't clear memory,
+  81:../Src/queue.c ****             only resets the head and the tail pointers
+  82:../Src/queue.c ****   * @param
+  83:../Src/queue.c ****   * @retval
+  84:../Src/queue.c ****   * @note None
+  85:../Src/queue.c ****   */
+  86:../Src/queue.c **** void Queue_Clear(void)
+  87:../Src/queue.c **** {
+  88:../Src/queue.c **** }
+  89:../Src/queue.c **** 
+  90:../Src/queue.c **** /**
+  91:../Src/queue.c ****   * @brief Checks if the specified queue is empty
+  92:../Src/queue.c ****   * @param queue Handle the queue instance
+  93:../Src/queue.c ****   * @retval bool Is empty?
+  94:../Src/queue.c ****   * @note None
+  95:../Src/queue.c ****   */
+  96:../Src/queue.c **** bool Queue_IsEmpty(Queue_t *queue)
+ 109              		.loc 1 96 6 view .LVU24
+ 110              	.LBB5:
+  97:../Src/queue.c **** {
+  98:../Src/queue.c ****   return queue->isEmpty;
+ 111              		.loc 1 98 3 view .LVU25
+ 112              		.loc 1 98 3 is_stmt 0 view .LVU26
+ 113              	.LBE5:
+ 114              	.LBE4:
+  67:../Src/queue.c ****     memcpy(data, queue->object + queue->obj_size * queue->tail++, queue->obj_size);
+ 115              		.loc 1 67 6 view .LVU27
+ 116 002e 237A     		ldrb	r3, [r4, #8]	@ zero_extendqisi2
+ 117 0030 0BB1     		cbz	r3, .L9
+  70:../Src/queue.c **** 
+ 118              		.loc 1 70 12 view .LVU28
+ 119 0032 0120     		movs	r0, #1
+ 120              	.LVL6:
+ 121              	.L5:
+  77:../Src/queue.c **** 
+ 122              		.loc 1 77 1 view .LVU29
+ 123 0034 10BD     		pop	{r4, pc}
+ 124              	.LVL7:
+ 125              	.L9:
+  68:../Src/queue.c ****   else
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 5
+
+
+ 126              		.loc 1 68 5 is_stmt 1 view .LVU30
+  68:../Src/queue.c ****   else
+ 127              		.loc 1 68 23 is_stmt 0 view .LVU31
+ 128 0036 2168     		ldr	r1, [r4]
+  68:../Src/queue.c ****   else
+ 129              		.loc 1 68 39 view .LVU32
+ 130 0038 A289     		ldrh	r2, [r4, #12]
+  68:../Src/queue.c ****   else
+ 131              		.loc 1 68 57 view .LVU33
+ 132 003a E388     		ldrh	r3, [r4, #6]
+  68:../Src/queue.c ****   else
+ 133              		.loc 1 68 63 view .LVU34
+ 134 003c 03F1010C 		add	ip, r3, #1
+ 135 0040 A4F806C0 		strh	ip, [r4, #6]	@ movhi
+  68:../Src/queue.c ****   else
+ 136              		.loc 1 68 5 view .LVU35
+ 137 0044 03FB0211 		mla	r1, r3, r2, r1
+ 138 0048 FFF7FEFF 		bl	memcpy
+ 139              	.LVL8:
+  72:../Src/queue.c ****     queue->tail = 0;
+ 140              		.loc 1 72 3 is_stmt 1 view .LVU36
+  72:../Src/queue.c ****     queue->tail = 0;
+ 141              		.loc 1 72 6 is_stmt 0 view .LVU37
+ 142 004c E288     		ldrh	r2, [r4, #6]
+ 143 004e 6389     		ldrh	r3, [r4, #10]
+ 144 0050 9A42     		cmp	r2, r3
+  73:../Src/queue.c ****   if (queue->tail == queue->head)
+ 145              		.loc 1 73 5 is_stmt 1 view .LVU38
+  73:../Src/queue.c ****   if (queue->tail == queue->head)
+ 146              		.loc 1 73 17 is_stmt 0 view .LVU39
+ 147 0052 04BF     		itt	eq
+ 148 0054 0023     		moveq	r3, #0
+ 149 0056 E380     		strheq	r3, [r4, #6]	@ movhi
+  74:../Src/queue.c ****     queue->isEmpty = true;
+ 150              		.loc 1 74 3 is_stmt 1 view .LVU40
+  74:../Src/queue.c ****     queue->isEmpty = true;
+ 151              		.loc 1 74 6 is_stmt 0 view .LVU41
+ 152 0058 E288     		ldrh	r2, [r4, #6]
+ 153 005a A388     		ldrh	r3, [r4, #4]
+ 154 005c 9A42     		cmp	r2, r3
+ 155 005e 01D0     		beq	.L10
+  76:../Src/queue.c **** }
+ 156              		.loc 1 76 10 view .LVU42
+ 157 0060 0020     		movs	r0, #0
+ 158 0062 E7E7     		b	.L5
+ 159              	.L10:
+  75:../Src/queue.c ****   return QUEUE_OK;
+ 160              		.loc 1 75 5 is_stmt 1 view .LVU43
+  75:../Src/queue.c ****   return QUEUE_OK;
+ 161              		.loc 1 75 20 is_stmt 0 view .LVU44
+ 162 0064 0123     		movs	r3, #1
+ 163 0066 2372     		strb	r3, [r4, #8]
+  76:../Src/queue.c **** }
+ 164              		.loc 1 76 10 view .LVU45
+ 165 0068 0020     		movs	r0, #0
+ 166 006a E3E7     		b	.L5
+ 167              		.cfi_endproc
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 6
+
+
+ 168              	.LFE135:
+ 169              		.size	Queue_Get, .-Queue_Get
+ 170              		.align	1
+ 171              		.global	Queue_Clear
+ 172              		.syntax unified
+ 173              		.thumb
+ 174              		.thumb_func
+ 175              		.fpu softvfp
+ 176              		.type	Queue_Clear, %function
+ 177              	Queue_Clear:
+ 178              	.LFB136:
+  87:../Src/queue.c **** }
+ 179              		.loc 1 87 1 is_stmt 1 view -0
+ 180              		.cfi_startproc
+ 181              		@ args = 0, pretend = 0, frame = 0
+ 182              		@ frame_needed = 0, uses_anonymous_args = 0
+ 183              		@ link register save eliminated.
+  88:../Src/queue.c **** 
+ 184              		.loc 1 88 1 view .LVU47
+ 185 006c 7047     		bx	lr
+ 186              		.cfi_endproc
+ 187              	.LFE136:
+ 188              		.size	Queue_Clear, .-Queue_Clear
+ 189              		.align	1
+ 190              		.global	Queue_IsEmpty
+ 191              		.syntax unified
+ 192              		.thumb
+ 193              		.thumb_func
+ 194              		.fpu softvfp
+ 195              		.type	Queue_IsEmpty, %function
+ 196              	Queue_IsEmpty:
+ 197              	.LVL9:
+ 198              	.LFB137:
+  97:../Src/queue.c ****   return queue->isEmpty;
+ 199              		.loc 1 97 1 view -0
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203              		@ link register save eliminated.
+ 204              		.loc 1 98 3 view .LVU49
+  99:../Src/queue.c **** }
+ 205              		.loc 1 99 1 is_stmt 0 view .LVU50
+ 206 006e 007A     		ldrb	r0, [r0, #8]	@ zero_extendqisi2
+ 207              	.LVL10:
+ 208              		.loc 1 99 1 view .LVU51
+ 209 0070 7047     		bx	lr
+ 210              		.cfi_endproc
+ 211              	.LFE137:
+ 212              		.size	Queue_IsEmpty, .-Queue_IsEmpty
+ 213              		.align	1
+ 214              		.global	Queue_IsFull
+ 215              		.syntax unified
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.fpu softvfp
+ 219              		.type	Queue_IsFull, %function
+ 220              	Queue_IsFull:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 7
+
+
+ 221              	.LVL11:
+ 222              	.LFB138:
+ 100:../Src/queue.c **** 
+ 101:../Src/queue.c **** /**
+ 102:../Src/queue.c ****   * @brief Checks if the specified queue is at max capacity
+ 103:../Src/queue.c ****   * @param quuee Handle to the queue instance
+ 104:../Src/queue.c ****   * @retval bool Is full?
+ 105:../Src/queue.c ****   * @note None
+ 106:../Src/queue.c ****   */
+ 107:../Src/queue.c **** bool Queue_IsFull(Queue_t *queue)
+ 108:../Src/queue.c **** {
+ 223              		.loc 1 108 1 is_stmt 1 view -0
+ 224              		.cfi_startproc
+ 225              		@ args = 0, pretend = 0, frame = 0
+ 226              		@ frame_needed = 0, uses_anonymous_args = 0
+ 227              		@ link register save eliminated.
+ 109:../Src/queue.c ****   return ((queue->head == queue->tail) && !queue->isEmpty);
+ 228              		.loc 1 109 3 view .LVU53
+ 229              		.loc 1 109 40 is_stmt 0 view .LVU54
+ 230 0072 8288     		ldrh	r2, [r0, #4]
+ 231 0074 C388     		ldrh	r3, [r0, #6]
+ 232 0076 9A42     		cmp	r2, r3
+ 233 0078 06BF     		itte	eq
+ 234 007a 007A     		ldrbeq	r0, [r0, #8]	@ zero_extendqisi2
+ 235              	.LVL12:
+ 236              		.loc 1 109 40 view .LVU55
+ 237 007c 80F00100 		eoreq	r0, r0, #1
+ 238 0080 0020     		movne	r0, #0
+ 110:../Src/queue.c **** }
+ 239              		.loc 1 110 1 view .LVU56
+ 240 0082 00F00100 		and	r0, r0, #1
+ 241 0086 7047     		bx	lr
+ 242              		.cfi_endproc
+ 243              	.LFE138:
+ 244              		.size	Queue_IsFull, .-Queue_IsFull
+ 245              		.align	1
+ 246              		.global	Queue_Append
+ 247              		.syntax unified
+ 248              		.thumb
+ 249              		.thumb_func
+ 250              		.fpu softvfp
+ 251              		.type	Queue_Append, %function
+ 252              	Queue_Append:
+ 253              	.LVL13:
+ 254              	.LFB134:
+  45:../Src/queue.c ****   if (Queue_IsFull(queue)) // If it's full, don't overwrite old data
+ 255              		.loc 1 45 1 is_stmt 1 view -0
+ 256              		.cfi_startproc
+ 257              		@ args = 0, pretend = 0, frame = 0
+ 258              		@ frame_needed = 0, uses_anonymous_args = 0
+  45:../Src/queue.c ****   if (Queue_IsFull(queue)) // If it's full, don't overwrite old data
+ 259              		.loc 1 45 1 is_stmt 0 view .LVU58
+ 260 0088 38B5     		push	{r3, r4, r5, lr}
+ 261              	.LCFI2:
+ 262              		.cfi_def_cfa_offset 16
+ 263              		.cfi_offset 3, -16
+ 264              		.cfi_offset 4, -12
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 8
+
+
+ 265              		.cfi_offset 5, -8
+ 266              		.cfi_offset 14, -4
+ 267 008a 0446     		mov	r4, r0
+ 268 008c 0D46     		mov	r5, r1
+  46:../Src/queue.c ****     return QUEUE_FULL;
+ 269              		.loc 1 46 3 is_stmt 1 view .LVU59
+  46:../Src/queue.c ****     return QUEUE_FULL;
+ 270              		.loc 1 46 7 is_stmt 0 view .LVU60
+ 271 008e FFF7FEFF 		bl	Queue_IsFull
+ 272              	.LVL14:
+  46:../Src/queue.c ****     return QUEUE_FULL;
+ 273              		.loc 1 46 6 view .LVU61
+ 274 0092 B0B9     		cbnz	r0, .L19
+  49:../Src/queue.c **** 
+ 275              		.loc 1 49 3 is_stmt 1 view .LVU62
+  49:../Src/queue.c **** 
+ 276              		.loc 1 49 15 is_stmt 0 view .LVU63
+ 277 0094 2068     		ldr	r0, [r4]
+  49:../Src/queue.c **** 
+ 278              		.loc 1 49 31 view .LVU64
+ 279 0096 A289     		ldrh	r2, [r4, #12]
+  49:../Src/queue.c **** 
+ 280              		.loc 1 49 49 view .LVU65
+ 281 0098 A388     		ldrh	r3, [r4, #4]
+  49:../Src/queue.c **** 
+ 282              		.loc 1 49 55 view .LVU66
+ 283 009a 591C     		adds	r1, r3, #1
+ 284 009c A180     		strh	r1, [r4, #4]	@ movhi
+  49:../Src/queue.c **** 
+ 285              		.loc 1 49 3 view .LVU67
+ 286 009e 2946     		mov	r1, r5
+ 287 00a0 03FB0200 		mla	r0, r3, r2, r0
+ 288 00a4 FFF7FEFF 		bl	memcpy
+ 289              	.LVL15:
+  51:../Src/queue.c ****     queue->head = 0;
+ 290              		.loc 1 51 3 is_stmt 1 view .LVU68
+  51:../Src/queue.c ****     queue->head = 0;
+ 291              		.loc 1 51 6 is_stmt 0 view .LVU69
+ 292 00a8 A288     		ldrh	r2, [r4, #4]
+ 293 00aa 6389     		ldrh	r3, [r4, #10]
+ 294 00ac 9A42     		cmp	r2, r3
+  52:../Src/queue.c ****   if (queue->head != queue->tail)
+ 295              		.loc 1 52 5 is_stmt 1 view .LVU70
+  52:../Src/queue.c ****   if (queue->head != queue->tail)
+ 296              		.loc 1 52 17 is_stmt 0 view .LVU71
+ 297 00ae 04BF     		itt	eq
+ 298 00b0 0023     		moveq	r3, #0
+ 299 00b2 A380     		strheq	r3, [r4, #4]	@ movhi
+  53:../Src/queue.c ****     queue->isEmpty = false;
+ 300              		.loc 1 53 3 is_stmt 1 view .LVU72
+  53:../Src/queue.c ****     queue->isEmpty = false;
+ 301              		.loc 1 53 6 is_stmt 0 view .LVU73
+ 302 00b4 A288     		ldrh	r2, [r4, #4]
+ 303 00b6 E388     		ldrh	r3, [r4, #6]
+ 304 00b8 9A42     		cmp	r2, r3
+ 305 00ba 04D0     		beq	.L20
+  54:../Src/queue.c ****   return QUEUE_OK;
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 9
+
+
+ 306              		.loc 1 54 5 is_stmt 1 view .LVU74
+  54:../Src/queue.c ****   return QUEUE_OK;
+ 307              		.loc 1 54 20 is_stmt 0 view .LVU75
+ 308 00bc 0020     		movs	r0, #0
+ 309 00be 2072     		strb	r0, [r4, #8]
+ 310              	.L17:
+  56:../Src/queue.c **** 
+ 311              		.loc 1 56 1 view .LVU76
+ 312 00c0 38BD     		pop	{r3, r4, r5, pc}
+ 313              	.LVL16:
+ 314              	.L19:
+  47:../Src/queue.c **** 
+ 315              		.loc 1 47 12 view .LVU77
+ 316 00c2 0220     		movs	r0, #2
+ 317 00c4 FCE7     		b	.L17
+ 318              	.L20:
+  55:../Src/queue.c **** }
+ 319              		.loc 1 55 10 view .LVU78
+ 320 00c6 0020     		movs	r0, #0
+ 321 00c8 FAE7     		b	.L17
+ 322              		.cfi_endproc
+ 323              	.LFE134:
+ 324              		.size	Queue_Append, .-Queue_Append
+ 325              		.align	1
+ 326              		.global	Queue_Size
+ 327              		.syntax unified
+ 328              		.thumb
+ 329              		.thumb_func
+ 330              		.fpu softvfp
+ 331              		.type	Queue_Size, %function
+ 332              	Queue_Size:
+ 333              	.LVL17:
+ 334              	.LFB139:
+ 111:../Src/queue.c **** 
+ 112:../Src/queue.c **** /**
+ 113:../Src/queue.c ****   * @brief Checks the current size of the specified queue
+ 114:../Src/queue.c ****   * @param queue Handle to a queue instance
+ 115:../Src/queue.c ****   * @retval uint16_t Current size of queue
+ 116:../Src/queue.c ****   * @note None
+ 117:../Src/queue.c ****   */
+ 118:../Src/queue.c **** uint16_t Queue_Size(Queue_t *queue)
+ 119:../Src/queue.c **** {
+ 335              		.loc 1 119 1 is_stmt 1 view -0
+ 336              		.cfi_startproc
+ 337              		@ args = 0, pretend = 0, frame = 0
+ 338              		@ frame_needed = 0, uses_anonymous_args = 0
+ 339              		@ link register save eliminated.
+ 120:../Src/queue.c ****   if(queue->tail > queue->head)                                 // Head has wrapped around ring buf
+ 340              		.loc 1 120 3 view .LVU80
+ 341              		.loc 1 120 11 is_stmt 0 view .LVU81
+ 342 00ca C288     		ldrh	r2, [r0, #6]
+ 343              		.loc 1 120 25 view .LVU82
+ 344 00cc 8388     		ldrh	r3, [r0, #4]
+ 345              		.loc 1 120 5 view .LVU83
+ 346 00ce 9A42     		cmp	r2, r3
+ 347 00d0 05D8     		bhi	.L26
+ 121:../Src/queue.c ****     return queue->len - queue->tail + queue->head;
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 10
+
+
+ 122:../Src/queue.c ****   else if(queue->tail < queue->head)                            // Head has not wrapped around
+ 348              		.loc 1 122 8 is_stmt 1 view .LVU84
+ 349              		.loc 1 122 10 is_stmt 0 view .LVU85
+ 350 00d2 9A42     		cmp	r2, r3
+ 351 00d4 08D3     		bcc	.L27
+ 123:../Src/queue.c ****     return queue->head - queue->tail;
+ 124:../Src/queue.c ****   else                                                          // Head and tail are equal - Either
+ 125:../Src/queue.c ****   {
+ 126:../Src/queue.c ****     if(queue->isEmpty)
+ 352              		.loc 1 126 5 is_stmt 1 view .LVU86
+ 353              		.loc 1 126 7 is_stmt 0 view .LVU87
+ 354 00d6 037A     		ldrb	r3, [r0, #8]	@ zero_extendqisi2
+ 355 00d8 4BB9     		cbnz	r3, .L25
+ 127:../Src/queue.c ****       return 0;
+ 128:../Src/queue.c ****     else
+ 129:../Src/queue.c ****       return queue->len;
+ 356              		.loc 1 129 7 is_stmt 1 view .LVU88
+ 357              		.loc 1 129 19 is_stmt 0 view .LVU89
+ 358 00da 4089     		ldrh	r0, [r0, #10]
+ 359              	.LVL18:
+ 360              		.loc 1 129 19 view .LVU90
+ 361 00dc 7047     		bx	lr
+ 362              	.LVL19:
+ 363              	.L26:
+ 121:../Src/queue.c ****   else if(queue->tail < queue->head)                            // Head has not wrapped around
+ 364              		.loc 1 121 5 is_stmt 1 view .LVU91
+ 121:../Src/queue.c ****   else if(queue->tail < queue->head)                            // Head has not wrapped around
+ 365              		.loc 1 121 37 is_stmt 0 view .LVU92
+ 366 00de 4089     		ldrh	r0, [r0, #10]
+ 367              	.LVL20:
+ 121:../Src/queue.c ****   else if(queue->tail < queue->head)                            // Head has not wrapped around
+ 368              		.loc 1 121 37 view .LVU93
+ 369 00e0 1844     		add	r0, r0, r3
+ 370 00e2 801A     		subs	r0, r0, r2
+ 371 00e4 80B2     		uxth	r0, r0
+ 372 00e6 7047     		bx	lr
+ 373              	.LVL21:
+ 374              	.L27:
+ 123:../Src/queue.c ****     return queue->head - queue->tail;
+ 375              		.loc 1 123 5 is_stmt 1 view .LVU94
+ 123:../Src/queue.c ****     return queue->head - queue->tail;
+ 376              		.loc 1 123 24 is_stmt 0 view .LVU95
+ 377 00e8 981A     		subs	r0, r3, r2
+ 378              	.LVL22:
+ 123:../Src/queue.c ****     return queue->head - queue->tail;
+ 379              		.loc 1 123 24 view .LVU96
+ 380 00ea 80B2     		uxth	r0, r0
+ 381 00ec 7047     		bx	lr
+ 382              	.LVL23:
+ 383              	.L25:
+ 127:../Src/queue.c ****       return 0;
+ 384              		.loc 1 127 14 view .LVU97
+ 385 00ee 0020     		movs	r0, #0
+ 386              	.LVL24:
+ 130:../Src/queue.c ****   }
+ 131:../Src/queue.c **** }
+ 387              		.loc 1 131 1 view .LVU98
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 11
+
+
+ 388 00f0 7047     		bx	lr
+ 389              		.cfi_endproc
+ 390              	.LFE139:
+ 391              		.size	Queue_Size, .-Queue_Size
+ 392              		.align	1
+ 393              		.global	Queue_MaxSize
+ 394              		.syntax unified
+ 395              		.thumb
+ 396              		.thumb_func
+ 397              		.fpu softvfp
+ 398              		.type	Queue_MaxSize, %function
+ 399              	Queue_MaxSize:
+ 400              	.LVL25:
+ 401              	.LFB140:
+ 132:../Src/queue.c **** 
+ 133:../Src/queue.c **** /**
+ 134:../Src/queue.c ****   * @brief Checks the maximum size of the specified queue
+ 135:../Src/queue.c ****   * @param queue Handle to a queue instance
+ 136:../Src/queue.c ****   * @retval uint16_t Max size of queue
+ 137:../Src/queue.c ****   * @note None
+ 138:../Src/queue.c ****   */
+ 139:../Src/queue.c **** uint16_t Queue_MaxSize(Queue_t *queue)
+ 140:../Src/queue.c **** {
+ 402              		.loc 1 140 1 is_stmt 1 view -0
+ 403              		.cfi_startproc
+ 404              		@ args = 0, pretend = 0, frame = 0
+ 405              		@ frame_needed = 0, uses_anonymous_args = 0
+ 406              		@ link register save eliminated.
+ 141:../Src/queue.c ****   return queue->len;
+ 407              		.loc 1 141 3 view .LVU100
+ 142:../Src/queue.c **** }
+ 408              		.loc 1 142 1 is_stmt 0 view .LVU101
+ 409 00f2 4089     		ldrh	r0, [r0, #10]
+ 410              	.LVL26:
+ 411              		.loc 1 142 1 view .LVU102
+ 412 00f4 7047     		bx	lr
+ 413              		.cfi_endproc
+ 414              	.LFE140:
+ 415              		.size	Queue_MaxSize, .-Queue_MaxSize
+ 416              	.Letext0:
+ 417              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 418              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 419              		.file 4 "../Inc/queue.h"
+ 420              		.file 5 "<built-in>"
+ 421              		.file 6 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 422              		.section	.debug_info,"",%progbits
+ 423              	.Ldebug_info0:
+ 424 0000 C6030000 		.4byte	0x3c6
+ 425 0004 0200     		.2byte	0x2
+ 426 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 427 000a 04       		.byte	0x4
+ 428 000b 01       		.uleb128 0x1
+ 429 000c 4B000000 		.4byte	.LASF35
+ 430 0010 0C       		.byte	0xc
+ 431 0011 7E020000 		.4byte	.LASF36
+ 432 0015 DB010000 		.4byte	.LASF37
+ 433 0019 00000000 		.4byte	.Ltext0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 12
+
+
+ 434 001d F6000000 		.4byte	.Letext0
+ 435 0021 00000000 		.4byte	.Ldebug_line0
+ 436 0025 02       		.uleb128 0x2
+ 437 0026 04       		.byte	0x4
+ 438 0027 07       		.byte	0x7
+ 439 0028 7B010000 		.4byte	.LASF0
+ 440 002c 03       		.uleb128 0x3
+ 441 002d 04       		.byte	0x4
+ 442 002e 05       		.byte	0x5
+ 443 002f 696E7400 		.ascii	"int\000"
+ 444 0033 02       		.uleb128 0x2
+ 445 0034 08       		.byte	0x8
+ 446 0035 05       		.byte	0x5
+ 447 0036 00000000 		.4byte	.LASF1
+ 448 003a 02       		.uleb128 0x2
+ 449 003b 08       		.byte	0x8
+ 450 003c 04       		.byte	0x4
+ 451 003d B0010000 		.4byte	.LASF2
+ 452 0041 02       		.uleb128 0x2
+ 453 0042 01       		.byte	0x1
+ 454 0043 06       		.byte	0x6
+ 455 0044 8D020000 		.4byte	.LASF3
+ 456 0048 04       		.uleb128 0x4
+ 457 0049 27000000 		.4byte	.LASF6
+ 458 004d 02       		.byte	0x2
+ 459 004e 2B       		.byte	0x2b
+ 460 004f 18       		.byte	0x18
+ 461 0050 54000000 		.4byte	0x54
+ 462 0054 02       		.uleb128 0x2
+ 463 0055 01       		.byte	0x1
+ 464 0056 08       		.byte	0x8
+ 465 0057 2B010000 		.4byte	.LASF4
+ 466 005b 02       		.uleb128 0x2
+ 467 005c 02       		.byte	0x2
+ 468 005d 05       		.byte	0x5
+ 469 005e 40020000 		.4byte	.LASF5
+ 470 0062 04       		.uleb128 0x4
+ 471 0063 6B010000 		.4byte	.LASF7
+ 472 0067 02       		.byte	0x2
+ 473 0068 39       		.byte	0x39
+ 474 0069 19       		.byte	0x19
+ 475 006a 6E000000 		.4byte	0x6e
+ 476 006e 02       		.uleb128 0x2
+ 477 006f 02       		.byte	0x2
+ 478 0070 07       		.byte	0x7
+ 479 0071 4B010000 		.4byte	.LASF8
+ 480 0075 02       		.uleb128 0x2
+ 481 0076 04       		.byte	0x4
+ 482 0077 05       		.byte	0x5
+ 483 0078 69020000 		.4byte	.LASF9
+ 484 007c 02       		.uleb128 0x2
+ 485 007d 04       		.byte	0x4
+ 486 007e 07       		.byte	0x7
+ 487 007f 39010000 		.4byte	.LASF10
+ 488 0083 02       		.uleb128 0x2
+ 489 0084 08       		.byte	0x8
+ 490 0085 07       		.byte	0x7
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 13
+
+
+ 491 0086 08010000 		.4byte	.LASF11
+ 492 008a 05       		.uleb128 0x5
+ 493 008b 04       		.byte	0x4
+ 494 008c 02       		.uleb128 0x2
+ 495 008d 01       		.byte	0x1
+ 496 008e 08       		.byte	0x8
+ 497 008f 88010000 		.4byte	.LASF12
+ 498 0093 04       		.uleb128 0x4
+ 499 0094 8D010000 		.4byte	.LASF13
+ 500 0098 03       		.byte	0x3
+ 501 0099 18       		.byte	0x18
+ 502 009a 13       		.byte	0x13
+ 503 009b 48000000 		.4byte	0x48
+ 504 009f 04       		.uleb128 0x4
+ 505 00a0 52020000 		.4byte	.LASF14
+ 506 00a4 03       		.byte	0x3
+ 507 00a5 24       		.byte	0x24
+ 508 00a6 14       		.byte	0x14
+ 509 00a7 62000000 		.4byte	0x62
+ 510 00ab 06       		.uleb128 0x6
+ 511 00ac 04       		.byte	0x4
+ 512 00ad 93000000 		.4byte	0x93
+ 513 00b1 07       		.uleb128 0x7
+ 514 00b2 99020000 		.4byte	.LASF38
+ 515 00b6 10       		.byte	0x10
+ 516 00b7 04       		.byte	0x4
+ 517 00b8 1A       		.byte	0x1a
+ 518 00b9 10       		.byte	0x10
+ 519 00ba 19010000 		.4byte	0x119
+ 520 00be 08       		.uleb128 0x8
+ 521 00bf D4010000 		.4byte	.LASF15
+ 522 00c3 04       		.byte	0x4
+ 523 00c4 1C       		.byte	0x1c
+ 524 00c5 0C       		.byte	0xc
+ 525 00c6 AB000000 		.4byte	0xab
+ 526 00ca 02       		.byte	0x2
+ 527 00cb 23       		.byte	0x23
+ 528 00cc 00       		.uleb128 0
+ 529 00cd 08       		.uleb128 0x8
+ 530 00ce 76010000 		.4byte	.LASF16
+ 531 00d2 04       		.byte	0x4
+ 532 00d3 1D       		.byte	0x1d
+ 533 00d4 0C       		.byte	0xc
+ 534 00d5 9F000000 		.4byte	0x9f
+ 535 00d9 02       		.byte	0x2
+ 536 00da 23       		.byte	0x23
+ 537 00db 04       		.uleb128 0x4
+ 538 00dc 08       		.uleb128 0x8
+ 539 00dd 5B020000 		.4byte	.LASF17
+ 540 00e1 04       		.byte	0x4
+ 541 00e2 1E       		.byte	0x1e
+ 542 00e3 0C       		.byte	0xc
+ 543 00e4 9F000000 		.4byte	0x9f
+ 544 00e8 02       		.byte	0x2
+ 545 00e9 23       		.byte	0x23
+ 546 00ea 06       		.uleb128 0x6
+ 547 00eb 08       		.uleb128 0x8
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 14
+
+
+ 548 00ec 38020000 		.4byte	.LASF18
+ 549 00f0 04       		.byte	0x4
+ 550 00f1 1F       		.byte	0x1f
+ 551 00f2 08       		.byte	0x8
+ 552 00f3 19010000 		.4byte	0x119
+ 553 00f7 02       		.byte	0x2
+ 554 00f8 23       		.byte	0x23
+ 555 00f9 08       		.uleb128 0x8
+ 556 00fa 09       		.uleb128 0x9
+ 557 00fb 6C656E00 		.ascii	"len\000"
+ 558 00ff 04       		.byte	0x4
+ 559 0100 20       		.byte	0x20
+ 560 0101 0C       		.byte	0xc
+ 561 0102 9F000000 		.4byte	0x9f
+ 562 0106 02       		.byte	0x2
+ 563 0107 23       		.byte	0x23
+ 564 0108 0A       		.uleb128 0xa
+ 565 0109 08       		.uleb128 0x8
+ 566 010a 60020000 		.4byte	.LASF19
+ 567 010e 04       		.byte	0x4
+ 568 010f 21       		.byte	0x21
+ 569 0110 0C       		.byte	0xc
+ 570 0111 9F000000 		.4byte	0x9f
+ 571 0115 02       		.byte	0x2
+ 572 0116 23       		.byte	0x23
+ 573 0117 0C       		.uleb128 0xc
+ 574 0118 00       		.byte	0
+ 575 0119 02       		.uleb128 0x2
+ 576 011a 01       		.byte	0x1
+ 577 011b 02       		.byte	0x2
+ 578 011c 9F020000 		.4byte	.LASF20
+ 579 0120 04       		.uleb128 0x4
+ 580 0121 4A020000 		.4byte	.LASF21
+ 581 0125 04       		.byte	0x4
+ 582 0126 22       		.byte	0x22
+ 583 0127 03       		.byte	0x3
+ 584 0128 B1000000 		.4byte	0xb1
+ 585 012c 06       		.uleb128 0x6
+ 586 012d 04       		.byte	0x4
+ 587 012e 20010000 		.4byte	0x120
+ 588 0132 0A       		.uleb128 0xa
+ 589 0133 72020000 		.4byte	.LASF39
+ 590 0137 07       		.byte	0x7
+ 591 0138 01       		.byte	0x1
+ 592 0139 54000000 		.4byte	0x54
+ 593 013d 04       		.byte	0x4
+ 594 013e 29       		.byte	0x29
+ 595 013f 0E       		.byte	0xe
+ 596 0140 5D010000 		.4byte	0x15d
+ 597 0144 0B       		.uleb128 0xb
+ 598 0145 D2000000 		.4byte	.LASF22
+ 599 0149 00       		.byte	0
+ 600 014a 0B       		.uleb128 0xb
+ 601 014b 1F010000 		.4byte	.LASF23
+ 602 014f 01       		.byte	0x1
+ 603 0150 0B       		.uleb128 0xb
+ 604 0151 C2010000 		.4byte	.LASF24
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 15
+
+
+ 605 0155 02       		.byte	0x2
+ 606 0156 0B       		.uleb128 0xb
+ 607 0157 5E010000 		.4byte	.LASF25
+ 608 015b 03       		.byte	0x3
+ 609 015c 00       		.byte	0
+ 610 015d 04       		.uleb128 0x4
+ 611 015e F5000000 		.4byte	.LASF26
+ 612 0162 04       		.byte	0x4
+ 613 0163 2F       		.byte	0x2f
+ 614 0164 03       		.byte	0x3
+ 615 0165 32010000 		.4byte	0x132
+ 616 0169 0C       		.uleb128 0xc
+ 617 016a 01       		.byte	0x1
+ 618 016b 0E000000 		.4byte	.LASF27
+ 619 016f 01       		.byte	0x1
+ 620 0170 8B       		.byte	0x8b
+ 621 0171 0A       		.byte	0xa
+ 622 0172 01       		.byte	0x1
+ 623 0173 9F000000 		.4byte	0x9f
+ 624 0177 F2000000 		.4byte	.LFB140
+ 625 017b F6000000 		.4byte	.LFE140
+ 626 017f 02       		.byte	0x2
+ 627 0180 7D       		.byte	0x7d
+ 628 0181 00       		.sleb128 0
+ 629 0182 01       		.byte	0x1
+ 630 0183 9C010000 		.4byte	0x19c
+ 631 0187 0D       		.uleb128 0xd
+ 632 0188 BC010000 		.4byte	.LASF29
+ 633 018c 01       		.byte	0x1
+ 634 018d 8B       		.byte	0x8b
+ 635 018e 21       		.byte	0x21
+ 636 018f 2C010000 		.4byte	0x12c
+ 637 0193 04000000 		.4byte	.LLST14
+ 638 0197 00000000 		.4byte	.LVUS14
+ 639 019b 00       		.byte	0
+ 640 019c 0C       		.uleb128 0xc
+ 641 019d 01       		.byte	0x1
+ 642 019e 1C000000 		.4byte	.LASF28
+ 643 01a2 01       		.byte	0x1
+ 644 01a3 76       		.byte	0x76
+ 645 01a4 0A       		.byte	0xa
+ 646 01a5 01       		.byte	0x1
+ 647 01a6 9F000000 		.4byte	0x9f
+ 648 01aa CA000000 		.4byte	.LFB139
+ 649 01ae F2000000 		.4byte	.LFE139
+ 650 01b2 02       		.byte	0x2
+ 651 01b3 7D       		.byte	0x7d
+ 652 01b4 00       		.sleb128 0
+ 653 01b5 01       		.byte	0x1
+ 654 01b6 CF010000 		.4byte	0x1cf
+ 655 01ba 0D       		.uleb128 0xd
+ 656 01bb BC010000 		.4byte	.LASF29
+ 657 01bf 01       		.byte	0x1
+ 658 01c0 76       		.byte	0x76
+ 659 01c1 1E       		.byte	0x1e
+ 660 01c2 2C010000 		.4byte	0x12c
+ 661 01c6 35000000 		.4byte	.LLST13
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 16
+
+
+ 662 01ca 25000000 		.4byte	.LVUS13
+ 663 01ce 00       		.byte	0
+ 664 01cf 0C       		.uleb128 0xc
+ 665 01d0 01       		.byte	0x1
+ 666 01d1 31000000 		.4byte	.LASF30
+ 667 01d5 01       		.byte	0x1
+ 668 01d6 6B       		.byte	0x6b
+ 669 01d7 06       		.byte	0x6
+ 670 01d8 01       		.byte	0x1
+ 671 01d9 19010000 		.4byte	0x119
+ 672 01dd 72000000 		.4byte	.LFB138
+ 673 01e1 88000000 		.4byte	.LFE138
+ 674 01e5 02       		.byte	0x2
+ 675 01e6 7D       		.byte	0x7d
+ 676 01e7 00       		.sleb128 0
+ 677 01e8 01       		.byte	0x1
+ 678 01e9 02020000 		.4byte	0x202
+ 679 01ed 0D       		.uleb128 0xd
+ 680 01ee BC010000 		.4byte	.LASF29
+ 681 01f2 01       		.byte	0x1
+ 682 01f3 6B       		.byte	0x6b
+ 683 01f4 1C       		.byte	0x1c
+ 684 01f5 2C010000 		.4byte	0x12c
+ 685 01f9 A5000000 		.4byte	.LLST9
+ 686 01fd A1000000 		.4byte	.LVUS9
+ 687 0201 00       		.byte	0
+ 688 0202 0E       		.uleb128 0xe
+ 689 0203 01       		.byte	0x1
+ 690 0204 DB000000 		.4byte	.LASF40
+ 691 0208 01       		.byte	0x1
+ 692 0209 60       		.byte	0x60
+ 693 020a 06       		.byte	0x6
+ 694 020b 01       		.byte	0x1
+ 695 020c 19010000 		.4byte	0x119
+ 696 0210 01       		.byte	0x1
+ 697 0211 22020000 		.4byte	0x222
+ 698 0215 0F       		.uleb128 0xf
+ 699 0216 BC010000 		.4byte	.LASF29
+ 700 021a 01       		.byte	0x1
+ 701 021b 60       		.byte	0x60
+ 702 021c 1D       		.byte	0x1d
+ 703 021d 2C010000 		.4byte	0x12c
+ 704 0221 00       		.byte	0
+ 705 0222 10       		.uleb128 0x10
+ 706 0223 01       		.byte	0x1
+ 707 0224 E9000000 		.4byte	.LASF41
+ 708 0228 01       		.byte	0x1
+ 709 0229 56       		.byte	0x56
+ 710 022a 06       		.byte	0x6
+ 711 022b 01       		.byte	0x1
+ 712 022c 6C000000 		.4byte	.LFB136
+ 713 0230 6E000000 		.4byte	.LFE136
+ 714 0234 02       		.byte	0x2
+ 715 0235 7D       		.byte	0x7d
+ 716 0236 00       		.sleb128 0
+ 717 0237 01       		.byte	0x1
+ 718 0238 11       		.uleb128 0x11
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 17
+
+
+ 719 0239 01       		.byte	0x1
+ 720 023a 95010000 		.4byte	.LASF31
+ 721 023e 01       		.byte	0x1
+ 722 023f 41       		.byte	0x41
+ 723 0240 0F       		.byte	0xf
+ 724 0241 01       		.byte	0x1
+ 725 0242 5D010000 		.4byte	0x15d
+ 726 0246 28000000 		.4byte	.LFB135
+ 727 024a 6C000000 		.4byte	.LFE135
+ 728 024e C6000000 		.4byte	.LLST4
+ 729 0252 01       		.byte	0x1
+ 730 0253 B0020000 		.4byte	0x2b0
+ 731 0257 0D       		.uleb128 0xd
+ 732 0258 BC010000 		.4byte	.LASF29
+ 733 025c 01       		.byte	0x1
+ 734 025d 41       		.byte	0x41
+ 735 025e 22       		.byte	0x22
+ 736 025f 2C010000 		.4byte	0x12c
+ 737 0263 EA000000 		.4byte	.LLST5
+ 738 0267 E6000000 		.4byte	.LVUS5
+ 739 026b 0D       		.uleb128 0xd
+ 740 026c 03010000 		.4byte	.LASF32
+ 741 0270 01       		.byte	0x1
+ 742 0271 41       		.byte	0x41
+ 743 0272 2F       		.byte	0x2f
+ 744 0273 8A000000 		.4byte	0x8a
+ 745 0277 10010000 		.4byte	.LLST6
+ 746 027b 08010000 		.4byte	.LVUS6
+ 747 027f 12       		.uleb128 0x12
+ 748 0280 02020000 		.4byte	0x202
+ 749 0284 2E000000 		.4byte	.LBI4
+ 750 0288 01       		.byte	.LVU24
+ 751 0289 2E000000 		.4byte	.LBB4
+ 752 028d 2E000000 		.4byte	.LBE4
+ 753 0291 01       		.byte	0x1
+ 754 0292 43       		.byte	0x43
+ 755 0293 08       		.byte	0x8
+ 756 0294 A6020000 		.4byte	0x2a6
+ 757 0298 13       		.uleb128 0x13
+ 758 0299 15020000 		.4byte	0x215
+ 759 029d 4C010000 		.4byte	.LLST7
+ 760 02a1 4A010000 		.4byte	.LVUS7
+ 761 02a5 00       		.byte	0
+ 762 02a6 14       		.uleb128 0x14
+ 763 02a7 4C000000 		.4byte	.LVL8
+ 764 02ab AE030000 		.4byte	0x3ae
+ 765 02af 00       		.byte	0
+ 766 02b0 11       		.uleb128 0x11
+ 767 02b1 01       		.byte	0x1
+ 768 02b2 3E000000 		.4byte	.LASF33
+ 769 02b6 01       		.byte	0x1
+ 770 02b7 2C       		.byte	0x2c
+ 771 02b8 0F       		.byte	0xf
+ 772 02b9 01       		.byte	0x1
+ 773 02ba 5D010000 		.4byte	0x15d
+ 774 02be 88000000 		.4byte	.LFB134
+ 775 02c2 CA000000 		.4byte	.LFE134
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 18
+
+
+ 776 02c6 5F010000 		.4byte	.LLST10
+ 777 02ca 01       		.byte	0x1
+ 778 02cb 1C030000 		.4byte	0x31c
+ 779 02cf 0D       		.uleb128 0xd
+ 780 02d0 BC010000 		.4byte	.LASF29
+ 781 02d4 01       		.byte	0x1
+ 782 02d5 2C       		.byte	0x2c
+ 783 02d6 25       		.byte	0x25
+ 784 02d7 2C010000 		.4byte	0x12c
+ 785 02db 83010000 		.4byte	.LLST11
+ 786 02df 7F010000 		.4byte	.LVUS11
+ 787 02e3 0D       		.uleb128 0xd
+ 788 02e4 03010000 		.4byte	.LASF32
+ 789 02e8 01       		.byte	0x1
+ 790 02e9 2C       		.byte	0x2c
+ 791 02ea 32       		.byte	0x32
+ 792 02eb 8A000000 		.4byte	0x8a
+ 793 02ef A5010000 		.4byte	.LLST12
+ 794 02f3 A1010000 		.4byte	.LVUS12
+ 795 02f7 15       		.uleb128 0x15
+ 796 02f8 92000000 		.4byte	.LVL14
+ 797 02fc CF010000 		.4byte	0x1cf
+ 798 0300 0B030000 		.4byte	0x30b
+ 799 0304 16       		.uleb128 0x16
+ 800 0305 01       		.byte	0x1
+ 801 0306 50       		.byte	0x50
+ 802 0307 02       		.byte	0x2
+ 803 0308 74       		.byte	0x74
+ 804 0309 00       		.sleb128 0
+ 805 030a 00       		.byte	0
+ 806 030b 17       		.uleb128 0x17
+ 807 030c A8000000 		.4byte	.LVL15
+ 808 0310 AE030000 		.4byte	0x3ae
+ 809 0314 16       		.uleb128 0x16
+ 810 0315 01       		.byte	0x1
+ 811 0316 51       		.byte	0x51
+ 812 0317 02       		.byte	0x2
+ 813 0318 75       		.byte	0x75
+ 814 0319 00       		.sleb128 0
+ 815 031a 00       		.byte	0
+ 816 031b 00       		.byte	0
+ 817 031c 11       		.uleb128 0x11
+ 818 031d 01       		.byte	0x1
+ 819 031e 2D020000 		.4byte	.LASF34
+ 820 0322 01       		.byte	0x1
+ 821 0323 14       		.byte	0x14
+ 822 0324 0F       		.byte	0xf
+ 823 0325 01       		.byte	0x1
+ 824 0326 5D010000 		.4byte	0x15d
+ 825 032a 00000000 		.4byte	.LFB133
+ 826 032e 28000000 		.4byte	.LFE133
+ 827 0332 C3010000 		.4byte	.LLST0
+ 828 0336 01       		.byte	0x1
+ 829 0337 8B030000 		.4byte	0x38b
+ 830 033b 0D       		.uleb128 0xd
+ 831 033c BC010000 		.4byte	.LASF29
+ 832 0340 01       		.byte	0x1
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 19
+
+
+ 833 0341 14       		.byte	0x14
+ 834 0342 23       		.byte	0x23
+ 835 0343 2C010000 		.4byte	0x12c
+ 836 0347 E7010000 		.4byte	.LLST1
+ 837 034b E3010000 		.4byte	.LVUS1
+ 838 034f 0D       		.uleb128 0xd
+ 839 0350 60020000 		.4byte	.LASF19
+ 840 0354 01       		.byte	0x1
+ 841 0355 14       		.byte	0x14
+ 842 0356 33       		.byte	0x33
+ 843 0357 9F000000 		.4byte	0x9f
+ 844 035b 09020000 		.4byte	.LLST2
+ 845 035f 05020000 		.4byte	.LVUS2
+ 846 0363 18       		.uleb128 0x18
+ 847 0364 6C656E00 		.ascii	"len\000"
+ 848 0368 01       		.byte	0x1
+ 849 0369 14       		.byte	0x14
+ 850 036a 46       		.byte	0x46
+ 851 036b 9F000000 		.4byte	0x9f
+ 852 036f 2E020000 		.4byte	.LLST3
+ 853 0373 2A020000 		.4byte	.LVUS3
+ 854 0377 17       		.uleb128 0x17
+ 855 0378 10000000 		.4byte	.LVL2
+ 856 037c BB030000 		.4byte	0x3bb
+ 857 0380 16       		.uleb128 0x16
+ 858 0381 01       		.byte	0x1
+ 859 0382 50       		.byte	0x50
+ 860 0383 05       		.byte	0x5
+ 861 0384 75       		.byte	0x75
+ 862 0385 00       		.sleb128 0
+ 863 0386 76       		.byte	0x76
+ 864 0387 00       		.sleb128 0
+ 865 0388 1E       		.byte	0x1e
+ 866 0389 00       		.byte	0
+ 867 038a 00       		.byte	0
+ 868 038b 19       		.uleb128 0x19
+ 869 038c 02020000 		.4byte	0x202
+ 870 0390 6E000000 		.4byte	.LFB137
+ 871 0394 72000000 		.4byte	.LFE137
+ 872 0398 02       		.byte	0x2
+ 873 0399 7D       		.byte	0x7d
+ 874 039a 00       		.sleb128 0
+ 875 039b 01       		.byte	0x1
+ 876 039c AE030000 		.4byte	0x3ae
+ 877 03a0 13       		.uleb128 0x13
+ 878 03a1 15020000 		.4byte	0x215
+ 879 03a5 53020000 		.4byte	.LLST8
+ 880 03a9 4F020000 		.4byte	.LVUS8
+ 881 03ad 00       		.byte	0
+ 882 03ae 1A       		.uleb128 0x1a
+ 883 03af 01       		.byte	0x1
+ 884 03b0 01       		.byte	0x1
+ 885 03b1 CD010000 		.4byte	.LASF42
+ 886 03b5 9F010000 		.4byte	.LASF43
+ 887 03b9 05       		.byte	0x5
+ 888 03ba 00       		.byte	0
+ 889 03bb 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 20
+
+
+ 890 03bc 01       		.byte	0x1
+ 891 03bd 01       		.byte	0x1
+ 892 03be A5020000 		.4byte	.LASF44
+ 893 03c2 A5020000 		.4byte	.LASF44
+ 894 03c6 06       		.byte	0x6
+ 895 03c7 6C       		.byte	0x6c
+ 896 03c8 07       		.byte	0x7
+ 897 03c9 00       		.byte	0
+ 898              		.section	.debug_abbrev,"",%progbits
+ 899              	.Ldebug_abbrev0:
+ 900 0000 01       		.uleb128 0x1
+ 901 0001 11       		.uleb128 0x11
+ 902 0002 01       		.byte	0x1
+ 903 0003 25       		.uleb128 0x25
+ 904 0004 0E       		.uleb128 0xe
+ 905 0005 13       		.uleb128 0x13
+ 906 0006 0B       		.uleb128 0xb
+ 907 0007 03       		.uleb128 0x3
+ 908 0008 0E       		.uleb128 0xe
+ 909 0009 1B       		.uleb128 0x1b
+ 910 000a 0E       		.uleb128 0xe
+ 911 000b 11       		.uleb128 0x11
+ 912 000c 01       		.uleb128 0x1
+ 913 000d 12       		.uleb128 0x12
+ 914 000e 01       		.uleb128 0x1
+ 915 000f 10       		.uleb128 0x10
+ 916 0010 06       		.uleb128 0x6
+ 917 0011 00       		.byte	0
+ 918 0012 00       		.byte	0
+ 919 0013 02       		.uleb128 0x2
+ 920 0014 24       		.uleb128 0x24
+ 921 0015 00       		.byte	0
+ 922 0016 0B       		.uleb128 0xb
+ 923 0017 0B       		.uleb128 0xb
+ 924 0018 3E       		.uleb128 0x3e
+ 925 0019 0B       		.uleb128 0xb
+ 926 001a 03       		.uleb128 0x3
+ 927 001b 0E       		.uleb128 0xe
+ 928 001c 00       		.byte	0
+ 929 001d 00       		.byte	0
+ 930 001e 03       		.uleb128 0x3
+ 931 001f 24       		.uleb128 0x24
+ 932 0020 00       		.byte	0
+ 933 0021 0B       		.uleb128 0xb
+ 934 0022 0B       		.uleb128 0xb
+ 935 0023 3E       		.uleb128 0x3e
+ 936 0024 0B       		.uleb128 0xb
+ 937 0025 03       		.uleb128 0x3
+ 938 0026 08       		.uleb128 0x8
+ 939 0027 00       		.byte	0
+ 940 0028 00       		.byte	0
+ 941 0029 04       		.uleb128 0x4
+ 942 002a 16       		.uleb128 0x16
+ 943 002b 00       		.byte	0
+ 944 002c 03       		.uleb128 0x3
+ 945 002d 0E       		.uleb128 0xe
+ 946 002e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 21
+
+
+ 947 002f 0B       		.uleb128 0xb
+ 948 0030 3B       		.uleb128 0x3b
+ 949 0031 0B       		.uleb128 0xb
+ 950 0032 39       		.uleb128 0x39
+ 951 0033 0B       		.uleb128 0xb
+ 952 0034 49       		.uleb128 0x49
+ 953 0035 13       		.uleb128 0x13
+ 954 0036 00       		.byte	0
+ 955 0037 00       		.byte	0
+ 956 0038 05       		.uleb128 0x5
+ 957 0039 0F       		.uleb128 0xf
+ 958 003a 00       		.byte	0
+ 959 003b 0B       		.uleb128 0xb
+ 960 003c 0B       		.uleb128 0xb
+ 961 003d 00       		.byte	0
+ 962 003e 00       		.byte	0
+ 963 003f 06       		.uleb128 0x6
+ 964 0040 0F       		.uleb128 0xf
+ 965 0041 00       		.byte	0
+ 966 0042 0B       		.uleb128 0xb
+ 967 0043 0B       		.uleb128 0xb
+ 968 0044 49       		.uleb128 0x49
+ 969 0045 13       		.uleb128 0x13
+ 970 0046 00       		.byte	0
+ 971 0047 00       		.byte	0
+ 972 0048 07       		.uleb128 0x7
+ 973 0049 13       		.uleb128 0x13
+ 974 004a 01       		.byte	0x1
+ 975 004b 03       		.uleb128 0x3
+ 976 004c 0E       		.uleb128 0xe
+ 977 004d 0B       		.uleb128 0xb
+ 978 004e 0B       		.uleb128 0xb
+ 979 004f 3A       		.uleb128 0x3a
+ 980 0050 0B       		.uleb128 0xb
+ 981 0051 3B       		.uleb128 0x3b
+ 982 0052 0B       		.uleb128 0xb
+ 983 0053 39       		.uleb128 0x39
+ 984 0054 0B       		.uleb128 0xb
+ 985 0055 01       		.uleb128 0x1
+ 986 0056 13       		.uleb128 0x13
+ 987 0057 00       		.byte	0
+ 988 0058 00       		.byte	0
+ 989 0059 08       		.uleb128 0x8
+ 990 005a 0D       		.uleb128 0xd
+ 991 005b 00       		.byte	0
+ 992 005c 03       		.uleb128 0x3
+ 993 005d 0E       		.uleb128 0xe
+ 994 005e 3A       		.uleb128 0x3a
+ 995 005f 0B       		.uleb128 0xb
+ 996 0060 3B       		.uleb128 0x3b
+ 997 0061 0B       		.uleb128 0xb
+ 998 0062 39       		.uleb128 0x39
+ 999 0063 0B       		.uleb128 0xb
+ 1000 0064 49       		.uleb128 0x49
+ 1001 0065 13       		.uleb128 0x13
+ 1002 0066 38       		.uleb128 0x38
+ 1003 0067 0A       		.uleb128 0xa
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 22
+
+
+ 1004 0068 00       		.byte	0
+ 1005 0069 00       		.byte	0
+ 1006 006a 09       		.uleb128 0x9
+ 1007 006b 0D       		.uleb128 0xd
+ 1008 006c 00       		.byte	0
+ 1009 006d 03       		.uleb128 0x3
+ 1010 006e 08       		.uleb128 0x8
+ 1011 006f 3A       		.uleb128 0x3a
+ 1012 0070 0B       		.uleb128 0xb
+ 1013 0071 3B       		.uleb128 0x3b
+ 1014 0072 0B       		.uleb128 0xb
+ 1015 0073 39       		.uleb128 0x39
+ 1016 0074 0B       		.uleb128 0xb
+ 1017 0075 49       		.uleb128 0x49
+ 1018 0076 13       		.uleb128 0x13
+ 1019 0077 38       		.uleb128 0x38
+ 1020 0078 0A       		.uleb128 0xa
+ 1021 0079 00       		.byte	0
+ 1022 007a 00       		.byte	0
+ 1023 007b 0A       		.uleb128 0xa
+ 1024 007c 04       		.uleb128 0x4
+ 1025 007d 01       		.byte	0x1
+ 1026 007e 03       		.uleb128 0x3
+ 1027 007f 0E       		.uleb128 0xe
+ 1028 0080 3E       		.uleb128 0x3e
+ 1029 0081 0B       		.uleb128 0xb
+ 1030 0082 0B       		.uleb128 0xb
+ 1031 0083 0B       		.uleb128 0xb
+ 1032 0084 49       		.uleb128 0x49
+ 1033 0085 13       		.uleb128 0x13
+ 1034 0086 3A       		.uleb128 0x3a
+ 1035 0087 0B       		.uleb128 0xb
+ 1036 0088 3B       		.uleb128 0x3b
+ 1037 0089 0B       		.uleb128 0xb
+ 1038 008a 39       		.uleb128 0x39
+ 1039 008b 0B       		.uleb128 0xb
+ 1040 008c 01       		.uleb128 0x1
+ 1041 008d 13       		.uleb128 0x13
+ 1042 008e 00       		.byte	0
+ 1043 008f 00       		.byte	0
+ 1044 0090 0B       		.uleb128 0xb
+ 1045 0091 28       		.uleb128 0x28
+ 1046 0092 00       		.byte	0
+ 1047 0093 03       		.uleb128 0x3
+ 1048 0094 0E       		.uleb128 0xe
+ 1049 0095 1C       		.uleb128 0x1c
+ 1050 0096 0B       		.uleb128 0xb
+ 1051 0097 00       		.byte	0
+ 1052 0098 00       		.byte	0
+ 1053 0099 0C       		.uleb128 0xc
+ 1054 009a 2E       		.uleb128 0x2e
+ 1055 009b 01       		.byte	0x1
+ 1056 009c 3F       		.uleb128 0x3f
+ 1057 009d 0C       		.uleb128 0xc
+ 1058 009e 03       		.uleb128 0x3
+ 1059 009f 0E       		.uleb128 0xe
+ 1060 00a0 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 23
+
+
+ 1061 00a1 0B       		.uleb128 0xb
+ 1062 00a2 3B       		.uleb128 0x3b
+ 1063 00a3 0B       		.uleb128 0xb
+ 1064 00a4 39       		.uleb128 0x39
+ 1065 00a5 0B       		.uleb128 0xb
+ 1066 00a6 27       		.uleb128 0x27
+ 1067 00a7 0C       		.uleb128 0xc
+ 1068 00a8 49       		.uleb128 0x49
+ 1069 00a9 13       		.uleb128 0x13
+ 1070 00aa 11       		.uleb128 0x11
+ 1071 00ab 01       		.uleb128 0x1
+ 1072 00ac 12       		.uleb128 0x12
+ 1073 00ad 01       		.uleb128 0x1
+ 1074 00ae 40       		.uleb128 0x40
+ 1075 00af 0A       		.uleb128 0xa
+ 1076 00b0 9742     		.uleb128 0x2117
+ 1077 00b2 0C       		.uleb128 0xc
+ 1078 00b3 01       		.uleb128 0x1
+ 1079 00b4 13       		.uleb128 0x13
+ 1080 00b5 00       		.byte	0
+ 1081 00b6 00       		.byte	0
+ 1082 00b7 0D       		.uleb128 0xd
+ 1083 00b8 05       		.uleb128 0x5
+ 1084 00b9 00       		.byte	0
+ 1085 00ba 03       		.uleb128 0x3
+ 1086 00bb 0E       		.uleb128 0xe
+ 1087 00bc 3A       		.uleb128 0x3a
+ 1088 00bd 0B       		.uleb128 0xb
+ 1089 00be 3B       		.uleb128 0x3b
+ 1090 00bf 0B       		.uleb128 0xb
+ 1091 00c0 39       		.uleb128 0x39
+ 1092 00c1 0B       		.uleb128 0xb
+ 1093 00c2 49       		.uleb128 0x49
+ 1094 00c3 13       		.uleb128 0x13
+ 1095 00c4 02       		.uleb128 0x2
+ 1096 00c5 06       		.uleb128 0x6
+ 1097 00c6 B742     		.uleb128 0x2137
+ 1098 00c8 06       		.uleb128 0x6
+ 1099 00c9 00       		.byte	0
+ 1100 00ca 00       		.byte	0
+ 1101 00cb 0E       		.uleb128 0xe
+ 1102 00cc 2E       		.uleb128 0x2e
+ 1103 00cd 01       		.byte	0x1
+ 1104 00ce 3F       		.uleb128 0x3f
+ 1105 00cf 0C       		.uleb128 0xc
+ 1106 00d0 03       		.uleb128 0x3
+ 1107 00d1 0E       		.uleb128 0xe
+ 1108 00d2 3A       		.uleb128 0x3a
+ 1109 00d3 0B       		.uleb128 0xb
+ 1110 00d4 3B       		.uleb128 0x3b
+ 1111 00d5 0B       		.uleb128 0xb
+ 1112 00d6 39       		.uleb128 0x39
+ 1113 00d7 0B       		.uleb128 0xb
+ 1114 00d8 27       		.uleb128 0x27
+ 1115 00d9 0C       		.uleb128 0xc
+ 1116 00da 49       		.uleb128 0x49
+ 1117 00db 13       		.uleb128 0x13
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 24
+
+
+ 1118 00dc 20       		.uleb128 0x20
+ 1119 00dd 0B       		.uleb128 0xb
+ 1120 00de 01       		.uleb128 0x1
+ 1121 00df 13       		.uleb128 0x13
+ 1122 00e0 00       		.byte	0
+ 1123 00e1 00       		.byte	0
+ 1124 00e2 0F       		.uleb128 0xf
+ 1125 00e3 05       		.uleb128 0x5
+ 1126 00e4 00       		.byte	0
+ 1127 00e5 03       		.uleb128 0x3
+ 1128 00e6 0E       		.uleb128 0xe
+ 1129 00e7 3A       		.uleb128 0x3a
+ 1130 00e8 0B       		.uleb128 0xb
+ 1131 00e9 3B       		.uleb128 0x3b
+ 1132 00ea 0B       		.uleb128 0xb
+ 1133 00eb 39       		.uleb128 0x39
+ 1134 00ec 0B       		.uleb128 0xb
+ 1135 00ed 49       		.uleb128 0x49
+ 1136 00ee 13       		.uleb128 0x13
+ 1137 00ef 00       		.byte	0
+ 1138 00f0 00       		.byte	0
+ 1139 00f1 10       		.uleb128 0x10
+ 1140 00f2 2E       		.uleb128 0x2e
+ 1141 00f3 00       		.byte	0
+ 1142 00f4 3F       		.uleb128 0x3f
+ 1143 00f5 0C       		.uleb128 0xc
+ 1144 00f6 03       		.uleb128 0x3
+ 1145 00f7 0E       		.uleb128 0xe
+ 1146 00f8 3A       		.uleb128 0x3a
+ 1147 00f9 0B       		.uleb128 0xb
+ 1148 00fa 3B       		.uleb128 0x3b
+ 1149 00fb 0B       		.uleb128 0xb
+ 1150 00fc 39       		.uleb128 0x39
+ 1151 00fd 0B       		.uleb128 0xb
+ 1152 00fe 27       		.uleb128 0x27
+ 1153 00ff 0C       		.uleb128 0xc
+ 1154 0100 11       		.uleb128 0x11
+ 1155 0101 01       		.uleb128 0x1
+ 1156 0102 12       		.uleb128 0x12
+ 1157 0103 01       		.uleb128 0x1
+ 1158 0104 40       		.uleb128 0x40
+ 1159 0105 0A       		.uleb128 0xa
+ 1160 0106 9742     		.uleb128 0x2117
+ 1161 0108 0C       		.uleb128 0xc
+ 1162 0109 00       		.byte	0
+ 1163 010a 00       		.byte	0
+ 1164 010b 11       		.uleb128 0x11
+ 1165 010c 2E       		.uleb128 0x2e
+ 1166 010d 01       		.byte	0x1
+ 1167 010e 3F       		.uleb128 0x3f
+ 1168 010f 0C       		.uleb128 0xc
+ 1169 0110 03       		.uleb128 0x3
+ 1170 0111 0E       		.uleb128 0xe
+ 1171 0112 3A       		.uleb128 0x3a
+ 1172 0113 0B       		.uleb128 0xb
+ 1173 0114 3B       		.uleb128 0x3b
+ 1174 0115 0B       		.uleb128 0xb
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 25
+
+
+ 1175 0116 39       		.uleb128 0x39
+ 1176 0117 0B       		.uleb128 0xb
+ 1177 0118 27       		.uleb128 0x27
+ 1178 0119 0C       		.uleb128 0xc
+ 1179 011a 49       		.uleb128 0x49
+ 1180 011b 13       		.uleb128 0x13
+ 1181 011c 11       		.uleb128 0x11
+ 1182 011d 01       		.uleb128 0x1
+ 1183 011e 12       		.uleb128 0x12
+ 1184 011f 01       		.uleb128 0x1
+ 1185 0120 40       		.uleb128 0x40
+ 1186 0121 06       		.uleb128 0x6
+ 1187 0122 9742     		.uleb128 0x2117
+ 1188 0124 0C       		.uleb128 0xc
+ 1189 0125 01       		.uleb128 0x1
+ 1190 0126 13       		.uleb128 0x13
+ 1191 0127 00       		.byte	0
+ 1192 0128 00       		.byte	0
+ 1193 0129 12       		.uleb128 0x12
+ 1194 012a 1D       		.uleb128 0x1d
+ 1195 012b 01       		.byte	0x1
+ 1196 012c 31       		.uleb128 0x31
+ 1197 012d 13       		.uleb128 0x13
+ 1198 012e 52       		.uleb128 0x52
+ 1199 012f 01       		.uleb128 0x1
+ 1200 0130 B842     		.uleb128 0x2138
+ 1201 0132 0B       		.uleb128 0xb
+ 1202 0133 11       		.uleb128 0x11
+ 1203 0134 01       		.uleb128 0x1
+ 1204 0135 12       		.uleb128 0x12
+ 1205 0136 01       		.uleb128 0x1
+ 1206 0137 58       		.uleb128 0x58
+ 1207 0138 0B       		.uleb128 0xb
+ 1208 0139 59       		.uleb128 0x59
+ 1209 013a 0B       		.uleb128 0xb
+ 1210 013b 57       		.uleb128 0x57
+ 1211 013c 0B       		.uleb128 0xb
+ 1212 013d 01       		.uleb128 0x1
+ 1213 013e 13       		.uleb128 0x13
+ 1214 013f 00       		.byte	0
+ 1215 0140 00       		.byte	0
+ 1216 0141 13       		.uleb128 0x13
+ 1217 0142 05       		.uleb128 0x5
+ 1218 0143 00       		.byte	0
+ 1219 0144 31       		.uleb128 0x31
+ 1220 0145 13       		.uleb128 0x13
+ 1221 0146 02       		.uleb128 0x2
+ 1222 0147 06       		.uleb128 0x6
+ 1223 0148 B742     		.uleb128 0x2137
+ 1224 014a 06       		.uleb128 0x6
+ 1225 014b 00       		.byte	0
+ 1226 014c 00       		.byte	0
+ 1227 014d 14       		.uleb128 0x14
+ 1228 014e 898201   		.uleb128 0x4109
+ 1229 0151 00       		.byte	0
+ 1230 0152 11       		.uleb128 0x11
+ 1231 0153 01       		.uleb128 0x1
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 26
+
+
+ 1232 0154 31       		.uleb128 0x31
+ 1233 0155 13       		.uleb128 0x13
+ 1234 0156 00       		.byte	0
+ 1235 0157 00       		.byte	0
+ 1236 0158 15       		.uleb128 0x15
+ 1237 0159 898201   		.uleb128 0x4109
+ 1238 015c 01       		.byte	0x1
+ 1239 015d 11       		.uleb128 0x11
+ 1240 015e 01       		.uleb128 0x1
+ 1241 015f 31       		.uleb128 0x31
+ 1242 0160 13       		.uleb128 0x13
+ 1243 0161 01       		.uleb128 0x1
+ 1244 0162 13       		.uleb128 0x13
+ 1245 0163 00       		.byte	0
+ 1246 0164 00       		.byte	0
+ 1247 0165 16       		.uleb128 0x16
+ 1248 0166 8A8201   		.uleb128 0x410a
+ 1249 0169 00       		.byte	0
+ 1250 016a 02       		.uleb128 0x2
+ 1251 016b 0A       		.uleb128 0xa
+ 1252 016c 9142     		.uleb128 0x2111
+ 1253 016e 0A       		.uleb128 0xa
+ 1254 016f 00       		.byte	0
+ 1255 0170 00       		.byte	0
+ 1256 0171 17       		.uleb128 0x17
+ 1257 0172 898201   		.uleb128 0x4109
+ 1258 0175 01       		.byte	0x1
+ 1259 0176 11       		.uleb128 0x11
+ 1260 0177 01       		.uleb128 0x1
+ 1261 0178 31       		.uleb128 0x31
+ 1262 0179 13       		.uleb128 0x13
+ 1263 017a 00       		.byte	0
+ 1264 017b 00       		.byte	0
+ 1265 017c 18       		.uleb128 0x18
+ 1266 017d 05       		.uleb128 0x5
+ 1267 017e 00       		.byte	0
+ 1268 017f 03       		.uleb128 0x3
+ 1269 0180 08       		.uleb128 0x8
+ 1270 0181 3A       		.uleb128 0x3a
+ 1271 0182 0B       		.uleb128 0xb
+ 1272 0183 3B       		.uleb128 0x3b
+ 1273 0184 0B       		.uleb128 0xb
+ 1274 0185 39       		.uleb128 0x39
+ 1275 0186 0B       		.uleb128 0xb
+ 1276 0187 49       		.uleb128 0x49
+ 1277 0188 13       		.uleb128 0x13
+ 1278 0189 02       		.uleb128 0x2
+ 1279 018a 06       		.uleb128 0x6
+ 1280 018b B742     		.uleb128 0x2137
+ 1281 018d 06       		.uleb128 0x6
+ 1282 018e 00       		.byte	0
+ 1283 018f 00       		.byte	0
+ 1284 0190 19       		.uleb128 0x19
+ 1285 0191 2E       		.uleb128 0x2e
+ 1286 0192 01       		.byte	0x1
+ 1287 0193 31       		.uleb128 0x31
+ 1288 0194 13       		.uleb128 0x13
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 27
+
+
+ 1289 0195 11       		.uleb128 0x11
+ 1290 0196 01       		.uleb128 0x1
+ 1291 0197 12       		.uleb128 0x12
+ 1292 0198 01       		.uleb128 0x1
+ 1293 0199 40       		.uleb128 0x40
+ 1294 019a 0A       		.uleb128 0xa
+ 1295 019b 9742     		.uleb128 0x2117
+ 1296 019d 0C       		.uleb128 0xc
+ 1297 019e 01       		.uleb128 0x1
+ 1298 019f 13       		.uleb128 0x13
+ 1299 01a0 00       		.byte	0
+ 1300 01a1 00       		.byte	0
+ 1301 01a2 1A       		.uleb128 0x1a
+ 1302 01a3 2E       		.uleb128 0x2e
+ 1303 01a4 00       		.byte	0
+ 1304 01a5 3F       		.uleb128 0x3f
+ 1305 01a6 0C       		.uleb128 0xc
+ 1306 01a7 3C       		.uleb128 0x3c
+ 1307 01a8 0C       		.uleb128 0xc
+ 1308 01a9 8740     		.uleb128 0x2007
+ 1309 01ab 0E       		.uleb128 0xe
+ 1310 01ac 03       		.uleb128 0x3
+ 1311 01ad 0E       		.uleb128 0xe
+ 1312 01ae 3A       		.uleb128 0x3a
+ 1313 01af 0B       		.uleb128 0xb
+ 1314 01b0 3B       		.uleb128 0x3b
+ 1315 01b1 0B       		.uleb128 0xb
+ 1316 01b2 00       		.byte	0
+ 1317 01b3 00       		.byte	0
+ 1318 01b4 1B       		.uleb128 0x1b
+ 1319 01b5 2E       		.uleb128 0x2e
+ 1320 01b6 00       		.byte	0
+ 1321 01b7 3F       		.uleb128 0x3f
+ 1322 01b8 0C       		.uleb128 0xc
+ 1323 01b9 3C       		.uleb128 0x3c
+ 1324 01ba 0C       		.uleb128 0xc
+ 1325 01bb 8740     		.uleb128 0x2007
+ 1326 01bd 0E       		.uleb128 0xe
+ 1327 01be 03       		.uleb128 0x3
+ 1328 01bf 0E       		.uleb128 0xe
+ 1329 01c0 3A       		.uleb128 0x3a
+ 1330 01c1 0B       		.uleb128 0xb
+ 1331 01c2 3B       		.uleb128 0x3b
+ 1332 01c3 0B       		.uleb128 0xb
+ 1333 01c4 39       		.uleb128 0x39
+ 1334 01c5 0B       		.uleb128 0xb
+ 1335 01c6 00       		.byte	0
+ 1336 01c7 00       		.byte	0
+ 1337 01c8 00       		.byte	0
+ 1338              		.section	.debug_loc,"",%progbits
+ 1339              	.Ldebug_loc0:
+ 1340              	.LVUS14:
+ 1341 0000 00       		.uleb128 0
+ 1342 0001 00       		.uleb128 .LVU102
+ 1343 0002 00       		.uleb128 .LVU102
+ 1344 0003 00       		.uleb128 0
+ 1345              	.LLST14:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 28
+
+
+ 1346 0004 F2000000 		.4byte	.LVL25-.Ltext0
+ 1347 0008 F4000000 		.4byte	.LVL26-.Ltext0
+ 1348 000c 0100     		.2byte	0x1
+ 1349 000e 50       		.byte	0x50
+ 1350 000f F4000000 		.4byte	.LVL26-.Ltext0
+ 1351 0013 F6000000 		.4byte	.LFE140-.Ltext0
+ 1352 0017 0400     		.2byte	0x4
+ 1353 0019 F3       		.byte	0xf3
+ 1354 001a 01       		.uleb128 0x1
+ 1355 001b 50       		.byte	0x50
+ 1356 001c 9F       		.byte	0x9f
+ 1357 001d 00000000 		.4byte	0
+ 1358 0021 00000000 		.4byte	0
+ 1359              	.LVUS13:
+ 1360 0025 00       		.uleb128 0
+ 1361 0026 00       		.uleb128 .LVU90
+ 1362 0027 00       		.uleb128 .LVU90
+ 1363 0028 00       		.uleb128 .LVU91
+ 1364 0029 00       		.uleb128 .LVU91
+ 1365 002a 00       		.uleb128 .LVU93
+ 1366 002b 00       		.uleb128 .LVU93
+ 1367 002c 00       		.uleb128 .LVU94
+ 1368 002d 00       		.uleb128 .LVU94
+ 1369 002e 00       		.uleb128 .LVU96
+ 1370 002f 00       		.uleb128 .LVU96
+ 1371 0030 00       		.uleb128 .LVU97
+ 1372 0031 00       		.uleb128 .LVU97
+ 1373 0032 00       		.uleb128 .LVU98
+ 1374 0033 00       		.uleb128 .LVU98
+ 1375 0034 00       		.uleb128 0
+ 1376              	.LLST13:
+ 1377 0035 CA000000 		.4byte	.LVL17-.Ltext0
+ 1378 0039 DC000000 		.4byte	.LVL18-.Ltext0
+ 1379 003d 0100     		.2byte	0x1
+ 1380 003f 50       		.byte	0x50
+ 1381 0040 DC000000 		.4byte	.LVL18-.Ltext0
+ 1382 0044 DE000000 		.4byte	.LVL19-.Ltext0
+ 1383 0048 0400     		.2byte	0x4
+ 1384 004a F3       		.byte	0xf3
+ 1385 004b 01       		.uleb128 0x1
+ 1386 004c 50       		.byte	0x50
+ 1387 004d 9F       		.byte	0x9f
+ 1388 004e DE000000 		.4byte	.LVL19-.Ltext0
+ 1389 0052 E0000000 		.4byte	.LVL20-.Ltext0
+ 1390 0056 0100     		.2byte	0x1
+ 1391 0058 50       		.byte	0x50
+ 1392 0059 E0000000 		.4byte	.LVL20-.Ltext0
+ 1393 005d E8000000 		.4byte	.LVL21-.Ltext0
+ 1394 0061 0400     		.2byte	0x4
+ 1395 0063 F3       		.byte	0xf3
+ 1396 0064 01       		.uleb128 0x1
+ 1397 0065 50       		.byte	0x50
+ 1398 0066 9F       		.byte	0x9f
+ 1399 0067 E8000000 		.4byte	.LVL21-.Ltext0
+ 1400 006b EA000000 		.4byte	.LVL22-.Ltext0
+ 1401 006f 0100     		.2byte	0x1
+ 1402 0071 50       		.byte	0x50
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 29
+
+
+ 1403 0072 EA000000 		.4byte	.LVL22-.Ltext0
+ 1404 0076 EE000000 		.4byte	.LVL23-.Ltext0
+ 1405 007a 0400     		.2byte	0x4
+ 1406 007c F3       		.byte	0xf3
+ 1407 007d 01       		.uleb128 0x1
+ 1408 007e 50       		.byte	0x50
+ 1409 007f 9F       		.byte	0x9f
+ 1410 0080 EE000000 		.4byte	.LVL23-.Ltext0
+ 1411 0084 F0000000 		.4byte	.LVL24-.Ltext0
+ 1412 0088 0100     		.2byte	0x1
+ 1413 008a 50       		.byte	0x50
+ 1414 008b F0000000 		.4byte	.LVL24-.Ltext0
+ 1415 008f F2000000 		.4byte	.LFE139-.Ltext0
+ 1416 0093 0400     		.2byte	0x4
+ 1417 0095 F3       		.byte	0xf3
+ 1418 0096 01       		.uleb128 0x1
+ 1419 0097 50       		.byte	0x50
+ 1420 0098 9F       		.byte	0x9f
+ 1421 0099 00000000 		.4byte	0
+ 1422 009d 00000000 		.4byte	0
+ 1423              	.LVUS9:
+ 1424 00a1 00       		.uleb128 0
+ 1425 00a2 00       		.uleb128 .LVU55
+ 1426 00a3 00       		.uleb128 .LVU55
+ 1427 00a4 00       		.uleb128 0
+ 1428              	.LLST9:
+ 1429 00a5 72000000 		.4byte	.LVL11-.Ltext0
+ 1430 00a9 7C000000 		.4byte	.LVL12-.Ltext0
+ 1431 00ad 0100     		.2byte	0x1
+ 1432 00af 50       		.byte	0x50
+ 1433 00b0 7C000000 		.4byte	.LVL12-.Ltext0
+ 1434 00b4 88000000 		.4byte	.LFE138-.Ltext0
+ 1435 00b8 0400     		.2byte	0x4
+ 1436 00ba F3       		.byte	0xf3
+ 1437 00bb 01       		.uleb128 0x1
+ 1438 00bc 50       		.byte	0x50
+ 1439 00bd 9F       		.byte	0x9f
+ 1440 00be 00000000 		.4byte	0
+ 1441 00c2 00000000 		.4byte	0
+ 1442              	.LLST4:
+ 1443 00c6 28000000 		.4byte	.LFB135-.Ltext0
+ 1444 00ca 2A000000 		.4byte	.LCFI1-.Ltext0
+ 1445 00ce 0200     		.2byte	0x2
+ 1446 00d0 7D       		.byte	0x7d
+ 1447 00d1 00       		.sleb128 0
+ 1448 00d2 2A000000 		.4byte	.LCFI1-.Ltext0
+ 1449 00d6 6C000000 		.4byte	.LFE135-.Ltext0
+ 1450 00da 0200     		.2byte	0x2
+ 1451 00dc 7D       		.byte	0x7d
+ 1452 00dd 08       		.sleb128 8
+ 1453 00de 00000000 		.4byte	0
+ 1454 00e2 00000000 		.4byte	0
+ 1455              	.LVUS5:
+ 1456 00e6 00       		.uleb128 0
+ 1457 00e7 00       		.uleb128 .LVU23
+ 1458 00e8 00       		.uleb128 .LVU23
+ 1459 00e9 00       		.uleb128 0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 30
+
+
+ 1460              	.LLST5:
+ 1461 00ea 28000000 		.4byte	.LVL4-.Ltext0
+ 1462 00ee 2E000000 		.4byte	.LVL5-.Ltext0
+ 1463 00f2 0100     		.2byte	0x1
+ 1464 00f4 50       		.byte	0x50
+ 1465 00f5 2E000000 		.4byte	.LVL5-.Ltext0
+ 1466 00f9 6C000000 		.4byte	.LFE135-.Ltext0
+ 1467 00fd 0100     		.2byte	0x1
+ 1468 00ff 54       		.byte	0x54
+ 1469 0100 00000000 		.4byte	0
+ 1470 0104 00000000 		.4byte	0
+ 1471              	.LVUS6:
+ 1472 0108 00       		.uleb128 0
+ 1473 0109 00       		.uleb128 .LVU29
+ 1474 010a 00       		.uleb128 .LVU29
+ 1475 010b 00       		.uleb128 .LVU30
+ 1476 010c 00       		.uleb128 .LVU30
+ 1477 010d 00       		.uleb128 .LVU36
+ 1478 010e 00       		.uleb128 .LVU36
+ 1479 010f 00       		.uleb128 0
+ 1480              	.LLST6:
+ 1481 0110 28000000 		.4byte	.LVL4-.Ltext0
+ 1482 0114 34000000 		.4byte	.LVL6-.Ltext0
+ 1483 0118 0100     		.2byte	0x1
+ 1484 011a 51       		.byte	0x51
+ 1485 011b 34000000 		.4byte	.LVL6-.Ltext0
+ 1486 011f 36000000 		.4byte	.LVL7-.Ltext0
+ 1487 0123 0400     		.2byte	0x4
+ 1488 0125 F3       		.byte	0xf3
+ 1489 0126 01       		.uleb128 0x1
+ 1490 0127 51       		.byte	0x51
+ 1491 0128 9F       		.byte	0x9f
+ 1492 0129 36000000 		.4byte	.LVL7-.Ltext0
+ 1493 012d 4B000000 		.4byte	.LVL8-1-.Ltext0
+ 1494 0131 0100     		.2byte	0x1
+ 1495 0133 50       		.byte	0x50
+ 1496 0134 4B000000 		.4byte	.LVL8-1-.Ltext0
+ 1497 0138 6C000000 		.4byte	.LFE135-.Ltext0
+ 1498 013c 0400     		.2byte	0x4
+ 1499 013e F3       		.byte	0xf3
+ 1500 013f 01       		.uleb128 0x1
+ 1501 0140 51       		.byte	0x51
+ 1502 0141 9F       		.byte	0x9f
+ 1503 0142 00000000 		.4byte	0
+ 1504 0146 00000000 		.4byte	0
+ 1505              	.LVUS7:
+ 1506 014a 01       		.uleb128 .LVU24
+ 1507 014b 03       		.uleb128 .LVU26
+ 1508              	.LLST7:
+ 1509 014c 2E000000 		.4byte	.LVL5-.Ltext0
+ 1510 0150 2E000000 		.4byte	.LVL5-.Ltext0
+ 1511 0154 0100     		.2byte	0x1
+ 1512 0156 54       		.byte	0x54
+ 1513 0157 00000000 		.4byte	0
+ 1514 015b 00000000 		.4byte	0
+ 1515              	.LLST10:
+ 1516 015f 88000000 		.4byte	.LFB134-.Ltext0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 31
+
+
+ 1517 0163 8A000000 		.4byte	.LCFI2-.Ltext0
+ 1518 0167 0200     		.2byte	0x2
+ 1519 0169 7D       		.byte	0x7d
+ 1520 016a 00       		.sleb128 0
+ 1521 016b 8A000000 		.4byte	.LCFI2-.Ltext0
+ 1522 016f CA000000 		.4byte	.LFE134-.Ltext0
+ 1523 0173 0200     		.2byte	0x2
+ 1524 0175 7D       		.byte	0x7d
+ 1525 0176 10       		.sleb128 16
+ 1526 0177 00000000 		.4byte	0
+ 1527 017b 00000000 		.4byte	0
+ 1528              	.LVUS11:
+ 1529 017f 00       		.uleb128 0
+ 1530 0180 00       		.uleb128 .LVU61
+ 1531 0181 00       		.uleb128 .LVU61
+ 1532 0182 00       		.uleb128 0
+ 1533              	.LLST11:
+ 1534 0183 88000000 		.4byte	.LVL13-.Ltext0
+ 1535 0187 91000000 		.4byte	.LVL14-1-.Ltext0
+ 1536 018b 0100     		.2byte	0x1
+ 1537 018d 50       		.byte	0x50
+ 1538 018e 91000000 		.4byte	.LVL14-1-.Ltext0
+ 1539 0192 CA000000 		.4byte	.LFE134-.Ltext0
+ 1540 0196 0100     		.2byte	0x1
+ 1541 0198 54       		.byte	0x54
+ 1542 0199 00000000 		.4byte	0
+ 1543 019d 00000000 		.4byte	0
+ 1544              	.LVUS12:
+ 1545 01a1 00       		.uleb128 0
+ 1546 01a2 00       		.uleb128 .LVU61
+ 1547 01a3 00       		.uleb128 .LVU61
+ 1548 01a4 00       		.uleb128 0
+ 1549              	.LLST12:
+ 1550 01a5 88000000 		.4byte	.LVL13-.Ltext0
+ 1551 01a9 91000000 		.4byte	.LVL14-1-.Ltext0
+ 1552 01ad 0100     		.2byte	0x1
+ 1553 01af 51       		.byte	0x51
+ 1554 01b0 91000000 		.4byte	.LVL14-1-.Ltext0
+ 1555 01b4 CA000000 		.4byte	.LFE134-.Ltext0
+ 1556 01b8 0100     		.2byte	0x1
+ 1557 01ba 55       		.byte	0x55
+ 1558 01bb 00000000 		.4byte	0
+ 1559 01bf 00000000 		.4byte	0
+ 1560              	.LLST0:
+ 1561 01c3 00000000 		.4byte	.LFB133-.Ltext0
+ 1562 01c7 02000000 		.4byte	.LCFI0-.Ltext0
+ 1563 01cb 0200     		.2byte	0x2
+ 1564 01cd 7D       		.byte	0x7d
+ 1565 01ce 00       		.sleb128 0
+ 1566 01cf 02000000 		.4byte	.LCFI0-.Ltext0
+ 1567 01d3 28000000 		.4byte	.LFE133-.Ltext0
+ 1568 01d7 0200     		.2byte	0x2
+ 1569 01d9 7D       		.byte	0x7d
+ 1570 01da 10       		.sleb128 16
+ 1571 01db 00000000 		.4byte	0
+ 1572 01df 00000000 		.4byte	0
+ 1573              	.LVUS1:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 32
+
+
+ 1574 01e3 00       		.uleb128 0
+ 1575 01e4 00       		.uleb128 .LVU4
+ 1576 01e5 00       		.uleb128 .LVU4
+ 1577 01e6 00       		.uleb128 0
+ 1578              	.LLST1:
+ 1579 01e7 00000000 		.4byte	.LVL0-.Ltext0
+ 1580 01eb 0C000000 		.4byte	.LVL1-.Ltext0
+ 1581 01ef 0100     		.2byte	0x1
+ 1582 01f1 50       		.byte	0x50
+ 1583 01f2 0C000000 		.4byte	.LVL1-.Ltext0
+ 1584 01f6 28000000 		.4byte	.LFE133-.Ltext0
+ 1585 01fa 0100     		.2byte	0x1
+ 1586 01fc 54       		.byte	0x54
+ 1587 01fd 00000000 		.4byte	0
+ 1588 0201 00000000 		.4byte	0
+ 1589              	.LVUS2:
+ 1590 0205 00       		.uleb128 0
+ 1591 0206 00       		.uleb128 .LVU5
+ 1592 0207 00       		.uleb128 .LVU5
+ 1593 0208 00       		.uleb128 0
+ 1594              	.LLST2:
+ 1595 0209 00000000 		.4byte	.LVL0-.Ltext0
+ 1596 020d 0F000000 		.4byte	.LVL2-1-.Ltext0
+ 1597 0211 0100     		.2byte	0x1
+ 1598 0213 51       		.byte	0x51
+ 1599 0214 0F000000 		.4byte	.LVL2-1-.Ltext0
+ 1600 0218 28000000 		.4byte	.LFE133-.Ltext0
+ 1601 021c 0400     		.2byte	0x4
+ 1602 021e F3       		.byte	0xf3
+ 1603 021f 01       		.uleb128 0x1
+ 1604 0220 51       		.byte	0x51
+ 1605 0221 9F       		.byte	0x9f
+ 1606 0222 00000000 		.4byte	0
+ 1607 0226 00000000 		.4byte	0
+ 1608              	.LVUS3:
+ 1609 022a 00       		.uleb128 0
+ 1610 022b 00       		.uleb128 .LVU5
+ 1611 022c 00       		.uleb128 .LVU5
+ 1612 022d 00       		.uleb128 0
+ 1613              	.LLST3:
+ 1614 022e 00000000 		.4byte	.LVL0-.Ltext0
+ 1615 0232 0F000000 		.4byte	.LVL2-1-.Ltext0
+ 1616 0236 0100     		.2byte	0x1
+ 1617 0238 52       		.byte	0x52
+ 1618 0239 0F000000 		.4byte	.LVL2-1-.Ltext0
+ 1619 023d 28000000 		.4byte	.LFE133-.Ltext0
+ 1620 0241 0400     		.2byte	0x4
+ 1621 0243 F3       		.byte	0xf3
+ 1622 0244 01       		.uleb128 0x1
+ 1623 0245 52       		.byte	0x52
+ 1624 0246 9F       		.byte	0x9f
+ 1625 0247 00000000 		.4byte	0
+ 1626 024b 00000000 		.4byte	0
+ 1627              	.LVUS8:
+ 1628 024f 00       		.uleb128 0
+ 1629 0250 00       		.uleb128 .LVU51
+ 1630 0251 00       		.uleb128 .LVU51
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 33
+
+
+ 1631 0252 00       		.uleb128 0
+ 1632              	.LLST8:
+ 1633 0253 6E000000 		.4byte	.LVL9-.Ltext0
+ 1634 0257 70000000 		.4byte	.LVL10-.Ltext0
+ 1635 025b 0100     		.2byte	0x1
+ 1636 025d 50       		.byte	0x50
+ 1637 025e 70000000 		.4byte	.LVL10-.Ltext0
+ 1638 0262 72000000 		.4byte	.LFE137-.Ltext0
+ 1639 0266 0400     		.2byte	0x4
+ 1640 0268 F3       		.byte	0xf3
+ 1641 0269 01       		.uleb128 0x1
+ 1642 026a 50       		.byte	0x50
+ 1643 026b 9F       		.byte	0x9f
+ 1644 026c 00000000 		.4byte	0
+ 1645 0270 00000000 		.4byte	0
+ 1646              		.section	.debug_aranges,"",%progbits
+ 1647 0000 1C000000 		.4byte	0x1c
+ 1648 0004 0200     		.2byte	0x2
+ 1649 0006 00000000 		.4byte	.Ldebug_info0
+ 1650 000a 04       		.byte	0x4
+ 1651 000b 00       		.byte	0
+ 1652 000c 0000     		.2byte	0
+ 1653 000e 0000     		.2byte	0
+ 1654 0010 00000000 		.4byte	.Ltext0
+ 1655 0014 F6000000 		.4byte	.Letext0-.Ltext0
+ 1656 0018 00000000 		.4byte	0
+ 1657 001c 00000000 		.4byte	0
+ 1658              		.section	.debug_line,"",%progbits
+ 1659              	.Ldebug_line0:
+ 1660 0000 3A030000 		.section	.debug_str,"MS",%progbits,1
+ 1660      03008901 
+ 1660      00000201 
+ 1660      FB0E0D00 
+ 1660      01010101 
+ 1661              	.LASF1:
+ 1662 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1662      206C6F6E 
+ 1662      6720696E 
+ 1662      7400
+ 1663              	.LASF27:
+ 1664 000e 51756575 		.ascii	"Queue_MaxSize\000"
+ 1664      655F4D61 
+ 1664      7853697A 
+ 1664      6500
+ 1665              	.LASF28:
+ 1666 001c 51756575 		.ascii	"Queue_Size\000"
+ 1666      655F5369 
+ 1666      7A6500
+ 1667              	.LASF6:
+ 1668 0027 5F5F7569 		.ascii	"__uint8_t\000"
+ 1668      6E74385F 
+ 1668      7400
+ 1669              	.LASF30:
+ 1670 0031 51756575 		.ascii	"Queue_IsFull\000"
+ 1670      655F4973 
+ 1670      46756C6C 
+ 1670      00
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 34
+
+
+ 1671              	.LASF33:
+ 1672 003e 51756575 		.ascii	"Queue_Append\000"
+ 1672      655F4170 
+ 1672      70656E64 
+ 1672      00
+ 1673              	.LASF35:
+ 1674 004b 474E5520 		.ascii	"GNU C17 10.2.1 20201103 (release) -mthumb -mapcs-fr"
+ 1674      43313720 
+ 1674      31302E32 
+ 1674      2E312032 
+ 1674      30323031 
+ 1675 007e 616D6520 		.ascii	"ame -mthumb-interwork -mcpu=cortex-m4 -mfloat-abi=s"
+ 1675      2D6D7468 
+ 1675      756D622D 
+ 1675      696E7465 
+ 1675      72776F72 
+ 1676 00b1 6F667420 		.ascii	"oft -march=armv7e-m -gdwarf-2 -O\000"
+ 1676      2D6D6172 
+ 1676      63683D61 
+ 1676      726D7637 
+ 1676      652D6D20 
+ 1677              	.LASF22:
+ 1678 00d2 51554555 		.ascii	"QUEUE_OK\000"
+ 1678      455F4F4B 
+ 1678      00
+ 1679              	.LASF40:
+ 1680 00db 51756575 		.ascii	"Queue_IsEmpty\000"
+ 1680      655F4973 
+ 1680      456D7074 
+ 1680      7900
+ 1681              	.LASF41:
+ 1682 00e9 51756575 		.ascii	"Queue_Clear\000"
+ 1682      655F436C 
+ 1682      65617200 
+ 1683              	.LASF26:
+ 1684 00f5 51756575 		.ascii	"QueueStatus_t\000"
+ 1684      65537461 
+ 1684      7475735F 
+ 1684      7400
+ 1685              	.LASF32:
+ 1686 0103 64617461 		.ascii	"data\000"
+ 1686      00
+ 1687              	.LASF11:
+ 1688 0108 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1688      206C6F6E 
+ 1688      6720756E 
+ 1688      7369676E 
+ 1688      65642069 
+ 1689              	.LASF23:
+ 1690 011f 51554555 		.ascii	"QUEUE_EMPTY\000"
+ 1690      455F454D 
+ 1690      50545900 
+ 1691              	.LASF4:
+ 1692 012b 756E7369 		.ascii	"unsigned char\000"
+ 1692      676E6564 
+ 1692      20636861 
+ 1692      7200
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 35
+
+
+ 1693              	.LASF10:
+ 1694 0139 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1694      20756E73 
+ 1694      69676E65 
+ 1694      6420696E 
+ 1694      7400
+ 1695              	.LASF8:
+ 1696 014b 73686F72 		.ascii	"short unsigned int\000"
+ 1696      7420756E 
+ 1696      7369676E 
+ 1696      65642069 
+ 1696      6E7400
+ 1697              	.LASF25:
+ 1698 015e 51554555 		.ascii	"QUEUE_FAILED\000"
+ 1698      455F4641 
+ 1698      494C4544 
+ 1698      00
+ 1699              	.LASF7:
+ 1700 016b 5F5F7569 		.ascii	"__uint16_t\000"
+ 1700      6E743136 
+ 1700      5F7400
+ 1701              	.LASF16:
+ 1702 0176 68656164 		.ascii	"head\000"
+ 1702      00
+ 1703              	.LASF0:
+ 1704 017b 756E7369 		.ascii	"unsigned int\000"
+ 1704      676E6564 
+ 1704      20696E74 
+ 1704      00
+ 1705              	.LASF12:
+ 1706 0188 63686172 		.ascii	"char\000"
+ 1706      00
+ 1707              	.LASF13:
+ 1708 018d 75696E74 		.ascii	"uint8_t\000"
+ 1708      385F7400 
+ 1709              	.LASF31:
+ 1710 0195 51756575 		.ascii	"Queue_Get\000"
+ 1710      655F4765 
+ 1710      7400
+ 1711              	.LASF43:
+ 1712 019f 5F5F6275 		.ascii	"__builtin_memcpy\000"
+ 1712      696C7469 
+ 1712      6E5F6D65 
+ 1712      6D637079 
+ 1712      00
+ 1713              	.LASF2:
+ 1714 01b0 6C6F6E67 		.ascii	"long double\000"
+ 1714      20646F75 
+ 1714      626C6500 
+ 1715              	.LASF29:
+ 1716 01bc 71756575 		.ascii	"queue\000"
+ 1716      6500
+ 1717              	.LASF24:
+ 1718 01c2 51554555 		.ascii	"QUEUE_FULL\000"
+ 1718      455F4655 
+ 1718      4C4C00
+ 1719              	.LASF42:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 36
+
+
+ 1720 01cd 6D656D63 		.ascii	"memcpy\000"
+ 1720      707900
+ 1721              	.LASF15:
+ 1722 01d4 6F626A65 		.ascii	"object\000"
+ 1722      637400
+ 1723              	.LASF37:
+ 1724 01db 433A5C55 		.ascii	"C:\\Users\\hoodc\\Documents\\Github\\indago-embedde"
+ 1724      73657273 
+ 1724      5C686F6F 
+ 1724      64635C44 
+ 1724      6F63756D 
+ 1725 0209 642D6465 		.ascii	"d-dev\\Indago-Smart-Board-v4\\MDK-ARM\000"
+ 1725      765C496E 
+ 1725      6461676F 
+ 1725      2D536D61 
+ 1725      72742D42 
+ 1726              	.LASF34:
+ 1727 022d 51756575 		.ascii	"Queue_Init\000"
+ 1727      655F496E 
+ 1727      697400
+ 1728              	.LASF18:
+ 1729 0238 6973456D 		.ascii	"isEmpty\000"
+ 1729      70747900 
+ 1730              	.LASF5:
+ 1731 0240 73686F72 		.ascii	"short int\000"
+ 1731      7420696E 
+ 1731      7400
+ 1732              	.LASF21:
+ 1733 024a 51756575 		.ascii	"Queue_t\000"
+ 1733      655F7400 
+ 1734              	.LASF14:
+ 1735 0252 75696E74 		.ascii	"uint16_t\000"
+ 1735      31365F74 
+ 1735      00
+ 1736              	.LASF17:
+ 1737 025b 7461696C 		.ascii	"tail\000"
+ 1737      00
+ 1738              	.LASF19:
+ 1739 0260 6F626A5F 		.ascii	"obj_size\000"
+ 1739      73697A65 
+ 1739      00
+ 1740              	.LASF9:
+ 1741 0269 6C6F6E67 		.ascii	"long int\000"
+ 1741      20696E74 
+ 1741      00
+ 1742              	.LASF39:
+ 1743 0272 51756575 		.ascii	"QueueStatus\000"
+ 1743      65537461 
+ 1743      74757300 
+ 1744              	.LASF36:
+ 1745 027e 2E2E2F53 		.ascii	"../Src/queue.c\000"
+ 1745      72632F71 
+ 1745      75657565 
+ 1745      2E6300
+ 1746              	.LASF3:
+ 1747 028d 7369676E 		.ascii	"signed char\000"
+ 1747      65642063 
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 37
+
+
+ 1747      68617200 
+ 1748              	.LASF38:
+ 1749 0299 51756575 		.ascii	"Queue\000"
+ 1749      6500
+ 1750              	.LASF20:
+ 1751 029f 5F426F6F 		.ascii	"_Bool\000"
+ 1751      6C00
+ 1752              	.LASF44:
+ 1753 02a5 6D616C6C 		.ascii	"malloc\000"
+ 1753      6F6300
+ 1754              		.ident	"GCC: (GNU Arm Embedded Toolchain 10-2020-q4-major) 10.2.1 20201103 (release)"
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s 			page 38
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 queue.c
+C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s:15     .text:00000000 $t
+C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s:23     .text:00000000 Queue_Init
+C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s:90     .text:00000028 Queue_Get
+C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s:177    .text:0000006c Queue_Clear
+C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s:196    .text:0000006e Queue_IsEmpty
+C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s:220    .text:00000072 Queue_IsFull
+C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s:252    .text:00000088 Queue_Append
+C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s:332    .text:000000ca Queue_Size
+C:\Users\hoodc\AppData\Local\Temp\cc2xpJnk.s:399    .text:000000f2 Queue_MaxSize
+
+UNDEFINED SYMBOLS
+malloc
+memcpy

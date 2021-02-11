@@ -1,0 +1,6 @@
+[submodule "Indago-Smart-Board-v4/Drivers/Jansson"]
+	path = Indago-Smart-Board-v4/Drivers/Jansson
+	url = https://github.com/akheron/jansson.git
+[submodule "Indago-Smart-Board-v4/Drivers/paho.mqtt.embedded-c"]
+	path = Indago-Smart-Board-v4/Drivers/paho.mqtt.embedded-c
+	url = https://github.com/eclipse/paho.mqtt.embedded-c.git

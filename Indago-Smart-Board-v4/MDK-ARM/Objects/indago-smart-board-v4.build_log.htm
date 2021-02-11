@@ -1,0 +1,841 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.33.0.0
+Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Charles Hood, Profero Technology, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.33.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.15
+Assembler:       Armasm.exe V6.15
+Linker/Locator:  ArmLink.exe V6.15
+Library Manager: ArmAr.exe V6.15
+Hex Converter:   FromElf.exe V6.15
+CPU DLL:         SARMCM3.DLL V5.33.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.8.0
+Dialog DLL:      TCM.DLL V1.48.0.0
+ 
+<h2>Project:</h2>
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\MDK-ARM\indago-smart-board-v4.uvprojx
+Project File Date:  02/09/2021
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.15', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Rebuild target 'indago-smart-board-v4'
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.c(90): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.c(910): warning: enumeration value 'HAL_DMA_XFER_ALL_CB_ID' not explicitly handled in switch [-Wswitch-enum]
+    switch (CallbackID)
+            ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_dma.c(986): warning: default label in switch which covers all enumeration values [-Wcovered-switch-default]
+    default:
+    ^
+3 warnings generated.
+compiling stm32l4xx_hal_dma.c...
+compiling stm32l4xx_hal_crc.c...
+compiling stm32l4xx_hal_cryp_ex.c...
+compiling stm32l4xx_hal_cryp.c...
+compiling stm32l4xx_hal_dma_ex.c...
+compiling stm32l4xx_hal_crc_ex.c...
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_exti.c(442): warning: enumeration values 'HAL_EXTI_RISING_CB_ID' and 'HAL_EXTI_FALLING_CB_ID' not explicitly handled in switch [-Wswitch-enum]
+  switch (CallbackID)
+          ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_exti.c(543): warning: unused parameter 'Edge' [-Wunused-parameter]
+uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
+                                                                 ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_exti.c(579): warning: unused parameter 'Edge' [-Wunused-parameter]
+void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
+                                                               ^
+3 warnings generated.
+compiling stm32l4xx_hal_exti.c...
+compiling stm32l4xx_hal.c...
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash_ex.c(63): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(292): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_flash.h(127): warning: padding struct 'FLASH_ProcessTypeDef' with 3 bytes to align 'ErrorCode' [-Wpadded]
+  __IO uint32_t               ErrorCode;         /* FLASH error code */
+                              ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_flash.h(129): warning: padding struct 'FLASH_ProcessTypeDef' with 3 bytes to align 'Address' [-Wpadded]
+  __IO uint32_t               Address;           /* Internal variable to save address selected for program in IT context */
+                              ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_flash.h(124): warning: padding size of 'FLASH_ProcessTypeDef' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct
+        ^
+3 warnings generated.
+compiling stm32l4xx_hal_flash_ex.c...
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.c(238): warning: function 'HAL_NVIC_SystemReset' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_cortex.c(105): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(248): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_cortex.h(56): warning: padding struct 'MPU_Region_InitTypeDef' with 2 bytes to align 'BaseAddress' [-Wpadded]
+  uint32_t               BaseAddress;           /*!< Specifies the base address of the region to protect.                           */
+                         ^
+2 warnings generated.
+compiling stm32l4xx_hal_cortex.c...
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_flash.c(90): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(292): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_flash.h(127): warning: padding struct 'FLASH_ProcessTypeDef' with 3 bytes to align 'ErrorCode' [-Wpadded]
+  __IO uint32_t               ErrorCode;         /* FLASH error code */
+                              ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_flash.h(129): warning: padding struct 'FLASH_ProcessTypeDef' with 3 bytes to align 'Address' [-Wpadded]
+  __IO uint32_t               Address;           /* Internal variable to save address selected for program in IT context */
+                              ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_flash.h(124): warning: padding size of 'FLASH_ProcessTypeDef' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct
+        ^
+3 warnings generated.
+compiling stm32l4xx_hal_flash.c...
+compiling stm32l4xx_hal_gpio.c...
+compiling stm32l4xx_hal_iwdg.c...
+compiling stm32l4xx_hal_lptim.c...
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c(50): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(316): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_i2c.h(215): warning: padding struct 'struct __I2C_HandleTypeDef' with 1 byte to align 'ErrorCode' [-Wpadded]
+  __IO uint32_t              ErrorCode;      /*!< I2C Error code                            */
+                             ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c_ex.c(50): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+2 warnings generated.
+compiling stm32l4xx_hal_i2c_ex.c...
+compiling stm32l4xx_hal_pwr.c...
+compiling stm32l4xx_hal_qspi.c...
+compiling stm32l4xx_hal_pwr_ex.c...
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c.c(308): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(316): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_i2c.h(215): warning: padding struct 'struct __I2C_HandleTypeDef' with 1 byte to align 'ErrorCode' [-Wpadded]
+  __IO uint32_t              ErrorCode;      /*!< I2C Error code                            */
+                             ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_i2c.c(308): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+2 warnings generated.
+compiling stm32l4xx_hal_i2c.c...
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_rcc.c(946): warning: embedding a directive within macro arguments has undefined behavior [-Wembedded-directive]
+#if defined(RCC_PLLP_SUPPORT)
+ ^
+1 warning generated.
+compiling stm32l4xx_hal_rcc.c...
+compiling stm32l4xx_hal_rcc_ex.c...
+compiling stm32l4xx_hal_rtc.c...
+compiling stm32l4xx_hal_spi.c...
+compiling stm32l4xx_hal_rtc_ex.c...
+compiling stm32l4xx_hal_spi_ex.c...
+compiling stm32l4xx_hal_tim.c...
+compiling stm32l4xx_hal_tim_ex.c...
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c(44): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(392): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(226): warning: padding struct 'struct __UART_HandleTypeDef' with 2 bytes to align 'RxISR' [-Wpadded]
+  void (*RxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Rx IRQ handler */
+         ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(236): warning: padding struct 'struct __UART_HandleTypeDef' with 3 bytes to align 'gState' [-Wpadded]
+  __IO HAL_UART_StateTypeDef    gState;              /*!< UART state information related to global Handle management
+                                ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c(44): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart_ex.c(44): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(392): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(1572): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h(47): warning: padding size of 'UART_WakeUpTypeDef' with 1 byte to alignment boundary [-Wpadded]
+typedef struct
+        ^
+4 warnings generated.
+compiling stm32l4xx_hal_uart_ex.c...
+compiling stm32l4xx_hal_usart.c...
+../Src/list.c(12): warning: In file included from...
+../Inc\list.h(52): warning: no newline at end of file [-Wnewline-eof]
+#endif //__LIST_H
+                 ^
+../Inc\list.h(29): warning: padding size of 'struct ListHandle' with 1 byte to alignment boundary [-Wpadded]
+typedef struct ListHandle
+               ^
+../Src/list.c(134): warning: '/*' within block comment [-Wcomment]
+{ /*
+  ^
+../Src/list.c(148): warning: no newline at end of file [-Wnewline-eof]
+*/
+  ^
+4 warnings generated.
+compiling list.c...
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(157): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(392): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(226): warning: padding struct 'struct __UART_HandleTypeDef' with 2 bytes to align 'RxISR' [-Wpadded]
+  void (*RxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Rx IRQ handler */
+         ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(236): warning: padding struct 'struct __UART_HandleTypeDef' with 3 bytes to align 'gState' [-Wpadded]
+  __IO HAL_UART_StateTypeDef    gState;              /*!< UART state information related to global Handle management
+                                ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(157): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(1077): warning: cast from 'uint8_t *' (aka 'unsigned char *') to 'uint16_t *' (aka 'unsigned short *') increases required alignment from 1 to 2 [-Wcast-align]
+      pdata16bits = (uint16_t *) pData;
+                    ^~~~~~~~~~~~~~~~~~
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(1171): warning: cast from 'uint8_t *' (aka 'unsigned char *') to 'uint16_t *' (aka 'unsigned short *') increases required alignment from 1 to 2 [-Wcast-align]
+      pdata16bits = (uint16_t *) pData;
+                    ^~~~~~~~~~~~~~~~~~
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(3053): warning: enumeration values 'UART_CLOCKSOURCE_PCLK2' and 'UART_CLOCKSOURCE_UNDEFINED' not explicitly handled in switch [-Wswitch-enum]
+    switch (clocksource)
+            ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(3099): warning: enumeration values 'UART_CLOCKSOURCE_PCLK2' and 'UART_CLOCKSOURCE_UNDEFINED' not explicitly handled in switch [-Wswitch-enum]
+        switch (clocksource)
+                ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(3151): warning: enumeration value 'UART_CLOCKSOURCE_UNDEFINED' not explicitly handled in switch [-Wswitch-enum]
+    switch (clocksource)
+            ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(3210): warning: enumeration value 'UART_CLOCKSOURCE_UNDEFINED' not explicitly handled in switch [-Wswitch-enum]
+    switch (clocksource)
+            ^
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(3912): warning: cast from 'uint8_t *' (aka 'unsigned char *') to 'uint16_t *' (aka 'unsigned short *') increases required alignment from 1 to 2 [-Wcast-align]
+      tmp = (uint16_t *) huart->pTxBuffPtr;
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c(4099): warning: cast from 'uint8_t *' (aka 'unsigned char *') to 'uint16_t *' (aka 'unsigned short *') increases required alignment from 1 to 2 [-Wcast-align]
+    tmp = (uint16_t *) huart->pRxBuffPtr ;
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+11 warnings generated.
+compiling stm32l4xx_hal_uart.c...
+compiling stm32l4xx_hal_usart_ex.c...
+compiling stm32l4xx_hal_wwdg.c...
+../Src/print.c(3): warning: In file included from...
+../Inc\print.h(15): warning: no newline at end of file [-Wnewline-eof]
+#endif // _PRINT_H__
+                    ^
+../Src/print.c(20): warning: no newline at end of file [-Wnewline-eof]
+//}
+   ^
+2 warnings generated.
+compiling print.c...
+../Src/main.c(11): warning: In file included from...
+../Inc\ublox_gps.h(118): warning: no newline at end of file [-Wnewline-eof]
+#endif //__UBLOX_GPS_H
+                      ^
+../Src/main.c(12): warning: In file included from...
+../Inc\ublox_r4.h(127): warning: no newline at end of file [-Wnewline-eof]
+void SARA_R4_IRQ_Handler(UART_HandleTypeDef *huart);
+                                                    ^
+../Src/main.c(13): warning: In file included from...
+../Inc\print.h(15): warning: no newline at end of file [-Wnewline-eof]
+#endif // _PRINT_H__
+                    ^
+../Src/main.c(9): warning: In file included from...
+../Inc\main.h(31): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(392): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(226): warning: padding struct 'struct __UART_HandleTypeDef' with 2 bytes to align 'RxISR' [-Wpadded]
+  void (*RxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Rx IRQ handler */
+         ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(236): warning: padding struct 'struct __UART_HandleTypeDef' with 3 bytes to align 'gState' [-Wpadded]
+  __IO HAL_UART_StateTypeDef    gState;              /*!< UART state information related to global Handle management
+                                ^
+../Src/main.c(42): warning: unused variable 'root' [-Wunused-variable]
+  json_t *root;
+          ^
+../Src/main.c(15): warning: In file included from...
+C:/Users/hoodc/AppData/Local/Arm/Packs/Keil/Jansson/1.0.0/src\jansson.h(52): warning: padding struct 'struct json_t' with 3 bytes to align 'refcount' [-Wpadded]
+    size_t refcount;
+           ^
+../Src/main.c(9): warning: In file included from...
+../Inc\main.h(31): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+../Src/main.c(261): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  HAL_UART_Transmit(&huart1, (uint8_t *) _out, strlen(_out), 10);
+  ~~~~~~~~~~~~~~~~~                            ^~~~~~~~~~~~
+../Src/main.c(273): warning: function 'Error_Handler' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+../Src/main.c(18): warning: no previous extern declaration for non-static variable 'huart1' [-Wmissing-variable-declarations]
+UART_HandleTypeDef huart1; //MAX-8Q
+                   ^
+../Src/main.c(18): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+UART_HandleTypeDef huart1; //MAX-8Q
+^
+../Src/main.c(19): warning: no previous extern declaration for non-static variable 'huart2' [-Wmissing-variable-declarations]
+UART_HandleTypeDef huart2; //SARA-R4
+                   ^
+../Src/main.c(19): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+UART_HandleTypeDef huart2; //SARA-R4
+^
+12 warnings generated.
+compiling main.c...
+../Src/queue.c(12): warning: In file included from...
+../Inc\queue.h(57): warning: no newline at end of file [-Wnewline-eof]
+#endif //__QUEUE_H
+                  ^
+../Inc\queue.h(32): warning: padding struct 'struct Queue' with 1 byte to align 'len' [-Wpadded]
+  uint16_t len;
+           ^
+../Inc\queue.h(26): warning: padding size of 'struct Queue' with 2 bytes to alignment boundary [-Wpadded]
+typedef struct Queue
+               ^
+../Src/queue.c(86): warning: no previous prototype for function 'Queue_Clear' [-Wmissing-prototypes]
+void Queue_Clear(void)
+     ^
+../Src/queue.c(86): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void Queue_Clear(void)
+^
+static 
+../Src/queue.c(118): warning: no previous prototype for function 'Queue_Size' [-Wmissing-prototypes]
+uint16_t Queue_Size(Queue_t *queue)
+         ^
+../Src/queue.c(118): note: declare 'static' if the function is not intended to be used outside of this translation unit
+uint16_t Queue_Size(Queue_t *queue)
+^
+static 
+../Src/queue.c(139): warning: no previous prototype for function 'Queue_MaxSize' [-Wmissing-prototypes]
+uint16_t Queue_MaxSize(Queue_t *queue)
+         ^
+../Src/queue.c(139): note: declare 'static' if the function is not intended to be used outside of this translation unit
+uint16_t Queue_MaxSize(Queue_t *queue)
+^
+static 
+6 warnings generated.
+compiling queue.c...
+../Src/stm32l4xx_hal_msp.c(23): warning: In file included from...
+../Inc\main.h(31): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(392): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(226): warning: padding struct 'struct __UART_HandleTypeDef' with 2 bytes to align 'RxISR' [-Wpadded]
+  void (*RxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Rx IRQ handler */
+         ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(236): warning: padding struct 'struct __UART_HandleTypeDef' with 3 bytes to align 'gState' [-Wpadded]
+  __IO HAL_UART_StateTypeDef    gState;              /*!< UART state information related to global Handle management
+                                ^
+../Src/stm32l4xx_hal_msp.c(23): warning: In file included from...
+../Inc\main.h(31): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+3 warnings generated.
+compiling stm32l4xx_hal_msp.c...
+../Src/stm32l4xx_it.c(25): warning: In file included from...
+../Inc\ublox_gps.h(118): warning: no newline at end of file [-Wnewline-eof]
+#endif //__UBLOX_GPS_H
+                      ^
+../Src/stm32l4xx_it.c(26): warning: In file included from...
+../Inc\ublox_r4.h(127): warning: no newline at end of file [-Wnewline-eof]
+void SARA_R4_IRQ_Handler(UART_HandleTypeDef *huart);
+                                                    ^
+../Src/stm32l4xx_it.c(51): warning: function 'HardFault_Handler' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+../Src/stm32l4xx_it.c(66): warning: function 'MemManage_Handler' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+../Src/stm32l4xx_it.c(81): warning: function 'BusFault_Handler' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+../Src/stm32l4xx_it.c(96): warning: function 'UsageFault_Handler' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+../Src/stm32l4xx_it.c(22): warning: In file included from...
+../Inc\main.h(31): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(392): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(226): warning: padding struct 'struct __UART_HandleTypeDef' with 2 bytes to align 'RxISR' [-Wpadded]
+  void (*RxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Rx IRQ handler */
+         ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(236): warning: padding struct 'struct __UART_HandleTypeDef' with 3 bytes to align 'gState' [-Wpadded]
+  __IO HAL_UART_StateTypeDef    gState;              /*!< UART state information related to global Handle management
+                                ^
+../Src/stm32l4xx_it.c(170): warning: no previous prototype for function 'USART1_IRQHandler' [-Wmissing-prototypes]
+void USART1_IRQHandler(void)
+     ^
+../Src/stm32l4xx_it.c(170): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void USART1_IRQHandler(void)
+^
+static 
+../Src/stm32l4xx_it.c(22): warning: In file included from...
+../Inc\main.h(31): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+../Src/stm32l4xx_it.c(194): warning: no previous prototype for function 'USART2_IRQHandler' [-Wmissing-prototypes]
+void USART2_IRQHandler(void)
+     ^
+../Src/stm32l4xx_it.c(194): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void USART2_IRQHandler(void)
+^
+static 
+11 warnings generated.
+compiling stm32l4xx_it.c...
+compiling system_stm32l4xx.c...
+../Src/ublox_gps.c(12): warning: In file included from...
+../Inc\ublox_gps.h(118): warning: no newline at end of file [-Wnewline-eof]
+#endif //__UBLOX_GPS_H
+                      ^
+../Src/ublox_gps.c(13): warning: In file included from...
+../Inc\queue.h(57): warning: no newline at end of file [-Wnewline-eof]
+#endif //__QUEUE_H
+                  ^
+../Src/ublox_gps.c(12): warning: In file included from...
+../Inc\ublox_gps.h(14): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(392): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(226): warning: padding struct 'struct __UART_HandleTypeDef' with 2 bytes to align 'RxISR' [-Wpadded]
+  void (*RxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Rx IRQ handler */
+         ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(236): warning: padding struct 'struct __UART_HandleTypeDef' with 3 bytes to align 'gState' [-Wpadded]
+  __IO HAL_UART_StateTypeDef    gState;              /*!< UART state information related to global Handle management
+                                ^
+../Src/ublox_gps.c(12): warning: In file included from...
+../Inc\ublox_gps.h(14): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+../Src/ublox_gps.c(13): warning: In file included from...
+../Inc\queue.h(32): warning: padding struct 'struct Queue' with 1 byte to align 'len' [-Wpadded]
+  uint16_t len;
+           ^
+../Inc\queue.h(26): warning: padding size of 'struct Queue' with 2 bytes to alignment boundary [-Wpadded]
+typedef struct Queue
+               ^
+../Src/ublox_gps.c(12): warning: In file included from...
+../Inc\ublox_gps.h(25): warning: padding struct 'struct UBX_Port_Config' with 1 byte to align 'txReady' [-Wpadded]
+  uint16_t txReady;
+           ^
+../Inc\ublox_gps.h(27): warning: padding struct 'struct UBX_Port_Config' with 2 bytes to align 'baudRate' [-Wpadded]
+  uint32_t baudRate;
+           ^
+../Inc\ublox_gps.h(23): warning: padding size of 'struct UBX_Port_Config' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct UBX_Port_Config {
+               ^
+../Inc\ublox_gps.h(33): warning: padding size of 'struct UBX_Config_Storage' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct UBX_Config_Storage {
+               ^
+../Src/ublox_gps.c(154): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  return (ck_a << 8) | ck_b;
+  ~~~~~~ ~~~~~~~~~~~~^~~~~~
+../Src/ublox_gps.c(157): warning: declaration shadows a variable in the global scope [-Wshadow]
+void UBX_IRQ_Handler(UART_HandleTypeDef *huart)
+                                         ^
+../Src/ublox_gps.c(17): note: previous declaration is here
+static UART_HandleTypeDef *huart;
+                           ^
+../Src/ublox_gps.c(173): warning: implicit conversion loses integer precision: 'volatile uint16_t' (aka 'volatile unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    uint8_t data = huart->Instance->RDR; // Read out data
+            ~~~~   ~~~~~~~~~~~~~~~~~^~~
+../Src/ublox_gps.c(187): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+15 warnings generated.
+compiling ublox_gps.c...
+../Src/ublox_r4.c(13): warning: In file included from...
+../Inc\ublox_r4.h(13): warning: In file included from...
+../Inc/ublox_gps.h(118): warning: no newline at end of file [-Wnewline-eof]
+#endif //__UBLOX_GPS_H
+                      ^
+../Src/ublox_r4.c(13): warning: In file included from...
+../Inc\ublox_r4.h(127): warning: no newline at end of file [-Wnewline-eof]
+void SARA_R4_IRQ_Handler(UART_HandleTypeDef *huart);
+                                                    ^
+../Src/ublox_r4.c(14): warning: In file included from...
+../Inc\queue.h(57): warning: no newline at end of file [-Wnewline-eof]
+#endif //__QUEUE_H
+                  ^
+../Src/ublox_r4.c(16): warning: In file included from...
+../Inc\print.h(15): warning: no newline at end of file [-Wnewline-eof]
+#endif // _PRINT_H__
+                    ^
+../Src/ublox_r4.c(17): warning: In file included from...
+../Inc\aws.h(17): warning: no previous extern declaration for non-static variable 'AWS_ADDR' [-Wmissing-variable-declarations]
+const char* AWS_ADDR = "a2f0djv1x03plx.iot.us-west-2.amazonaws.com";
+            ^
+../Inc\aws.h(17): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const char* AWS_ADDR = "a2f0djv1x03plx.iot.us-west-2.amazonaws.com";
+      ^
+../Inc\aws.h(18): warning: no previous extern declaration for non-static variable 'AWS_PORT' [-Wmissing-variable-declarations]
+const uint16_t AWS_PORT = 8883;
+               ^
+../Inc\aws.h(18): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const uint16_t AWS_PORT = 8883;
+      ^
+../Inc\aws.h(20): warning: no previous extern declaration for non-static variable 'AWS_ROOT_CA' [-Wmissing-variable-declarations]
+const char* AWS_ROOT_CA = "-----BEGIN CERTIFICATE----- \
+            ^
+../Inc\aws.h(20): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const char* AWS_ROOT_CA = "-----BEGIN CERTIFICATE----- \
+      ^
+../Inc\aws.h(42): warning: no previous extern declaration for non-static variable 'AWS_PRIVATE_CA' [-Wmissing-variable-declarations]
+const char* AWS_PRIVATE_CA = "-----BEGIN CERTIFICATE----- \
+            ^
+../Inc\aws.h(42): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const char* AWS_PRIVATE_CA = "-----BEGIN CERTIFICATE----- \
+      ^
+../Inc\aws.h(63): warning: no previous extern declaration for non-static variable 'AWS_PRIVATE_KEY' [-Wmissing-variable-declarations]
+const char* AWS_PRIVATE_KEY = "-----BEGIN RSA PRIVATE KEY----- \
+            ^
+../Inc\aws.h(63): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const char* AWS_PRIVATE_KEY = "-----BEGIN RSA PRIVATE KEY----- \
+      ^
+../Src/ublox_r4.c(76): warning: cast from 'const char *' to 'char *' drops const qualifier [-Wcast-qual]
+  SARA_R4_Download_Block("rootca", (char*)AWS_ROOT_CA, strlen(AWS_ROOT_CA));
+                                          ^
+../Src/ublox_r4.c(76): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  SARA_R4_Download_Block("rootca", (char*)AWS_ROOT_CA, strlen(AWS_ROOT_CA));
+  ~~~~~~~~~~~~~~~~~~~~~~                               ^~~~~~~~~~~~~~~~~~~
+../Src/ublox_r4.c(78): warning: cast from 'const char *' to 'char *' drops const qualifier [-Wcast-qual]
+  SARA_R4_Download_Block("privateca", (char*)AWS_PRIVATE_CA, strlen(AWS_PRIVATE_CA));
+                                             ^
+../Src/ublox_r4.c(78): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  SARA_R4_Download_Block("privateca", (char*)AWS_PRIVATE_CA, strlen(AWS_PRIVATE_CA));
+  ~~~~~~~~~~~~~~~~~~~~~~                                     ^~~~~~~~~~~~~~~~~~~~~~
+../Src/ublox_r4.c(80): warning: cast from 'const char *' to 'char *' drops const qualifier [-Wcast-qual]
+  SARA_R4_Download_Block("privatekey", (char*)AWS_PRIVATE_KEY, strlen(AWS_PRIVATE_KEY));
+                                              ^
+../Src/ublox_r4.c(80): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  SARA_R4_Download_Block("privatekey", (char*)AWS_PRIVATE_KEY, strlen(AWS_PRIVATE_KEY));
+  ~~~~~~~~~~~~~~~~~~~~~~                                       ^~~~~~~~~~~~~~~~~~~~~~~
+../Src/ublox_r4.c(120): warning: cast from 'const char *' to 'char *' drops const qualifier [-Wcast-qual]
+  SARA_R4_Connect_Socket(socket, (char*)AWS_ADDR, AWS_PORT);
+                                        ^
+../Src/ublox_r4.c(70): warning: code will never be executed [-Wunreachable-code]
+  SARA_R4_Get_ICCID(testing);
+  ^~~~~~~~~~~~~~~~~
+../Src/ublox_r4.c(13): warning: In file included from...
+../Inc\ublox_r4.h(12): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(392): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(226): warning: padding struct 'struct __UART_HandleTypeDef' with 2 bytes to align 'RxISR' [-Wpadded]
+  void (*RxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Rx IRQ handler */
+         ^
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_uart.h(236): warning: padding struct 'struct __UART_HandleTypeDef' with 3 bytes to align 'gState' [-Wpadded]
+  __IO HAL_UART_StateTypeDef    gState;              /*!< UART state information related to global Handle management
+                                ^
+../Src/ublox_r4.c(13): warning: In file included from...
+../Inc\ublox_r4.h(12): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(30): warning: In file included from...
+../Inc\stm32l4xx_hal_conf.h(239): warning: In file included from...
+../Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_dma.h(123): warning: padding struct 'struct __DMA_HandleTypeDef' with 2 bytes to align 'Parent' [-Wpadded]
+  void                  *Parent;                                                        /*!< Parent object state                  */
+                         ^
+../Src/ublox_r4.c(14): warning: In file included from...
+../Inc\queue.h(32): warning: padding struct 'struct Queue' with 1 byte to align 'len' [-Wpadded]
+  uint16_t len;
+           ^
+../Inc\queue.h(26): warning: padding size of 'struct Queue' with 2 bytes to alignment boundary [-Wpadded]
+typedef struct Queue
+               ^
+../Src/ublox_r4.c(146): warning: no previous prototype for function 'SARA_R4_Process_Messages' [-Wmissing-prototypes]
+void SARA_R4_Process_Messages(void){
+     ^
+../Src/ublox_r4.c(146): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void SARA_R4_Process_Messages(void){
+^
+static 
+../Src/ublox_r4.c(169): warning: unused variable 'ret' [-Wunused-variable]
+  SARA_R4_Status_t ret = SARA_R4_Send("at+udconf=1");
+                   ^
+../Src/ublox_r4.c(167): warning: unused parameter 'mode' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Hex_Mode_Config(uint8_t mode){
+                                                 ^
+../Src/ublox_r4.c(186): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(186): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(175): warning: unused parameter 'id' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Get_Manufacturer_ID(char *id){
+                                                   ^
+../Src/ublox_r4.c(205): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(205): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(194): warning: unused parameter 'id' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Get_Model_ID(char *id){
+                                            ^
+../Src/ublox_r4.c(222): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(222): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(211): warning: unused parameter 'id' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Get_Firmware_ID(char *id){
+                                               ^
+../Src/ublox_r4.c(239): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(239): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(228): warning: unused parameter 'id' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Get_IMEI(char *id){
+                                        ^
+../Src/ublox_r4.c(256): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(256): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(245): warning: unused parameter 'id' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Get_IMSI(char *id){
+                                        ^
+../Src/ublox_r4.c(273): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(273): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(262): warning: unused parameter 'id' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Get_ICCID(char *id){
+                                         ^
+../Src/ublox_r4.c(302): warning: unused parameter 'fun' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Set_Functionality_Level(uint8_t fun, bool reset){
+                                                         ^
+../Src/ublox_r4.c(302): warning: unused parameter 'reset' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Set_Functionality_Level(uint8_t fun, bool reset){
+                                                                   ^
+../Src/ublox_r4.c(377): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    memcpy(sub_msg, idx1+2, idx2-idx1-2);       // First set has an extra space
+    ~~~~~~                  ~~~~~~~~~^~
+../Src/ublox_r4.c(379): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    *rxlev = atoi(sub_msg);
+           ~ ^~~~~~~~~~~~~
+../Src/ublox_r4.c(383): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    memcpy(sub_msg, idx1, idx2 - idx1); // idx1 is indexed to first number
+    ~~~~~~                ~~~~~^~~~~~
+../Src/ublox_r4.c(385): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    *ber = atoi(sub_msg);
+         ~ ^~~~~~~~~~~~~
+../Src/ublox_r4.c(389): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    memcpy(sub_msg, idx1, idx2 - idx1); // idx1 is indexed to first number
+    ~~~~~~                ~~~~~^~~~~~
+../Src/ublox_r4.c(391): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    *rscp = atoi(sub_msg);
+          ~ ^~~~~~~~~~~~~
+../Src/ublox_r4.c(395): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    memcpy(sub_msg, idx1, idx2 - idx1); // idx1 is indexed to first number
+    ~~~~~~                ~~~~~^~~~~~
+../Src/ublox_r4.c(397): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    *enc0 = atoi(sub_msg);
+          ~ ^~~~~~~~~~~~~
+../Src/ublox_r4.c(401): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    memcpy(sub_msg, idx1, idx2 - idx1); // idx1 is indexed to first number
+    ~~~~~~                ~~~~~^~~~~~
+../Src/ublox_r4.c(403): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    *rsrq = atoi(sub_msg);
+          ~ ^~~~~~~~~~~~~
+../Src/ublox_r4.c(407): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    memcpy(sub_msg, idx1, idx2 - idx1); // idx1 is indexed to first number
+    ~~~~~~                ~~~~~^~~~~~
+../Src/ublox_r4.c(409): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    *rsrp = atoi(sub_msg);
+          ~ ^~~~~~~~~~~~~
+../Src/ublox_r4.c(424): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(424): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(414): warning: unused parameter 'rat' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Get_RAT(uint8_t *rat){
+                                          ^
+../Src/ublox_r4.c(445): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(445): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(452): warning: unused parameter 'oper' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Set_Operator(SARA_R4_Operator_t *oper){return SARA_OK;}
+                                                          ^
+../Src/ublox_r4.c(464): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(464): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(481): warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+  printf(msg.message);
+         ^~~~~~~~~~~
+../Src/ublox_r4.c(481): note: treat the string as an argument to avoid this
+  printf(msg.message);
+         ^
+         "%s", 
+../Src/ublox_r4.c(637): warning: unused parameter 'socket' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Clear_Socket(uint8_t socket){return SARA_OK;}
+                                              ^
+../Src/ublox_r4.c(637): warning: no previous prototype for function 'SARA_R4_Clear_Socket' [-Wmissing-prototypes]
+SARA_R4_Status_t SARA_R4_Clear_Socket(uint8_t socket){return SARA_OK;}
+                 ^
+../Src/ublox_r4.c(637): note: declare 'static' if the function is not intended to be used outside of this translation unit
+SARA_R4_Status_t SARA_R4_Clear_Socket(uint8_t socket){return SARA_OK;}
+^
+static 
+../Src/ublox_r4.c(688): warning: unused parameter 'socket' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Write_Socket(uint8_t socket, uint8_t *data, uint16_t len){
+                                              ^
+../Src/ublox_r4.c(688): warning: unused parameter 'data' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Write_Socket(uint8_t socket, uint8_t *data, uint16_t len){
+                                                               ^
+../Src/ublox_r4.c(688): warning: unused parameter 'len' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Write_Socket(uint8_t socket, uint8_t *data, uint16_t len){
+                                                                              ^
+../Src/ublox_r4.c(727): warning: unused parameter 'f_name' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Download_File(char* f_name, char* data, uint16_t data_len){
+                                             ^
+../Src/ublox_r4.c(727): warning: unused parameter 'data' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Download_File(char* f_name, char* data, uint16_t data_len){
+                                                           ^
+../Src/ublox_r4.c(727): warning: unused parameter 'data_len' [-Wunused-parameter]
+SARA_R4_Status_t SARA_R4_Download_File(char* f_name, char* data, uint16_t data_len){
+                                                                          ^
+../Src/ublox_r4.c(741): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+  uint8_t prefix_len = strlen(snd);
+          ~~~~~~~~~~   ^~~~~~~~~~~
+../Src/ublox_r4.c(747): warning: implicit conversion loses integer precision: 'int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    uint8_t block_size =  i*100+100 < data_len ? 100 : data_len - i*100;
+            ~~~~~~~~~~                                 ~~~~~~~~~^~~~~~~
+../Src/ublox_r4.c(783): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  uint16_t len = strlen(msg);
+           ~~~   ^~~~~~~~~~~
+../Src/ublox_r4.c(837): warning: declaration shadows a variable in the global scope [-Wshadow]
+void SARA_R4_IRQ_Handler(UART_HandleTypeDef *huart)
+                                             ^
+../Src/ublox_r4.c(22): note: previous declaration is here
+static UART_HandleTypeDef *huart;
+                           ^
+../Src/ublox_r4.c(853): warning: implicit conversion loses integer precision: 'volatile uint16_t' (aka 'volatile unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+    uint8_t c = huart->Instance->RDR; // Read out data
+            ~   ~~~~~~~~~~~~~~~~~^~~
+../Src/ublox_r4.c(908): warning: result of comparison of unsigned expression >= 0 is always true [-Wtautological-unsigned-zero-compare]
+  for(i = len - 1; i >= 0; i--){
+                   ~ ^  ~
+../Src/ublox_r4.c(913): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+../Src/ublox_r4.c(23): warning: no previous extern declaration for non-static variable 'cell_tx_queue' [-Wmissing-variable-declarations]
+Queue_t cell_tx_queue;//, cell_rx_queue;
+        ^
+../Src/ublox_r4.c(23): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+Queue_t cell_tx_queue;//, cell_rx_queue;
+^
+../Src/ublox_r4.c(24): warning: no previous extern declaration for non-static variable 'message_queue' [-Wmissing-variable-declarations]
+Queue_t message_queue;
+        ^
+../Src/ublox_r4.c(24): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+Queue_t message_queue;
+^
+../Src/ublox_r4.c(26): warning: no previous extern declaration for non-static variable 'tempMsg' [-Wmissing-variable-declarations]
+SARA_R4_Resp_t tempMsg;
+               ^
+../Src/ublox_r4.c(26): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+SARA_R4_Resp_t tempMsg;
+^
+../Src/ublox_r4.c(28): warning: no previous extern declaration for non-static variable 'testing' [-Wmissing-variable-declarations]
+char testing[30];
+     ^
+../Src/ublox_r4.c(28): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+char testing[30];
+^
+../Src/ublox_r4.c(900): warning: unused function 'Process_AT_Command' [-Wunused-function]
+static void Process_AT_Command(void){ //Should pass pointer to queue message to process
+            ^
+77 warnings generated.
+compiling ublox_r4.c...
+RTE/Data_Exchange/jansson_config.c(5): warning: unused parameter 'seed' [-Wunused-parameter]
+int seed_from_timestamp_and_pid(uint32_t *seed) {
+                                          ^
+RTE/Data_Exchange/jansson_config.c(5): warning: no previous prototype for function 'seed_from_timestamp_and_pid' [-Wmissing-prototypes]
+int seed_from_timestamp_and_pid(uint32_t *seed) {
+    ^
+RTE/Data_Exchange/jansson_config.c(5): note: declare 'static' if the function is not intended to be used outside of this translation unit
+int seed_from_timestamp_and_pid(uint32_t *seed) {
+^
+static 
+2 warnings generated.
+compiling jansson_config.c...
+assembling startup_stm32l422xx.s...
+linking...
+Program Size: Code=11154 RO-data=502 RW-data=12 ZI-data=1292  
+".\Objects\indago-smart-board-v4.axf" - 0 Error(s), 166 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.7.0.pack
+                ARM.CMSIS.5.7.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.4.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.Jansson.1.0.0.pack
+                Keil.Jansson.1.0.0
+                Jansson is a C library for encoding, decoding and manipulating JSON data
+   * Component: Jansson Version: 2.7.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32L4xx_DFP.2.5.0.pack
+                Keil.STM32L4xx_DFP.2.5.0
+                STMicroelectronics STM32L4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_indago-smart-board-v4
+  C:\Users\hoodc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
+  C:\Users\hoodc\AppData\Local\Arm\Packs\Keil\Jansson\1.0.0\src
+  C:\Users\hoodc\AppData\Local\Arm\Packs\Keil\STM32L4xx_DFP\2.5.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.4.0
+
+   * Component: Keil::Data Exchange:JSON:Jansson:2.7.0
+      Source file:   src\jansson_config.c
+      Include file:  src\jansson.h
+      Library file:  lib\jansson_CM3LE.lib
+Build Time Elapsed:  00:00:05
+</pre>
+</body>
+</html>

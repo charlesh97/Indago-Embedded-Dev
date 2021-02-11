@@ -659,7 +659,7 @@ SARA_R4_Status_t SARA_R4_SSL_Mode_Config(uint8_t socket, uint8_t ssl_enable, uin
   SARA_R4_Status_t ret;
   SARA_R4_Resp_t msg;
 
-  char send[20];
+  char send[24];
   sprintf(send, "at+usosec=%d,%d,%d\r\n", socket, ssl_enable, profile_id);
   ret = SARA_R4_Send(send);
   if(ret != SARA_OK)

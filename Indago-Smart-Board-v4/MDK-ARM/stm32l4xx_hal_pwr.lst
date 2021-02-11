@@ -1,0 +1,4276 @@
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"stm32l4xx_hal_pwr.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.align	1
+  16              		.global	HAL_PWR_DeInit
+  17              		.arch armv7e-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  22              		.type	HAL_PWR_DeInit, %function
+  23              	HAL_PWR_DeInit:
+  24              	.LFB133:
+  25              		.file 1 "../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c"
+   1:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+   2:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   ******************************************************************************
+   3:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @file    stm32l4xx_hal_pwr.c
+   4:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @author  MCD Application Team
+   5:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief   PWR HAL module driver.
+   6:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *          This file provides firmware functions to manage the following
+   7:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *          functionalities of the Power Controller (PWR) peripheral:
+   8:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           + Initialization/de-initialization functions
+   9:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           + Peripheral Control functions
+  10:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *
+  11:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   ******************************************************************************
+  12:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @attention
+  13:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *
+  14:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  15:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * All rights reserved.</center></h2>
+  16:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *
+  17:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * This software component is licensed by ST under BSD 3-Clause license,
+  18:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * the "License"; You may not use this file except in compliance with the
+  19:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * License. You may obtain a copy of the License at:
+  20:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *                        opensource.org/licenses/BSD-3-Clause
+  21:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *
+  22:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   ******************************************************************************
+  23:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  24:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  25:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /* Includes ------------------------------------------------------------------*/
+  26:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** #include "stm32l4xx_hal.h"
+  27:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  28:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /** @addtogroup STM32L4xx_HAL_Driver
+  29:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @{
+  30:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  31:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  32:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /** @defgroup PWR PWR
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 2
+
+
+  33:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief PWR HAL module driver
+  34:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @{
+  35:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  36:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  37:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** #ifdef HAL_PWR_MODULE_ENABLED
+  38:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  39:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /* Private typedef -----------------------------------------------------------*/
+  40:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /* Private define ------------------------------------------------------------*/
+  41:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  42:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /** @defgroup PWR_Private_Defines PWR Private Defines
+  43:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @{
+  44:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  45:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  46:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /** @defgroup PWR_PVD_Mode_Mask PWR PVD Mode Mask
+  47:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @{
+  48:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  49:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** #define PVD_MODE_IT               ((uint32_t)0x00010000)  /*!< Mask for interruption yielded by PVD
+  50:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** #define PVD_MODE_EVT              ((uint32_t)0x00020000)  /*!< Mask for event yielded by PVD thresh
+  51:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** #define PVD_RISING_EDGE           ((uint32_t)0x00000001)  /*!< Mask for rising edge set as PVD trig
+  52:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** #define PVD_FALLING_EDGE          ((uint32_t)0x00000002)  /*!< Mask for falling edge set as PVD tri
+  53:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+  54:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @}
+  55:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  56:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  57:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+  58:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @}
+  59:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  60:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  61:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /* Private macro -------------------------------------------------------------*/
+  62:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /* Private variables ---------------------------------------------------------*/
+  63:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /* Private function prototypes -----------------------------------------------*/
+  64:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /* Exported functions --------------------------------------------------------*/
+  65:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  66:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /** @defgroup PWR_Exported_Functions PWR Exported Functions
+  67:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @{
+  68:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  69:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  70:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /** @defgroup PWR_Exported_Functions_Group1 Initialization and de-initialization functions
+  71:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *  @brief    Initialization and de-initialization functions
+  72:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *
+  73:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** @verbatim
+  74:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****  ===============================================================================
+  75:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****               ##### Initialization and de-initialization functions #####
+  76:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****  ===============================================================================
+  77:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     [..]
+  78:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  79:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** @endverbatim
+  80:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @{
+  81:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  82:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  83:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+  84:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Deinitialize the HAL PWR peripheral registers to their default reset values.
+  85:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+  86:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+  87:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_DeInit(void)
+  88:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+  26              		.loc 1 88 1 view -0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 3
+
+
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  89:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   __HAL_RCC_PWR_FORCE_RESET();
+  31              		.loc 1 89 3 view .LVU1
+  32 0000 044B     		ldr	r3, .L2
+  33 0002 9A6B     		ldr	r2, [r3, #56]
+  34 0004 42F08052 		orr	r2, r2, #268435456
+  35 0008 9A63     		str	r2, [r3, #56]
+  90:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   __HAL_RCC_PWR_RELEASE_RESET();
+  36              		.loc 1 90 3 view .LVU2
+  37 000a 9A6B     		ldr	r2, [r3, #56]
+  38 000c 22F08052 		bic	r2, r2, #268435456
+  39 0010 9A63     		str	r2, [r3, #56]
+  91:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+  40              		.loc 1 91 1 is_stmt 0 view .LVU3
+  41 0012 7047     		bx	lr
+  42              	.L3:
+  43              		.align	2
+  44              	.L2:
+  45 0014 00100240 		.word	1073876992
+  46              		.cfi_endproc
+  47              	.LFE133:
+  48              		.size	HAL_PWR_DeInit, .-HAL_PWR_DeInit
+  49              		.align	1
+  50              		.global	HAL_PWR_EnableBkUpAccess
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  54              		.fpu softvfp
+  55              		.type	HAL_PWR_EnableBkUpAccess, %function
+  56              	HAL_PWR_EnableBkUpAccess:
+  57              	.LFB134:
+  92:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+  93:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+  94:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Enable access to the backup domain
+  95:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        (RTC registers, RTC backup data registers).
+  96:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  After reset, the backup domain is protected against
+  97:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        possible unwanted write accesses.
+  98:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  RTCSEL that sets the RTC clock source selection is in the RTC back-up domain.
+  99:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        In order to set or modify the RTC clock, the backup domain access must be
+ 100:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        disabled.
+ 101:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  LSEON bit that switches on and off the LSE crystal belongs as well to the
+ 102:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        back-up domain.
+ 103:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 104:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 105:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_EnableBkUpAccess(void)
+ 106:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+  58              		.loc 1 106 1 is_stmt 1 view -0
+  59              		.cfi_startproc
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62              		@ link register save eliminated.
+ 107:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   SET_BIT(PWR->CR1, PWR_CR1_DBP);
+  63              		.loc 1 107 3 view .LVU5
+  64 0018 024A     		ldr	r2, .L5
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 4
+
+
+  65 001a 1368     		ldr	r3, [r2]
+  66 001c 43F48073 		orr	r3, r3, #256
+  67 0020 1360     		str	r3, [r2]
+ 108:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+  68              		.loc 1 108 1 is_stmt 0 view .LVU6
+  69 0022 7047     		bx	lr
+  70              	.L6:
+  71              		.align	2
+  72              	.L5:
+  73 0024 00700040 		.word	1073770496
+  74              		.cfi_endproc
+  75              	.LFE134:
+  76              		.size	HAL_PWR_EnableBkUpAccess, .-HAL_PWR_EnableBkUpAccess
+  77              		.align	1
+  78              		.global	HAL_PWR_DisableBkUpAccess
+  79              		.syntax unified
+  80              		.thumb
+  81              		.thumb_func
+  82              		.fpu softvfp
+  83              		.type	HAL_PWR_DisableBkUpAccess, %function
+  84              	HAL_PWR_DisableBkUpAccess:
+  85              	.LFB135:
+ 109:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 110:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 111:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Disable access to the backup domain
+ 112:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        (RTC registers, RTC backup data registers).
+ 113:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 114:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 115:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_DisableBkUpAccess(void)
+ 116:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+  86              		.loc 1 116 1 is_stmt 1 view -0
+  87              		.cfi_startproc
+  88              		@ args = 0, pretend = 0, frame = 0
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              		@ link register save eliminated.
+ 117:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   CLEAR_BIT(PWR->CR1, PWR_CR1_DBP);
+  91              		.loc 1 117 3 view .LVU8
+  92 0028 024A     		ldr	r2, .L8
+  93 002a 1368     		ldr	r3, [r2]
+  94 002c 23F48073 		bic	r3, r3, #256
+  95 0030 1360     		str	r3, [r2]
+ 118:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+  96              		.loc 1 118 1 is_stmt 0 view .LVU9
+  97 0032 7047     		bx	lr
+  98              	.L9:
+  99              		.align	2
+ 100              	.L8:
+ 101 0034 00700040 		.word	1073770496
+ 102              		.cfi_endproc
+ 103              	.LFE135:
+ 104              		.size	HAL_PWR_DisableBkUpAccess, .-HAL_PWR_DisableBkUpAccess
+ 105              		.align	1
+ 106              		.global	HAL_PWR_ConfigPVD
+ 107              		.syntax unified
+ 108              		.thumb
+ 109              		.thumb_func
+ 110              		.fpu softvfp
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 5
+
+
+ 111              		.type	HAL_PWR_ConfigPVD, %function
+ 112              	HAL_PWR_ConfigPVD:
+ 113              	.LVL0:
+ 114              	.LFB136:
+ 119:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 120:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 121:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 122:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 123:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 124:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @}
+ 125:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 126:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 127:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 128:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 129:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /** @defgroup PWR_Exported_Functions_Group2 Peripheral Control functions
+ 130:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *  @brief Low Power modes configuration functions
+ 131:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *
+ 132:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** @verbatim
+ 133:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 134:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****  ===============================================================================
+ 135:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****                  ##### Peripheral Control functions #####
+ 136:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****  ===============================================================================
+ 137:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 138:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****      [..]
+ 139:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****      *** PVD configuration ***
+ 140:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     =========================
+ 141:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     [..]
+ 142:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) The PVD is used to monitor the VDD power supply by comparing it to a
+ 143:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           threshold selected by the PVD Level (PLS[2:0] bits in PWR_CR2 register).
+ 144:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 145:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) PVDO flag is available to indicate if VDD/VDDA is higher or lower
+ 146:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           than the PVD threshold. This event is internally connected to the EXTI
+ 147:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           line16 and can generate an interrupt if enabled. This is done through
+ 148:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           __HAL_PVD_EXTI_ENABLE_IT() macro.
+ 149:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) The PVD is stopped in Standby mode.
+ 150:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 151:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 152:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     *** WakeUp pin configuration ***
+ 153:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     ================================
+ 154:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     [..]
+ 155:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) WakeUp pins are used to wakeup the system from Standby mode or Shutdown mode.
+ 156:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           The polarity of these pins can be set to configure event detection on high
+ 157:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           level (rising edge) or low level (falling edge).
+ 158:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 159:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 160:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 161:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     *** Low Power modes configuration ***
+ 162:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     =====================================
+ 163:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     [..]
+ 164:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       The devices feature 8 low-power modes:
+ 165:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Low-power Run mode: core and peripherals are running, main regulator off, low power regul
+ 166:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Sleep mode: Cortex-M4 core stopped, peripherals kept running, main and low power regulato
+ 167:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Low-power Sleep mode: Cortex-M4 core stopped, peripherals kept running, main regulator of
+ 168:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Stop 0 mode: all clocks are stopped except LSI and LSE, main and low power regulators on.
+ 169:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Stop 1 mode: all clocks are stopped except LSI and LSE, main regulator off, low power reg
+ 170:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Stop 2 mode: all clocks are stopped except LSI and LSE, main regulator off, low power reg
+ 171:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Standby mode with SRAM2: all clocks are stopped except LSI and LSE, SRAM2 content preserv
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 6
+
+
+ 172:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Standby mode without SRAM2: all clocks are stopped except LSI and LSE, main and low power
+ 173:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Shutdown mode: all clocks are stopped except LSE, main and low power regulators off.
+ 174:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 175:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 176:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    *** Low-power run mode ***
+ 177:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    ==========================
+ 178:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     [..]
+ 179:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Entry: (from main run mode)
+ 180:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         (++) set LPR bit with HAL_PWREx_EnableLowPowerRunMode() API after having decreased the syst
+ 181:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 182:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Exit:
+ 183:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         (++) clear LPR bit then wait for REGLP bit to be reset with HAL_PWREx_DisableLowPowerRunMod
+ 184:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****              then can the system clock frequency be increased above 2 MHz.
+ 185:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 186:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 187:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    *** Sleep mode / Low-power sleep mode ***
+ 188:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    =========================================
+ 189:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     [..]
+ 190:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Entry:
+ 191:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           The Sleep mode / Low-power Sleep mode is entered thru HAL_PWR_EnterSLEEPMode() API
+ 192:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           in specifying whether or not the regulator is forced to low-power mode and if exit is int
+ 193:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_MAINREGULATOR_ON: Sleep mode (regulator in main mode).
+ 194:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_LOWPOWERREGULATOR_ON: Low-power sleep (regulator in low power mode).
+ 195:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           In the latter case, the system clock frequency must have been decreased below 2 MHz befor
+ 196:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_SLEEPENTRY_WFI: enter SLEEP mode with WFI instruction
+ 197:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_SLEEPENTRY_WFE: enter SLEEP mode with WFE instruction
+ 198:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 199:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) WFI Exit:
+ 200:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         (++) Any peripheral interrupt acknowledged by the nested vectored interrupt
+ 201:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****              controller (NVIC) or any wake-up event.
+ 202:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 203:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) WFE Exit:
+ 204:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         (++) Any wake-up event such as an EXTI line configured in event mode.
+ 205:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 206:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****          [..] When exiting the Low-power sleep mode by issuing an interrupt or a wakeup event,
+ 207:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****              the MCU is in Low-power Run mode.
+ 208:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 209:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    *** Stop 0, Stop 1 and Stop 2 modes ***
+ 210:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    ===============================
+ 211:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     [..]
+ 212:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Entry:
+ 213:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           The Stop 0, Stop 1 or Stop 2 modes are entered thru the following API's:
+ 214:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) HAL_PWREx_EnterSTOP0Mode() for mode 0 or HAL_PWREx_EnterSTOP1Mode() for mode 1 or fo
+ 215:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) HAL_PWREx_EnterSTOP2Mode() for mode 2.
+ 216:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Regulator setting (applicable to HAL_PWR_EnterSTOPMode() only):
+ 217:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_MAINREGULATOR_ON
+ 218:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_LOWPOWERREGULATOR_ON
+ 219:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Exit (interrupt or event-triggered, specified when entering STOP mode):
+ 220:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_STOPENTRY_WFI: enter Stop mode with WFI instruction
+ 221:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) PWR_STOPENTRY_WFE: enter Stop mode with WFE instruction
+ 222:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 223:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) WFI Exit:
+ 224:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) Any EXTI Line (Internal or External) configured in Interrupt mode.
+ 225:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) Some specific communication peripherals (USART, LPUART, I2C) interrupts
+ 226:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****                when programmed in wakeup mode.
+ 227:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) WFE Exit:
+ 228:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) Any EXTI Line (Internal or External) configured in Event mode.
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 7
+
+
+ 229:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 230:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****        [..]
+ 231:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           When exiting Stop 0 and Stop 1 modes, the MCU is either in Run mode or in Low-power Run m
+ 232:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           depending on the LPR bit setting.
+ 233:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           When exiting Stop 2 mode, the MCU is in Run mode.
+ 234:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 235:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    *** Standby mode ***
+ 236:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    ====================
+ 237:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****      [..]
+ 238:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       The Standby mode offers two options:
+ 239:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) option a) all clocks off except LSI and LSE, RRS bit set (keeps voltage regulator in low 
+ 240:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         SRAM and registers contents are lost except for the SRAM2 content, the RTC registers, RTC b
+ 241:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         and Standby circuitry.
+ 242:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) option b) all clocks off except LSI and LSE, RRS bit cleared (voltage regulator then disa
+ 243:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         SRAM and register contents are lost except for the RTC registers, RTC backup registers
+ 244:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         and Standby circuitry.
+ 245:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 246:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (++) Entry:
+ 247:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (+++) The Standby mode is entered thru HAL_PWR_EnterSTANDBYMode() API.
+ 248:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****                 SRAM1 and register contents are lost except for registers in the Backup domain and
+ 249:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****                 Standby circuitry. SRAM2 content can be preserved if the bit RRS is set in PWR_CR3 
+ 250:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****                 To enable this feature, the user can resort to HAL_PWREx_EnableSRAM2ContentRetentio
+ 251:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****                 to set RRS bit.
+ 252:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 253:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (++) Exit:
+ 254:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (+++) WKUP pin rising edge, RTC alarm or wakeup, tamper event, time-stamp event,
+ 255:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****                 external reset in NRST pin, IWDG reset.
+ 256:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 257:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       [..]    After waking up from Standby mode, program execution restarts in the same way as afte
+ 258:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 259:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 260:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     *** Shutdown mode ***
+ 261:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    ======================
+ 262:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****      [..]
+ 263:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       In Shutdown mode,
+ 264:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         voltage regulator is disabled, all clocks are off except LSE, RRS bit is cleared.
+ 265:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         SRAM and registers contents are lost except for backup domain registers.
+ 266:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 267:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Entry:
+ 268:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           The Shutdown mode is entered thru HAL_PWREx_EnterSHUTDOWNMode() API.
+ 269:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 270:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) Exit:
+ 271:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****           (++) WKUP pin rising edge, RTC alarm or wakeup, tamper event, time-stamp event,
+ 272:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****                external reset in NRST pin.
+ 273:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 274:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****          [..] After waking up from Shutdown mode, program execution restarts in the same way as aft
+ 275:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 276:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 277:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    *** Auto-wakeup (AWU) from low-power mode ***
+ 278:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    =============================================
+ 279:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     [..]
+ 280:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       The MCU can be woken up from low-power mode by an RTC Alarm event, an RTC
+ 281:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       Wakeup event, a tamper event or a time-stamp event, without depending on
+ 282:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       an external interrupt (Auto-wakeup mode).
+ 283:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 284:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       (+) RTC auto-wakeup (AWU) from the Stop, Standby and Shutdown modes
+ 285:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 8
+
+
+ 286:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 287:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         (++) To wake up from the Stop mode with an RTC alarm event, it is necessary to
+ 288:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****              configure the RTC to generate the RTC alarm using the HAL_RTC_SetAlarm_IT() function.
+ 289:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 290:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         (++) To wake up from the Stop mode with an RTC Tamper or time stamp event, it
+ 291:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****              is necessary to configure the RTC to detect the tamper or time stamp event using the
+ 292:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****              HAL_RTCEx_SetTimeStamp_IT() or HAL_RTCEx_SetTamper_IT() functions.
+ 293:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 294:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         (++) To wake up from the Stop mode with an RTC WakeUp event, it is necessary to
+ 295:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****               configure the RTC to generate the RTC WakeUp event using the HAL_RTCEx_SetWakeUpTimer
+ 296:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 297:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** @endverbatim
+ 298:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @{
+ 299:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 300:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 301:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 302:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 303:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 304:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Configure the voltage threshold detected by the Power Voltage Detector (PVD).
+ 305:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @param sConfigPVD: pointer to a PWR_PVDTypeDef structure that contains the PVD
+ 306:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        configuration information.
+ 307:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note Refer to the electrical characteristics of your device datasheet for
+ 308:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         more details about the voltage thresholds corresponding to each
+ 309:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         detection level.
+ 310:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 311:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 312:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** HAL_StatusTypeDef HAL_PWR_ConfigPVD(PWR_PVDTypeDef *sConfigPVD)
+ 313:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 115              		.loc 1 313 1 is_stmt 1 view -0
+ 116              		.cfi_startproc
+ 117              		@ args = 0, pretend = 0, frame = 0
+ 118              		@ frame_needed = 0, uses_anonymous_args = 0
+ 119              		@ link register save eliminated.
+ 314:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Check the parameters */
+ 315:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   assert_param(IS_PWR_PVD_LEVEL(sConfigPVD->PVDLevel));
+ 120              		.loc 1 315 3 view .LVU11
+ 316:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   assert_param(IS_PWR_PVD_MODE(sConfigPVD->Mode));
+ 121              		.loc 1 316 3 view .LVU12
+ 317:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 318:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Set PLS bits according to PVDLevel value */
+ 319:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   MODIFY_REG(PWR->CR2, PWR_CR2_PLS, sConfigPVD->PVDLevel);
+ 122              		.loc 1 319 3 view .LVU13
+ 123 0038 1E4A     		ldr	r2, .L15
+ 124 003a 5368     		ldr	r3, [r2, #4]
+ 125 003c 23F00E03 		bic	r3, r3, #14
+ 126 0040 0168     		ldr	r1, [r0]
+ 127 0042 0B43     		orrs	r3, r3, r1
+ 128 0044 5360     		str	r3, [r2, #4]
+ 320:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 321:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Clear any previous config. Keep it clear if no event or IT mode is selected */
+ 322:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   __HAL_PWR_PVD_EXTI_DISABLE_EVENT();
+ 129              		.loc 1 322 3 view .LVU14
+ 130 0046 1C4B     		ldr	r3, .L15+4
+ 131 0048 5A68     		ldr	r2, [r3, #4]
+ 132 004a 22F48032 		bic	r2, r2, #65536
+ 133 004e 5A60     		str	r2, [r3, #4]
+ 323:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   __HAL_PWR_PVD_EXTI_DISABLE_IT();
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 9
+
+
+ 134              		.loc 1 323 3 view .LVU15
+ 135 0050 1A68     		ldr	r2, [r3]
+ 136 0052 22F48032 		bic	r2, r2, #65536
+ 137 0056 1A60     		str	r2, [r3]
+ 324:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   __HAL_PWR_PVD_EXTI_DISABLE_FALLING_EDGE();
+ 138              		.loc 1 324 3 view .LVU16
+ 139 0058 DA68     		ldr	r2, [r3, #12]
+ 140 005a 22F48032 		bic	r2, r2, #65536
+ 141 005e DA60     		str	r2, [r3, #12]
+ 325:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   __HAL_PWR_PVD_EXTI_DISABLE_RISING_EDGE();
+ 142              		.loc 1 325 3 view .LVU17
+ 143 0060 9A68     		ldr	r2, [r3, #8]
+ 144 0062 22F48032 		bic	r2, r2, #65536
+ 145 0066 9A60     		str	r2, [r3, #8]
+ 326:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 327:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Configure interrupt mode */
+ 328:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   if((sConfigPVD->Mode & PVD_MODE_IT) == PVD_MODE_IT)
+ 146              		.loc 1 328 3 view .LVU18
+ 147              		.loc 1 328 24 is_stmt 0 view .LVU19
+ 148 0068 4368     		ldr	r3, [r0, #4]
+ 149              		.loc 1 328 5 view .LVU20
+ 150 006a 13F4803F 		tst	r3, #65536
+ 151 006e 04D0     		beq	.L11
+ 329:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 330:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     __HAL_PWR_PVD_EXTI_ENABLE_IT();
+ 152              		.loc 1 330 5 is_stmt 1 view .LVU21
+ 153 0070 114A     		ldr	r2, .L15+4
+ 154 0072 1368     		ldr	r3, [r2]
+ 155 0074 43F48033 		orr	r3, r3, #65536
+ 156 0078 1360     		str	r3, [r2]
+ 157              	.L11:
+ 331:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 332:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 333:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Configure event mode */
+ 334:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   if((sConfigPVD->Mode & PVD_MODE_EVT) == PVD_MODE_EVT)
+ 158              		.loc 1 334 3 view .LVU22
+ 159              		.loc 1 334 24 is_stmt 0 view .LVU23
+ 160 007a 4368     		ldr	r3, [r0, #4]
+ 161              		.loc 1 334 5 view .LVU24
+ 162 007c 13F4003F 		tst	r3, #131072
+ 163 0080 04D0     		beq	.L12
+ 335:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 336:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     __HAL_PWR_PVD_EXTI_ENABLE_EVENT();
+ 164              		.loc 1 336 5 is_stmt 1 view .LVU25
+ 165 0082 0D4A     		ldr	r2, .L15+4
+ 166 0084 5368     		ldr	r3, [r2, #4]
+ 167 0086 43F48033 		orr	r3, r3, #65536
+ 168 008a 5360     		str	r3, [r2, #4]
+ 169              	.L12:
+ 337:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 338:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 339:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Configure the edge */
+ 340:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   if((sConfigPVD->Mode & PVD_RISING_EDGE) == PVD_RISING_EDGE)
+ 170              		.loc 1 340 3 view .LVU26
+ 171              		.loc 1 340 24 is_stmt 0 view .LVU27
+ 172 008c 4368     		ldr	r3, [r0, #4]
+ 173              		.loc 1 340 5 view .LVU28
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 10
+
+
+ 174 008e 13F0010F 		tst	r3, #1
+ 175 0092 04D0     		beq	.L13
+ 341:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 342:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     __HAL_PWR_PVD_EXTI_ENABLE_RISING_EDGE();
+ 176              		.loc 1 342 5 is_stmt 1 view .LVU29
+ 177 0094 084A     		ldr	r2, .L15+4
+ 178 0096 9368     		ldr	r3, [r2, #8]
+ 179 0098 43F48033 		orr	r3, r3, #65536
+ 180 009c 9360     		str	r3, [r2, #8]
+ 181              	.L13:
+ 343:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 344:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 345:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   if((sConfigPVD->Mode & PVD_FALLING_EDGE) == PVD_FALLING_EDGE)
+ 182              		.loc 1 345 3 view .LVU30
+ 183              		.loc 1 345 24 is_stmt 0 view .LVU31
+ 184 009e 4368     		ldr	r3, [r0, #4]
+ 185              		.loc 1 345 5 view .LVU32
+ 186 00a0 13F0020F 		tst	r3, #2
+ 187 00a4 04D0     		beq	.L14
+ 346:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 347:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     __HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE();
+ 188              		.loc 1 347 5 is_stmt 1 view .LVU33
+ 189 00a6 044A     		ldr	r2, .L15+4
+ 190 00a8 D368     		ldr	r3, [r2, #12]
+ 191 00aa 43F48033 		orr	r3, r3, #65536
+ 192 00ae D360     		str	r3, [r2, #12]
+ 193              	.L14:
+ 348:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 349:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 350:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   return HAL_OK;
+ 194              		.loc 1 350 3 view .LVU34
+ 351:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 195              		.loc 1 351 1 is_stmt 0 view .LVU35
+ 196 00b0 0020     		movs	r0, #0
+ 197              	.LVL1:
+ 198              		.loc 1 351 1 view .LVU36
+ 199 00b2 7047     		bx	lr
+ 200              	.L16:
+ 201              		.align	2
+ 202              	.L15:
+ 203 00b4 00700040 		.word	1073770496
+ 204 00b8 00040140 		.word	1073808384
+ 205              		.cfi_endproc
+ 206              	.LFE136:
+ 207              		.size	HAL_PWR_ConfigPVD, .-HAL_PWR_ConfigPVD
+ 208              		.align	1
+ 209              		.global	HAL_PWR_EnablePVD
+ 210              		.syntax unified
+ 211              		.thumb
+ 212              		.thumb_func
+ 213              		.fpu softvfp
+ 214              		.type	HAL_PWR_EnablePVD, %function
+ 215              	HAL_PWR_EnablePVD:
+ 216              	.LFB137:
+ 352:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 353:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 354:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 11
+
+
+ 355:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Enable the Power Voltage Detector (PVD).
+ 356:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 357:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 358:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_EnablePVD(void)
+ 359:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 217              		.loc 1 359 1 is_stmt 1 view -0
+ 218              		.cfi_startproc
+ 219              		@ args = 0, pretend = 0, frame = 0
+ 220              		@ frame_needed = 0, uses_anonymous_args = 0
+ 221              		@ link register save eliminated.
+ 360:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   SET_BIT(PWR->CR2, PWR_CR2_PVDE);
+ 222              		.loc 1 360 3 view .LVU38
+ 223 00bc 024A     		ldr	r2, .L18
+ 224 00be 5368     		ldr	r3, [r2, #4]
+ 225 00c0 43F00103 		orr	r3, r3, #1
+ 226 00c4 5360     		str	r3, [r2, #4]
+ 361:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 227              		.loc 1 361 1 is_stmt 0 view .LVU39
+ 228 00c6 7047     		bx	lr
+ 229              	.L19:
+ 230              		.align	2
+ 231              	.L18:
+ 232 00c8 00700040 		.word	1073770496
+ 233              		.cfi_endproc
+ 234              	.LFE137:
+ 235              		.size	HAL_PWR_EnablePVD, .-HAL_PWR_EnablePVD
+ 236              		.align	1
+ 237              		.global	HAL_PWR_DisablePVD
+ 238              		.syntax unified
+ 239              		.thumb
+ 240              		.thumb_func
+ 241              		.fpu softvfp
+ 242              		.type	HAL_PWR_DisablePVD, %function
+ 243              	HAL_PWR_DisablePVD:
+ 244              	.LFB138:
+ 362:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 363:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 364:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Disable the Power Voltage Detector (PVD).
+ 365:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 366:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 367:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_DisablePVD(void)
+ 368:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 245              		.loc 1 368 1 is_stmt 1 view -0
+ 246              		.cfi_startproc
+ 247              		@ args = 0, pretend = 0, frame = 0
+ 248              		@ frame_needed = 0, uses_anonymous_args = 0
+ 249              		@ link register save eliminated.
+ 369:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   CLEAR_BIT(PWR->CR2, PWR_CR2_PVDE);
+ 250              		.loc 1 369 3 view .LVU41
+ 251 00cc 024A     		ldr	r2, .L21
+ 252 00ce 5368     		ldr	r3, [r2, #4]
+ 253 00d0 23F00103 		bic	r3, r3, #1
+ 254 00d4 5360     		str	r3, [r2, #4]
+ 370:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 255              		.loc 1 370 1 is_stmt 0 view .LVU42
+ 256 00d6 7047     		bx	lr
+ 257              	.L22:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 12
+
+
+ 258              		.align	2
+ 259              	.L21:
+ 260 00d8 00700040 		.word	1073770496
+ 261              		.cfi_endproc
+ 262              	.LFE138:
+ 263              		.size	HAL_PWR_DisablePVD, .-HAL_PWR_DisablePVD
+ 264              		.align	1
+ 265              		.global	HAL_PWR_EnableWakeUpPin
+ 266              		.syntax unified
+ 267              		.thumb
+ 268              		.thumb_func
+ 269              		.fpu softvfp
+ 270              		.type	HAL_PWR_EnableWakeUpPin, %function
+ 271              	HAL_PWR_EnableWakeUpPin:
+ 272              	.LVL2:
+ 273              	.LFB139:
+ 371:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 372:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 373:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 374:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 375:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 376:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Enable the WakeUp PINx functionality.
+ 377:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @param WakeUpPinPolarity: Specifies which Wake-Up pin to enable.
+ 378:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         This parameter can be one of the following legacy values which set the default polarity
+ 379:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         i.e. detection on high level (rising edge):
+ 380:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN1, PWR_WAKEUP_PIN2, PWR_WAKEUP_PIN3, PWR_WAKEUP_PIN4, PWR_WAK
+ 381:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *
+ 382:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         or one of the following value where the user can explicitly specify the enabled pin and
+ 383:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         the chosen polarity:
+ 384:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN1_HIGH or PWR_WAKEUP_PIN1_LOW
+ 385:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN2_HIGH or PWR_WAKEUP_PIN2_LOW
+ 386:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN3_HIGH or PWR_WAKEUP_PIN3_LOW
+ 387:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN4_HIGH or PWR_WAKEUP_PIN4_LOW
+ 388:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN5_HIGH or PWR_WAKEUP_PIN5_LOW
+ 389:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  PWR_WAKEUP_PINx and PWR_WAKEUP_PINx_HIGH are equivalent.
+ 390:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 391:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 392:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinPolarity)
+ 393:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 274              		.loc 1 393 1 is_stmt 1 view -0
+ 275              		.cfi_startproc
+ 276              		@ args = 0, pretend = 0, frame = 0
+ 277              		@ frame_needed = 0, uses_anonymous_args = 0
+ 278              		@ link register save eliminated.
+ 394:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   assert_param(IS_PWR_WAKEUP_PIN(WakeUpPinPolarity));
+ 279              		.loc 1 394 3 view .LVU44
+ 395:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 396:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Specifies the Wake-Up pin polarity for the event detection
+ 397:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     (rising or falling edge) */
+ 398:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   MODIFY_REG(PWR->CR4, (PWR_CR3_EWUP & WakeUpPinPolarity), (WakeUpPinPolarity >> PWR_WUP_POLARITY_S
+ 280              		.loc 1 398 3 view .LVU45
+ 281 00dc 064A     		ldr	r2, .L24
+ 282 00de D368     		ldr	r3, [r2, #12]
+ 283 00e0 00F01F01 		and	r1, r0, #31
+ 284 00e4 23EA0103 		bic	r3, r3, r1
+ 285 00e8 43EA5010 		orr	r0, r3, r0, lsr #5
+ 286              	.LVL3:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 13
+
+
+ 287              		.loc 1 398 3 is_stmt 0 view .LVU46
+ 288 00ec D060     		str	r0, [r2, #12]
+ 399:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 400:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Enable wake-up pin */
+ 401:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   SET_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinPolarity));
+ 289              		.loc 1 401 3 is_stmt 1 view .LVU47
+ 290 00ee 9368     		ldr	r3, [r2, #8]
+ 291 00f0 1943     		orrs	r1, r1, r3
+ 292 00f2 9160     		str	r1, [r2, #8]
+ 402:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 403:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 404:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 293              		.loc 1 404 1 is_stmt 0 view .LVU48
+ 294 00f4 7047     		bx	lr
+ 295              	.L25:
+ 296 00f6 00BF     		.align	2
+ 297              	.L24:
+ 298 00f8 00700040 		.word	1073770496
+ 299              		.cfi_endproc
+ 300              	.LFE139:
+ 301              		.size	HAL_PWR_EnableWakeUpPin, .-HAL_PWR_EnableWakeUpPin
+ 302              		.align	1
+ 303              		.global	HAL_PWR_DisableWakeUpPin
+ 304              		.syntax unified
+ 305              		.thumb
+ 306              		.thumb_func
+ 307              		.fpu softvfp
+ 308              		.type	HAL_PWR_DisableWakeUpPin, %function
+ 309              	HAL_PWR_DisableWakeUpPin:
+ 310              	.LVL4:
+ 311              	.LFB140:
+ 405:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 406:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 407:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Disable the WakeUp PINx functionality.
+ 408:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @param WakeUpPinx: Specifies the Power Wake-Up pin to disable.
+ 409:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         This parameter can be one of the following values:
+ 410:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           @arg @ref PWR_WAKEUP_PIN1, PWR_WAKEUP_PIN2, PWR_WAKEUP_PIN3, PWR_WAKEUP_PIN4, PWR_WAK
+ 411:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 412:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 413:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
+ 414:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 312              		.loc 1 414 1 is_stmt 1 view -0
+ 313              		.cfi_startproc
+ 314              		@ args = 0, pretend = 0, frame = 0
+ 315              		@ frame_needed = 0, uses_anonymous_args = 0
+ 316              		@ link register save eliminated.
+ 415:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   assert_param(IS_PWR_WAKEUP_PIN(WakeUpPinx));
+ 317              		.loc 1 415 3 view .LVU50
+ 416:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 417:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   CLEAR_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinx));
+ 318              		.loc 1 417 3 view .LVU51
+ 319 00fc 034A     		ldr	r2, .L27
+ 320 00fe 9368     		ldr	r3, [r2, #8]
+ 321 0100 00F01F00 		and	r0, r0, #31
+ 322              	.LVL5:
+ 323              		.loc 1 417 3 is_stmt 0 view .LVU52
+ 324 0104 23EA0003 		bic	r3, r3, r0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 14
+
+
+ 325 0108 9360     		str	r3, [r2, #8]
+ 418:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 326              		.loc 1 418 1 view .LVU53
+ 327 010a 7047     		bx	lr
+ 328              	.L28:
+ 329              		.align	2
+ 330              	.L27:
+ 331 010c 00700040 		.word	1073770496
+ 332              		.cfi_endproc
+ 333              	.LFE140:
+ 334              		.size	HAL_PWR_DisableWakeUpPin, .-HAL_PWR_DisableWakeUpPin
+ 335              		.align	1
+ 336              		.global	HAL_PWR_EnterSLEEPMode
+ 337              		.syntax unified
+ 338              		.thumb
+ 339              		.thumb_func
+ 340              		.fpu softvfp
+ 341              		.type	HAL_PWR_EnterSLEEPMode, %function
+ 342              	HAL_PWR_EnterSLEEPMode:
+ 343              	.LVL6:
+ 344              	.LFB141:
+ 419:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 420:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 421:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 422:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Enter Sleep or Low-power Sleep mode.
+ 423:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  In Sleep/Low-power Sleep mode, all I/O pins keep the same state as in Run mode.
+ 424:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @param Regulator: Specifies the regulator state in Sleep/Low-power Sleep mode.
+ 425:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *          This parameter can be one of the following values:
+ 426:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_MAINREGULATOR_ON Sleep mode (regulator in main mode)
+ 427:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_LOWPOWERREGULATOR_ON Low-power Sleep mode (regulator in low-power mode
+ 428:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  Low-power Sleep mode is entered from Low-power Run mode. Therefore, if not yet
+ 429:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        in Low-power Run mode before calling HAL_PWR_EnterSLEEPMode() with Regulator set
+ 430:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        to PWR_LOWPOWERREGULATOR_ON, the user can optionally configure the
+ 431:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        Flash in power-down monde in setting the SLEEP_PD bit in FLASH_ACR register.
+ 432:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        Additionally, the clock frequency must be reduced below 2 MHz.
+ 433:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        Setting SLEEP_PD in FLASH_ACR then appropriately reducing the clock frequency must
+ 434:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        be done before calling HAL_PWR_EnterSLEEPMode() API.
+ 435:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  When exiting Low-power Sleep mode, the MCU is in Low-power Run mode. To move in
+ 436:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        Run mode, the user must resort to HAL_PWREx_DisableLowPowerRunMode() API.
+ 437:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @param SLEEPEntry: Specifies if Sleep mode is entered with WFI or WFE instruction.
+ 438:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *           This parameter can be one of the following values:
+ 439:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_SLEEPENTRY_WFI enter Sleep or Low-power Sleep mode with WFI instructio
+ 440:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_SLEEPENTRY_WFE enter Sleep or Low-power Sleep mode with WFE instructio
+ 441:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  When WFI entry is used, tick interrupt have to be disabled if not desired as
+ 442:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        the interrupt wake up source.
+ 443:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 444:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 445:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
+ 446:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 345              		.loc 1 446 1 is_stmt 1 view -0
+ 346              		.cfi_startproc
+ 347              		@ args = 0, pretend = 0, frame = 0
+ 348              		@ frame_needed = 0, uses_anonymous_args = 0
+ 349              		.loc 1 446 1 is_stmt 0 view .LVU55
+ 350 0110 10B5     		push	{r4, lr}
+ 351              	.LCFI0:
+ 352              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 15
+
+
+ 353              		.cfi_offset 4, -8
+ 354              		.cfi_offset 14, -4
+ 355 0112 0C46     		mov	r4, r1
+ 447:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Check the parameters */
+ 448:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   assert_param(IS_PWR_REGULATOR(Regulator));
+ 356              		.loc 1 448 3 is_stmt 1 view .LVU56
+ 449:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   assert_param(IS_PWR_SLEEP_ENTRY(SLEEPEntry));
+ 357              		.loc 1 449 3 view .LVU57
+ 450:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 451:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Set Regulator parameter */
+ 452:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   if (Regulator == PWR_MAINREGULATOR_ON)
+ 358              		.loc 1 452 3 view .LVU58
+ 359              		.loc 1 452 6 is_stmt 0 view .LVU59
+ 360 0114 A0B9     		cbnz	r0, .L30
+ 453:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 454:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     /* If in low-power run mode at this point, exit it */
+ 455:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     if (HAL_IS_BIT_SET(PWR->SR2, PWR_SR2_REGLPF))
+ 361              		.loc 1 455 5 is_stmt 1 view .LVU60
+ 362              		.loc 1 455 9 is_stmt 0 view .LVU61
+ 363 0116 0F4B     		ldr	r3, .L36
+ 364 0118 5B69     		ldr	r3, [r3, #20]
+ 365              		.loc 1 455 8 view .LVU62
+ 366 011a 13F4007F 		tst	r3, #512
+ 367 011e 0AD1     		bne	.L34
+ 368              	.LVL7:
+ 369              	.L31:
+ 456:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     {
+ 457:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       if (HAL_PWREx_DisableLowPowerRunMode() != HAL_OK)
+ 458:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       {
+ 459:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****         return ;
+ 460:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       }
+ 461:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     }
+ 462:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     /* Regulator now in main mode. */
+ 463:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 464:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   else
+ 465:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 466:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     /* If in run mode, first move to low-power run mode.
+ 467:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****        The system clock frequency must be below 2 MHz at this point. */
+ 468:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     if (HAL_IS_BIT_SET(PWR->SR2, PWR_SR2_REGLPF) == RESET)
+ 469:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     {
+ 470:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       HAL_PWREx_EnableLowPowerRunMode();
+ 471:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     }
+ 472:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 473:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 474:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Clear SLEEPDEEP bit of Cortex System Control Register */
+ 475:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
+ 370              		.loc 1 475 3 is_stmt 1 view .LVU63
+ 371 0120 0D4A     		ldr	r2, .L36+4
+ 372 0122 1369     		ldr	r3, [r2, #16]
+ 373 0124 23F00403 		bic	r3, r3, #4
+ 374 0128 1361     		str	r3, [r2, #16]
+ 476:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 477:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Select SLEEP mode entry -------------------------------------------------*/
+ 478:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   if(SLEEPEntry == PWR_SLEEPENTRY_WFI)
+ 375              		.loc 1 478 3 view .LVU64
+ 376              		.loc 1 478 5 is_stmt 0 view .LVU65
+ 377 012a 012C     		cmp	r4, #1
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 16
+
+
+ 378 012c 10D0     		beq	.L35
+ 479:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 480:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     /* Request Wait For Interrupt */
+ 481:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     __WFI();
+ 482:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 483:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   else
+ 484:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 485:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     /* Request Wait For Event */
+ 486:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     __SEV();
+ 379              		.loc 1 486 5 is_stmt 1 view .LVU66
+ 380              		.syntax unified
+ 381              	@ 486 "../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c" 1
+ 382 012e 40BF     		sev
+ 383              	@ 0 "" 2
+ 487:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     __WFE();
+ 384              		.loc 1 487 5 view .LVU67
+ 385              	@ 487 "../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c" 1
+ 386 0130 20BF     		wfe
+ 387              	@ 0 "" 2
+ 488:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     __WFE();
+ 388              		.loc 1 488 5 view .LVU68
+ 389              	@ 488 "../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c" 1
+ 390 0132 20BF     		wfe
+ 391              	@ 0 "" 2
+ 392              		.thumb
+ 393              		.syntax unified
+ 394              	.L29:
+ 489:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 490:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 491:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 395              		.loc 1 491 1 is_stmt 0 view .LVU69
+ 396 0134 10BD     		pop	{r4, pc}
+ 397              	.LVL8:
+ 398              	.L34:
+ 457:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       {
+ 399              		.loc 1 457 7 is_stmt 1 view .LVU70
+ 457:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       {
+ 400              		.loc 1 457 11 is_stmt 0 view .LVU71
+ 401 0136 FFF7FEFF 		bl	HAL_PWREx_DisableLowPowerRunMode
+ 402              	.LVL9:
+ 457:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****       {
+ 403              		.loc 1 457 10 view .LVU72
+ 404 013a 0028     		cmp	r0, #0
+ 405 013c F0D0     		beq	.L31
+ 406 013e F9E7     		b	.L29
+ 407              	.LVL10:
+ 408              	.L30:
+ 468:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     {
+ 409              		.loc 1 468 5 is_stmt 1 view .LVU73
+ 468:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     {
+ 410              		.loc 1 468 9 is_stmt 0 view .LVU74
+ 411 0140 044B     		ldr	r3, .L36
+ 412 0142 5B69     		ldr	r3, [r3, #20]
+ 468:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     {
+ 413              		.loc 1 468 8 view .LVU75
+ 414 0144 13F4007F 		tst	r3, #512
+ 415 0148 EAD1     		bne	.L31
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 17
+
+
+ 470:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     }
+ 416              		.loc 1 470 7 is_stmt 1 view .LVU76
+ 417 014a FFF7FEFF 		bl	HAL_PWREx_EnableLowPowerRunMode
+ 418              	.LVL11:
+ 470:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     }
+ 419              		.loc 1 470 7 is_stmt 0 view .LVU77
+ 420 014e E7E7     		b	.L31
+ 421              	.L35:
+ 481:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 422              		.loc 1 481 5 is_stmt 1 view .LVU78
+ 423              		.syntax unified
+ 424              	@ 481 "../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c" 1
+ 425 0150 30BF     		wfi
+ 426              	@ 0 "" 2
+ 427              		.thumb
+ 428              		.syntax unified
+ 429 0152 EFE7     		b	.L29
+ 430              	.L37:
+ 431              		.align	2
+ 432              	.L36:
+ 433 0154 00700040 		.word	1073770496
+ 434 0158 00ED00E0 		.word	-536810240
+ 435              		.cfi_endproc
+ 436              	.LFE141:
+ 437              		.size	HAL_PWR_EnterSLEEPMode, .-HAL_PWR_EnterSLEEPMode
+ 438              		.align	1
+ 439              		.global	HAL_PWR_EnterSTOPMode
+ 440              		.syntax unified
+ 441              		.thumb
+ 442              		.thumb_func
+ 443              		.fpu softvfp
+ 444              		.type	HAL_PWR_EnterSTOPMode, %function
+ 445              	HAL_PWR_EnterSTOPMode:
+ 446              	.LVL12:
+ 447              	.LFB142:
+ 492:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 493:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 494:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 495:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Enter Stop mode
+ 496:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  This API is named HAL_PWR_EnterSTOPMode to ensure compatibility with legacy code running
+ 497:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        on devices where only "Stop mode" is mentioned with main or low power regulator ON.
+ 498:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  In Stop mode, all I/O pins keep the same state as in Run mode.
+ 499:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  All clocks in the VCORE domain are stopped; the PLL, the MSI,
+ 500:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        the HSI and the HSE oscillators are disabled. Some peripherals with the wakeup capabilit
+ 501:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        (I2Cx, USARTx and LPUART) can switch on the HSI to receive a frame, and switch off the H
+ 502:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        after receiving the frame if it is not a wakeup frame. In this case, the HSI clock is pr
+ 503:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        only to the peripheral requesting it.
+ 504:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        SRAM1, SRAM2 and register contents are preserved.
+ 505:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        The BOR is available.
+ 506:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        The voltage regulator can be configured either in normal (Stop 0) or low-power mode (Sto
+ 507:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  When exiting Stop 0 or Stop 1 mode by issuing an interrupt or a wakeup event,
+ 508:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         the HSI RC oscillator is selected as system clock if STOPWUCK bit in RCC_CFGR register
+ 509:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         is set; the MSI oscillator is selected if STOPWUCK is cleared.
+ 510:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  When the voltage regulator operates in low power mode (Stop 1), an additional
+ 511:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         startup delay is incurred when waking up.
+ 512:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         By keeping the internal regulator ON during Stop mode (Stop 0), the consumption
+ 513:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *         is higher although the startup time is reduced.
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 18
+
+
+ 514:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @param Regulator: Specifies the regulator state in Stop mode.
+ 515:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *          This parameter can be one of the following values:
+ 516:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_MAINREGULATOR_ON  Stop 0 mode (main regulator ON)
+ 517:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_LOWPOWERREGULATOR_ON  Stop 1 mode (low power regulator ON)
+ 518:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @param STOPEntry: Specifies Stop 0 or Stop 1 mode is entered with WFI or WFE instruction.
+ 519:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *          This parameter can be one of the following values:
+ 520:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_STOPENTRY_WFI  Enter Stop 0 or Stop 1 mode with WFI instruction.
+ 521:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *            @arg @ref PWR_STOPENTRY_WFE  Enter Stop 0 or Stop 1 mode with WFE instruction.
+ 522:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 523:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 524:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
+ 525:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 448              		.loc 1 525 1 view -0
+ 449              		.cfi_startproc
+ 450              		@ args = 0, pretend = 0, frame = 0
+ 451              		@ frame_needed = 0, uses_anonymous_args = 0
+ 452              		.loc 1 525 1 is_stmt 0 view .LVU80
+ 453 015c 08B5     		push	{r3, lr}
+ 454              	.LCFI1:
+ 455              		.cfi_def_cfa_offset 8
+ 456              		.cfi_offset 3, -8
+ 457              		.cfi_offset 14, -4
+ 526:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Check the parameters */
+ 527:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   assert_param(IS_PWR_REGULATOR(Regulator));
+ 458              		.loc 1 527 3 is_stmt 1 view .LVU81
+ 528:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 529:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   if(Regulator == PWR_LOWPOWERREGULATOR_ON)
+ 459              		.loc 1 529 3 view .LVU82
+ 460              		.loc 1 529 5 is_stmt 0 view .LVU83
+ 461 015e B0F5804F 		cmp	r0, #16384
+ 462 0162 03D0     		beq	.L41
+ 530:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 531:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     HAL_PWREx_EnterSTOP1Mode(STOPEntry);
+ 532:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 533:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   else
+ 534:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   {
+ 535:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****     HAL_PWREx_EnterSTOP0Mode(STOPEntry);
+ 463              		.loc 1 535 5 is_stmt 1 view .LVU84
+ 464 0164 0846     		mov	r0, r1
+ 465              	.LVL13:
+ 466              		.loc 1 535 5 is_stmt 0 view .LVU85
+ 467 0166 FFF7FEFF 		bl	HAL_PWREx_EnterSTOP0Mode
+ 468              	.LVL14:
+ 469              	.L38:
+ 536:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 537:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 470              		.loc 1 537 1 view .LVU86
+ 471 016a 08BD     		pop	{r3, pc}
+ 472              	.LVL15:
+ 473              	.L41:
+ 531:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 474              		.loc 1 531 5 is_stmt 1 view .LVU87
+ 475 016c 0846     		mov	r0, r1
+ 476              	.LVL16:
+ 531:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 477              		.loc 1 531 5 is_stmt 0 view .LVU88
+ 478 016e FFF7FEFF 		bl	HAL_PWREx_EnterSTOP1Mode
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 19
+
+
+ 479              	.LVL17:
+ 531:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   }
+ 480              		.loc 1 531 5 view .LVU89
+ 481 0172 FAE7     		b	.L38
+ 482              		.cfi_endproc
+ 483              	.LFE142:
+ 484              		.size	HAL_PWR_EnterSTOPMode, .-HAL_PWR_EnterSTOPMode
+ 485              		.align	1
+ 486              		.global	HAL_PWR_EnterSTANDBYMode
+ 487              		.syntax unified
+ 488              		.thumb
+ 489              		.thumb_func
+ 490              		.fpu softvfp
+ 491              		.type	HAL_PWR_EnterSTANDBYMode, %function
+ 492              	HAL_PWR_EnterSTANDBYMode:
+ 493              	.LFB143:
+ 538:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 539:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 540:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Enter Standby mode.
+ 541:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  In Standby mode, the PLL, the HSI, the MSI and the HSE oscillators are switched
+ 542:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        off. The voltage regulator is disabled, except when SRAM2 content is preserved
+ 543:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        in which case the regulator is in low-power mode.
+ 544:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        SRAM1 and register contents are lost except for registers in the Backup domain and
+ 545:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        Standby circuitry. SRAM2 content can be preserved if the bit RRS is set in PWR_CR3 regis
+ 546:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        To enable this feature, the user can resort to HAL_PWREx_EnableSRAM2ContentRetention() A
+ 547:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        to set RRS bit.
+ 548:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        The BOR is available.
+ 549:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note  The I/Os can be configured either with a pull-up or pull-down or can be kept in analog s
+ 550:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        HAL_PWREx_EnableGPIOPullUp() and HAL_PWREx_EnableGPIOPullDown() respectively enable Pull
+ 551:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        Pull Down state, HAL_PWREx_DisableGPIOPullUp() and HAL_PWREx_DisableGPIOPullDown() disab
+ 552:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        same.
+ 553:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        These states are effective in Standby mode only if APC bit is set through
+ 554:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *        HAL_PWREx_EnablePullUpPullDownConfig() API.
+ 555:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 556:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 557:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_EnterSTANDBYMode(void)
+ 558:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 494              		.loc 1 558 1 is_stmt 1 view -0
+ 495              		.cfi_startproc
+ 496              		@ args = 0, pretend = 0, frame = 0
+ 497              		@ frame_needed = 0, uses_anonymous_args = 0
+ 498              		@ link register save eliminated.
+ 559:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Set Stand-by mode */
+ 560:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   MODIFY_REG(PWR->CR1, PWR_CR1_LPMS, PWR_CR1_LPMS_STANDBY);
+ 499              		.loc 1 560 3 view .LVU91
+ 500 0174 064A     		ldr	r2, .L43
+ 501 0176 1368     		ldr	r3, [r2]
+ 502 0178 23F00703 		bic	r3, r3, #7
+ 503 017c 43F00303 		orr	r3, r3, #3
+ 504 0180 1360     		str	r3, [r2]
+ 561:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 562:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Set SLEEPDEEP bit of Cortex System Control Register */
+ 563:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
+ 505              		.loc 1 563 3 view .LVU92
+ 506 0182 044A     		ldr	r2, .L43+4
+ 507 0184 1369     		ldr	r3, [r2, #16]
+ 508 0186 43F00403 		orr	r3, r3, #4
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 20
+
+
+ 509 018a 1361     		str	r3, [r2, #16]
+ 564:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 565:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /* This option is used to ensure that store operations are completed */
+ 566:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** #if defined ( __CC_ARM)
+ 567:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   __force_stores();
+ 568:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** #endif
+ 569:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Request Wait For Interrupt */
+ 570:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   __WFI();
+ 510              		.loc 1 570 3 view .LVU93
+ 511              		.syntax unified
+ 512              	@ 570 "../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c" 1
+ 513 018c 30BF     		wfi
+ 514              	@ 0 "" 2
+ 571:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 515              		.loc 1 571 1 is_stmt 0 view .LVU94
+ 516              		.thumb
+ 517              		.syntax unified
+ 518 018e 7047     		bx	lr
+ 519              	.L44:
+ 520              		.align	2
+ 521              	.L43:
+ 522 0190 00700040 		.word	1073770496
+ 523 0194 00ED00E0 		.word	-536810240
+ 524              		.cfi_endproc
+ 525              	.LFE143:
+ 526              		.size	HAL_PWR_EnterSTANDBYMode, .-HAL_PWR_EnterSTANDBYMode
+ 527              		.align	1
+ 528              		.global	HAL_PWR_EnableSleepOnExit
+ 529              		.syntax unified
+ 530              		.thumb
+ 531              		.thumb_func
+ 532              		.fpu softvfp
+ 533              		.type	HAL_PWR_EnableSleepOnExit, %function
+ 534              	HAL_PWR_EnableSleepOnExit:
+ 535              	.LFB144:
+ 572:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 573:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 574:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 575:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 576:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Indicate Sleep-On-Exit when returning from Handler mode to Thread mode.
+ 577:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note Set SLEEPONEXIT bit of SCR register. When this bit is set, the processor
+ 578:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *       re-enters SLEEP mode when an interruption handling is over.
+ 579:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *       Setting this bit is useful when the processor is expected to run only on
+ 580:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *       interruptions handling.
+ 581:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 582:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 583:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_EnableSleepOnExit(void)
+ 584:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 536              		.loc 1 584 1 is_stmt 1 view -0
+ 537              		.cfi_startproc
+ 538              		@ args = 0, pretend = 0, frame = 0
+ 539              		@ frame_needed = 0, uses_anonymous_args = 0
+ 540              		@ link register save eliminated.
+ 585:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Set SLEEPONEXIT bit of Cortex System Control Register */
+ 586:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
+ 541              		.loc 1 586 3 view .LVU96
+ 542 0198 024A     		ldr	r2, .L46
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 21
+
+
+ 543 019a 1369     		ldr	r3, [r2, #16]
+ 544 019c 43F00203 		orr	r3, r3, #2
+ 545 01a0 1361     		str	r3, [r2, #16]
+ 587:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 546              		.loc 1 587 1 is_stmt 0 view .LVU97
+ 547 01a2 7047     		bx	lr
+ 548              	.L47:
+ 549              		.align	2
+ 550              	.L46:
+ 551 01a4 00ED00E0 		.word	-536810240
+ 552              		.cfi_endproc
+ 553              	.LFE144:
+ 554              		.size	HAL_PWR_EnableSleepOnExit, .-HAL_PWR_EnableSleepOnExit
+ 555              		.align	1
+ 556              		.global	HAL_PWR_DisableSleepOnExit
+ 557              		.syntax unified
+ 558              		.thumb
+ 559              		.thumb_func
+ 560              		.fpu softvfp
+ 561              		.type	HAL_PWR_DisableSleepOnExit, %function
+ 562              	HAL_PWR_DisableSleepOnExit:
+ 563              	.LFB145:
+ 588:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 589:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 590:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 591:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Disable Sleep-On-Exit feature when returning from Handler mode to Thread mode.
+ 592:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note Clear SLEEPONEXIT bit of SCR register. When this bit is set, the processor
+ 593:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *       re-enters SLEEP mode when an interruption handling is over.
+ 594:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 595:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 596:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_DisableSleepOnExit(void)
+ 597:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 564              		.loc 1 597 1 is_stmt 1 view -0
+ 565              		.cfi_startproc
+ 566              		@ args = 0, pretend = 0, frame = 0
+ 567              		@ frame_needed = 0, uses_anonymous_args = 0
+ 568              		@ link register save eliminated.
+ 598:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Clear SLEEPONEXIT bit of Cortex System Control Register */
+ 599:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
+ 569              		.loc 1 599 3 view .LVU99
+ 570 01a8 024A     		ldr	r2, .L49
+ 571 01aa 1369     		ldr	r3, [r2, #16]
+ 572 01ac 23F00203 		bic	r3, r3, #2
+ 573 01b0 1361     		str	r3, [r2, #16]
+ 600:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 574              		.loc 1 600 1 is_stmt 0 view .LVU100
+ 575 01b2 7047     		bx	lr
+ 576              	.L50:
+ 577              		.align	2
+ 578              	.L49:
+ 579 01b4 00ED00E0 		.word	-536810240
+ 580              		.cfi_endproc
+ 581              	.LFE145:
+ 582              		.size	HAL_PWR_DisableSleepOnExit, .-HAL_PWR_DisableSleepOnExit
+ 583              		.align	1
+ 584              		.global	HAL_PWR_EnableSEVOnPend
+ 585              		.syntax unified
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 22
+
+
+ 586              		.thumb
+ 587              		.thumb_func
+ 588              		.fpu softvfp
+ 589              		.type	HAL_PWR_EnableSEVOnPend, %function
+ 590              	HAL_PWR_EnableSEVOnPend:
+ 591              	.LFB146:
+ 601:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 602:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 603:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 604:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 605:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Enable CORTEX M4 SEVONPEND bit.
+ 606:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note Set SEVONPEND bit of SCR register. When this bit is set, this causes
+ 607:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *       WFE to wake up when an interrupt moves from inactive to pended.
+ 608:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 609:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 610:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_EnableSEVOnPend(void)
+ 611:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 592              		.loc 1 611 1 is_stmt 1 view -0
+ 593              		.cfi_startproc
+ 594              		@ args = 0, pretend = 0, frame = 0
+ 595              		@ frame_needed = 0, uses_anonymous_args = 0
+ 596              		@ link register save eliminated.
+ 612:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Set SEVONPEND bit of Cortex System Control Register */
+ 613:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
+ 597              		.loc 1 613 3 view .LVU102
+ 598 01b8 024A     		ldr	r2, .L52
+ 599 01ba 1369     		ldr	r3, [r2, #16]
+ 600 01bc 43F01003 		orr	r3, r3, #16
+ 601 01c0 1361     		str	r3, [r2, #16]
+ 614:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 602              		.loc 1 614 1 is_stmt 0 view .LVU103
+ 603 01c2 7047     		bx	lr
+ 604              	.L53:
+ 605              		.align	2
+ 606              	.L52:
+ 607 01c4 00ED00E0 		.word	-536810240
+ 608              		.cfi_endproc
+ 609              	.LFE146:
+ 610              		.size	HAL_PWR_EnableSEVOnPend, .-HAL_PWR_EnableSEVOnPend
+ 611              		.align	1
+ 612              		.global	HAL_PWR_DisableSEVOnPend
+ 613              		.syntax unified
+ 614              		.thumb
+ 615              		.thumb_func
+ 616              		.fpu softvfp
+ 617              		.type	HAL_PWR_DisableSEVOnPend, %function
+ 618              	HAL_PWR_DisableSEVOnPend:
+ 619              	.LFB147:
+ 615:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 616:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 617:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 618:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief Disable CORTEX M4 SEVONPEND bit.
+ 619:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @note Clear SEVONPEND bit of SCR register. When this bit is set, this causes
+ 620:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   *       WFE to wake up when an interrupt moves from inactive to pended.
+ 621:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 622:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 623:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** void HAL_PWR_DisableSEVOnPend(void)
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 23
+
+
+ 624:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 620              		.loc 1 624 1 is_stmt 1 view -0
+ 621              		.cfi_startproc
+ 622              		@ args = 0, pretend = 0, frame = 0
+ 623              		@ frame_needed = 0, uses_anonymous_args = 0
+ 624              		@ link register save eliminated.
+ 625:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* Clear SEVONPEND bit of Cortex System Control Register */
+ 626:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
+ 625              		.loc 1 626 3 view .LVU105
+ 626 01c8 024A     		ldr	r2, .L55
+ 627 01ca 1369     		ldr	r3, [r2, #16]
+ 628 01cc 23F01003 		bic	r3, r3, #16
+ 629 01d0 1361     		str	r3, [r2, #16]
+ 627:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 630              		.loc 1 627 1 is_stmt 0 view .LVU106
+ 631 01d2 7047     		bx	lr
+ 632              	.L56:
+ 633              		.align	2
+ 634              	.L55:
+ 635 01d4 00ED00E0 		.word	-536810240
+ 636              		.cfi_endproc
+ 637              	.LFE147:
+ 638              		.size	HAL_PWR_DisableSEVOnPend, .-HAL_PWR_DisableSEVOnPend
+ 639              		.align	1
+ 640              		.weak	HAL_PWR_PVDCallback
+ 641              		.syntax unified
+ 642              		.thumb
+ 643              		.thumb_func
+ 644              		.fpu softvfp
+ 645              		.type	HAL_PWR_PVDCallback, %function
+ 646              	HAL_PWR_PVDCallback:
+ 647              	.LFB148:
+ 628:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 629:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 630:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 631:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 632:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** 
+ 633:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** /**
+ 634:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @brief PWR PVD interrupt callback
+ 635:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   * @retval None
+ 636:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   */
+ 637:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** __weak void HAL_PWR_PVDCallback(void)
+ 638:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** {
+ 648              		.loc 1 638 1 is_stmt 1 view -0
+ 649              		.cfi_startproc
+ 650              		@ args = 0, pretend = 0, frame = 0
+ 651              		@ frame_needed = 0, uses_anonymous_args = 0
+ 652              		@ link register save eliminated.
+ 639:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****   /* NOTE : This function should not be modified; when the callback is needed,
+ 640:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****             the HAL_PWR_PVDCallback can be implemented in the user file
+ 641:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c ****    */
+ 642:../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_pwr.c **** }
+ 653              		.loc 1 642 1 view .LVU108
+ 654 01d8 7047     		bx	lr
+ 655              		.cfi_endproc
+ 656              	.LFE148:
+ 657              		.size	HAL_PWR_PVDCallback, .-HAL_PWR_PVDCallback
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 24
+
+
+ 658              	.Letext0:
+ 659              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 660              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2020-q4-major\\arm-none-eabi\\inc
+ 661              		.file 4 "C:/Users/hoodc/AppData/Local/Arm/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include/core_cm4.h"
+ 662              		.file 5 "C:/Users/hoodc/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/2.5.0/Drivers/CMSIS/Device/ST/S
+ 663              		.file 6 "C:/Users/hoodc/AppData/Local/Arm/Packs/Keil/STM32L4xx_DFP/2.5.0/Drivers/CMSIS/Device/ST/S
+ 664              		.file 7 "../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
+ 665              		.file 8 "../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr.h"
+ 666              		.file 9 "../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h"
+ 667 01da 00BF     		.section	.debug_info,"",%progbits
+ 668              	.Ldebug_info0:
+ 669 0000 AF0A0000 		.4byte	0xaaf
+ 670 0004 0200     		.2byte	0x2
+ 671 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 672 000a 04       		.byte	0x4
+ 673 000b 01       		.uleb128 0x1
+ 674 000c 3D000000 		.4byte	.LASF125
+ 675 0010 0C       		.byte	0xc
+ 676 0011 51010000 		.4byte	.LASF126
+ 677 0015 76040000 		.4byte	.LASF127
+ 678 0019 00000000 		.4byte	.Ltext0
+ 679 001d DA010000 		.4byte	.Letext0
+ 680 0021 00000000 		.4byte	.Ldebug_line0
+ 681 0025 02       		.uleb128 0x2
+ 682 0026 01       		.byte	0x1
+ 683 0027 06       		.byte	0x6
+ 684 0028 97010000 		.4byte	.LASF0
+ 685 002c 03       		.uleb128 0x3
+ 686 002d 1E000000 		.4byte	.LASF5
+ 687 0031 02       		.byte	0x2
+ 688 0032 2B       		.byte	0x2b
+ 689 0033 18       		.byte	0x18
+ 690 0034 38000000 		.4byte	0x38
+ 691 0038 02       		.uleb128 0x2
+ 692 0039 01       		.byte	0x1
+ 693 003a 08       		.byte	0x8
+ 694 003b 43040000 		.4byte	.LASF1
+ 695 003f 02       		.uleb128 0x2
+ 696 0040 02       		.byte	0x2
+ 697 0041 05       		.byte	0x5
+ 698 0042 5D040000 		.4byte	.LASF2
+ 699 0046 02       		.uleb128 0x2
+ 700 0047 02       		.byte	0x2
+ 701 0048 07       		.byte	0x7
+ 702 0049 87050000 		.4byte	.LASF3
+ 703 004d 02       		.uleb128 0x2
+ 704 004e 04       		.byte	0x4
+ 705 004f 05       		.byte	0x5
+ 706 0050 E4010000 		.4byte	.LASF4
+ 707 0054 03       		.uleb128 0x3
+ 708 0055 59020000 		.4byte	.LASF6
+ 709 0059 02       		.byte	0x2
+ 710 005a 4F       		.byte	0x4f
+ 711 005b 19       		.byte	0x19
+ 712 005c 60000000 		.4byte	0x60
+ 713 0060 02       		.uleb128 0x2
+ 714 0061 04       		.byte	0x4
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 25
+
+
+ 715 0062 07       		.byte	0x7
+ 716 0063 CD020000 		.4byte	.LASF7
+ 717 0067 02       		.uleb128 0x2
+ 718 0068 08       		.byte	0x8
+ 719 0069 05       		.byte	0x5
+ 720 006a 89010000 		.4byte	.LASF8
+ 721 006e 02       		.uleb128 0x2
+ 722 006f 08       		.byte	0x8
+ 723 0070 07       		.byte	0x7
+ 724 0071 EF000000 		.4byte	.LASF9
+ 725 0075 04       		.uleb128 0x4
+ 726 0076 04       		.byte	0x4
+ 727 0077 05       		.byte	0x5
+ 728 0078 696E7400 		.ascii	"int\000"
+ 729 007c 02       		.uleb128 0x2
+ 730 007d 04       		.byte	0x4
+ 731 007e 07       		.byte	0x7
+ 732 007f AD020000 		.4byte	.LASF10
+ 733 0083 03       		.uleb128 0x3
+ 734 0084 F4050000 		.4byte	.LASF11
+ 735 0088 03       		.byte	0x3
+ 736 0089 18       		.byte	0x18
+ 737 008a 13       		.byte	0x13
+ 738 008b 2C000000 		.4byte	0x2c
+ 739 008f 05       		.uleb128 0x5
+ 740 0090 83000000 		.4byte	0x83
+ 741 0094 03       		.uleb128 0x3
+ 742 0095 FB040000 		.4byte	.LASF12
+ 743 0099 03       		.byte	0x3
+ 744 009a 30       		.byte	0x30
+ 745 009b 14       		.byte	0x14
+ 746 009c 54000000 		.4byte	0x54
+ 747 00a0 05       		.uleb128 0x5
+ 748 00a1 94000000 		.4byte	0x94
+ 749 00a5 06       		.uleb128 0x6
+ 750 00a6 A0000000 		.4byte	0xa0
+ 751 00aa 07       		.uleb128 0x7
+ 752 00ab 8C       		.byte	0x8c
+ 753 00ac 04       		.byte	0x4
+ 754 00ad BD01     		.2byte	0x1bd
+ 755 00af 09       		.byte	0x9
+ 756 00b0 06020000 		.4byte	0x206
+ 757 00b4 08       		.uleb128 0x8
+ 758 00b5 06010000 		.4byte	.LASF13
+ 759 00b9 04       		.byte	0x4
+ 760 00ba BF01     		.2byte	0x1bf
+ 761 00bc 12       		.byte	0x12
+ 762 00bd A5000000 		.4byte	0xa5
+ 763 00c1 02       		.byte	0x2
+ 764 00c2 23       		.byte	0x23
+ 765 00c3 00       		.uleb128 0
+ 766 00c4 08       		.uleb128 0x8
+ 767 00c5 01030000 		.4byte	.LASF14
+ 768 00c9 04       		.byte	0x4
+ 769 00ca C001     		.2byte	0x1c0
+ 770 00cc 12       		.byte	0x12
+ 771 00cd A0000000 		.4byte	0xa0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 26
+
+
+ 772 00d1 02       		.byte	0x2
+ 773 00d2 23       		.byte	0x23
+ 774 00d3 04       		.uleb128 0x4
+ 775 00d4 08       		.uleb128 0x8
+ 776 00d5 F2020000 		.4byte	.LASF15
+ 777 00d9 04       		.byte	0x4
+ 778 00da C101     		.2byte	0x1c1
+ 779 00dc 12       		.byte	0x12
+ 780 00dd A0000000 		.4byte	0xa0
+ 781 00e1 02       		.byte	0x2
+ 782 00e2 23       		.byte	0x23
+ 783 00e3 08       		.uleb128 0x8
+ 784 00e4 08       		.uleb128 0x8
+ 785 00e5 10030000 		.4byte	.LASF16
+ 786 00e9 04       		.byte	0x4
+ 787 00ea C201     		.2byte	0x1c2
+ 788 00ec 12       		.byte	0x12
+ 789 00ed A0000000 		.4byte	0xa0
+ 790 00f1 02       		.byte	0x2
+ 791 00f2 23       		.byte	0x23
+ 792 00f3 0C       		.uleb128 0xc
+ 793 00f4 09       		.uleb128 0x9
+ 794 00f5 53435200 		.ascii	"SCR\000"
+ 795 00f9 04       		.byte	0x4
+ 796 00fa C301     		.2byte	0x1c3
+ 797 00fc 12       		.byte	0x12
+ 798 00fd A0000000 		.4byte	0xa0
+ 799 0101 02       		.byte	0x2
+ 800 0102 23       		.byte	0x23
+ 801 0103 10       		.uleb128 0x10
+ 802 0104 09       		.uleb128 0x9
+ 803 0105 43435200 		.ascii	"CCR\000"
+ 804 0109 04       		.byte	0x4
+ 805 010a C401     		.2byte	0x1c4
+ 806 010c 12       		.byte	0x12
+ 807 010d A0000000 		.4byte	0xa0
+ 808 0111 02       		.byte	0x2
+ 809 0112 23       		.byte	0x23
+ 810 0113 14       		.uleb128 0x14
+ 811 0114 09       		.uleb128 0x9
+ 812 0115 53485000 		.ascii	"SHP\000"
+ 813 0119 04       		.byte	0x4
+ 814 011a C501     		.2byte	0x1c5
+ 815 011c 12       		.byte	0x12
+ 816 011d 16020000 		.4byte	0x216
+ 817 0121 02       		.byte	0x2
+ 818 0122 23       		.byte	0x23
+ 819 0123 18       		.uleb128 0x18
+ 820 0124 08       		.uleb128 0x8
+ 821 0125 51040000 		.4byte	.LASF17
+ 822 0129 04       		.byte	0x4
+ 823 012a C601     		.2byte	0x1c6
+ 824 012c 12       		.byte	0x12
+ 825 012d A0000000 		.4byte	0xa0
+ 826 0131 02       		.byte	0x2
+ 827 0132 23       		.byte	0x23
+ 828 0133 24       		.uleb128 0x24
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 27
+
+
+ 829 0134 08       		.uleb128 0x8
+ 830 0135 70030000 		.4byte	.LASF18
+ 831 0139 04       		.byte	0x4
+ 832 013a C701     		.2byte	0x1c7
+ 833 013c 12       		.byte	0x12
+ 834 013d A0000000 		.4byte	0xa0
+ 835 0141 02       		.byte	0x2
+ 836 0142 23       		.byte	0x23
+ 837 0143 28       		.uleb128 0x28
+ 838 0144 08       		.uleb128 0x8
+ 839 0145 5D060000 		.4byte	.LASF19
+ 840 0149 04       		.byte	0x4
+ 841 014a C801     		.2byte	0x1c8
+ 842 014c 12       		.byte	0x12
+ 843 014d A0000000 		.4byte	0xa0
+ 844 0151 02       		.byte	0x2
+ 845 0152 23       		.byte	0x23
+ 846 0153 2C       		.uleb128 0x2c
+ 847 0154 08       		.uleb128 0x8
+ 848 0155 16030000 		.4byte	.LASF20
+ 849 0159 04       		.byte	0x4
+ 850 015a C901     		.2byte	0x1c9
+ 851 015c 12       		.byte	0x12
+ 852 015d A0000000 		.4byte	0xa0
+ 853 0161 02       		.byte	0x2
+ 854 0162 23       		.byte	0x23
+ 855 0163 30       		.uleb128 0x30
+ 856 0164 08       		.uleb128 0x8
+ 857 0165 1B030000 		.4byte	.LASF21
+ 858 0169 04       		.byte	0x4
+ 859 016a CA01     		.2byte	0x1ca
+ 860 016c 12       		.byte	0x12
+ 861 016d A0000000 		.4byte	0xa0
+ 862 0171 02       		.byte	0x2
+ 863 0172 23       		.byte	0x23
+ 864 0173 34       		.uleb128 0x34
+ 865 0174 08       		.uleb128 0x8
+ 866 0175 4A020000 		.4byte	.LASF22
+ 867 0179 04       		.byte	0x4
+ 868 017a CB01     		.2byte	0x1cb
+ 869 017c 12       		.byte	0x12
+ 870 017d A0000000 		.4byte	0xa0
+ 871 0181 02       		.byte	0x2
+ 872 0182 23       		.byte	0x23
+ 873 0183 38       		.uleb128 0x38
+ 874 0184 08       		.uleb128 0x8
+ 875 0185 54020000 		.4byte	.LASF23
+ 876 0189 04       		.byte	0x4
+ 877 018a CC01     		.2byte	0x1cc
+ 878 018c 12       		.byte	0x12
+ 879 018d A0000000 		.4byte	0xa0
+ 880 0191 02       		.byte	0x2
+ 881 0192 23       		.byte	0x23
+ 882 0193 3C       		.uleb128 0x3c
+ 883 0194 09       		.uleb128 0x9
+ 884 0195 50465200 		.ascii	"PFR\000"
+ 885 0199 04       		.byte	0x4
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 28
+
+
+ 886 019a CD01     		.2byte	0x1cd
+ 887 019c 12       		.byte	0x12
+ 888 019d 30020000 		.4byte	0x230
+ 889 01a1 02       		.byte	0x2
+ 890 01a2 23       		.byte	0x23
+ 891 01a3 40       		.uleb128 0x40
+ 892 01a4 09       		.uleb128 0x9
+ 893 01a5 44465200 		.ascii	"DFR\000"
+ 894 01a9 04       		.byte	0x4
+ 895 01aa CE01     		.2byte	0x1ce
+ 896 01ac 12       		.byte	0x12
+ 897 01ad A5000000 		.4byte	0xa5
+ 898 01b1 02       		.byte	0x2
+ 899 01b2 23       		.byte	0x23
+ 900 01b3 48       		.uleb128 0x48
+ 901 01b4 09       		.uleb128 0x9
+ 902 01b5 41445200 		.ascii	"ADR\000"
+ 903 01b9 04       		.byte	0x4
+ 904 01ba CF01     		.2byte	0x1cf
+ 905 01bc 12       		.byte	0x12
+ 906 01bd A5000000 		.4byte	0xa5
+ 907 01c1 02       		.byte	0x2
+ 908 01c2 23       		.byte	0x23
+ 909 01c3 4C       		.uleb128 0x4c
+ 910 01c4 08       		.uleb128 0x8
+ 911 01c5 3F030000 		.4byte	.LASF24
+ 912 01c9 04       		.byte	0x4
+ 913 01ca D001     		.2byte	0x1d0
+ 914 01cc 12       		.byte	0x12
+ 915 01cd 4A020000 		.4byte	0x24a
+ 916 01d1 02       		.byte	0x2
+ 917 01d2 23       		.byte	0x23
+ 918 01d3 50       		.uleb128 0x50
+ 919 01d4 08       		.uleb128 0x8
+ 920 01d5 23020000 		.4byte	.LASF25
+ 921 01d9 04       		.byte	0x4
+ 922 01da D101     		.2byte	0x1d1
+ 923 01dc 12       		.byte	0x12
+ 924 01dd 64020000 		.4byte	0x264
+ 925 01e1 02       		.byte	0x2
+ 926 01e2 23       		.byte	0x23
+ 927 01e3 60       		.uleb128 0x60
+ 928 01e4 08       		.uleb128 0x8
+ 929 01e5 C8030000 		.4byte	.LASF26
+ 930 01e9 04       		.byte	0x4
+ 931 01ea D201     		.2byte	0x1d2
+ 932 01ec 12       		.byte	0x12
+ 933 01ed 69020000 		.4byte	0x269
+ 934 01f1 02       		.byte	0x2
+ 935 01f2 23       		.byte	0x23
+ 936 01f3 74       		.uleb128 0x74
+ 937 01f4 08       		.uleb128 0x8
+ 938 01f5 57060000 		.4byte	.LASF27
+ 939 01f9 04       		.byte	0x4
+ 940 01fa D301     		.2byte	0x1d3
+ 941 01fc 12       		.byte	0x12
+ 942 01fd A0000000 		.4byte	0xa0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 29
+
+
+ 943 0201 03       		.byte	0x3
+ 944 0202 23       		.byte	0x23
+ 945 0203 8801     		.uleb128 0x88
+ 946 0205 00       		.byte	0
+ 947 0206 0A       		.uleb128 0xa
+ 948 0207 8F000000 		.4byte	0x8f
+ 949 020b 16020000 		.4byte	0x216
+ 950 020f 0B       		.uleb128 0xb
+ 951 0210 7C000000 		.4byte	0x7c
+ 952 0214 0B       		.byte	0xb
+ 953 0215 00       		.byte	0
+ 954 0216 05       		.uleb128 0x5
+ 955 0217 06020000 		.4byte	0x206
+ 956 021b 0A       		.uleb128 0xa
+ 957 021c A5000000 		.4byte	0xa5
+ 958 0220 2B020000 		.4byte	0x22b
+ 959 0224 0B       		.uleb128 0xb
+ 960 0225 7C000000 		.4byte	0x7c
+ 961 0229 01       		.byte	0x1
+ 962 022a 00       		.byte	0
+ 963 022b 06       		.uleb128 0x6
+ 964 022c 1B020000 		.4byte	0x21b
+ 965 0230 05       		.uleb128 0x5
+ 966 0231 2B020000 		.4byte	0x22b
+ 967 0235 0A       		.uleb128 0xa
+ 968 0236 A5000000 		.4byte	0xa5
+ 969 023a 45020000 		.4byte	0x245
+ 970 023e 0B       		.uleb128 0xb
+ 971 023f 7C000000 		.4byte	0x7c
+ 972 0243 03       		.byte	0x3
+ 973 0244 00       		.byte	0
+ 974 0245 06       		.uleb128 0x6
+ 975 0246 35020000 		.4byte	0x235
+ 976 024a 05       		.uleb128 0x5
+ 977 024b 45020000 		.4byte	0x245
+ 978 024f 0A       		.uleb128 0xa
+ 979 0250 A5000000 		.4byte	0xa5
+ 980 0254 5F020000 		.4byte	0x25f
+ 981 0258 0B       		.uleb128 0xb
+ 982 0259 7C000000 		.4byte	0x7c
+ 983 025d 04       		.byte	0x4
+ 984 025e 00       		.byte	0
+ 985 025f 06       		.uleb128 0x6
+ 986 0260 4F020000 		.4byte	0x24f
+ 987 0264 05       		.uleb128 0x5
+ 988 0265 5F020000 		.4byte	0x25f
+ 989 0269 0A       		.uleb128 0xa
+ 990 026a 94000000 		.4byte	0x94
+ 991 026e 79020000 		.4byte	0x279
+ 992 0272 0B       		.uleb128 0xb
+ 993 0273 7C000000 		.4byte	0x7c
+ 994 0277 04       		.byte	0x4
+ 995 0278 00       		.byte	0
+ 996 0279 0C       		.uleb128 0xc
+ 997 027a 8D020000 		.4byte	.LASF28
+ 998 027e 04       		.byte	0x4
+ 999 027f D401     		.2byte	0x1d4
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 30
+
+
+ 1000 0281 03       		.byte	0x3
+ 1001 0282 AA000000 		.4byte	0xaa
+ 1002 0286 07       		.uleb128 0x7
+ 1003 0287 38       		.byte	0x38
+ 1004 0288 05       		.byte	0x5
+ 1005 0289 2701     		.2byte	0x127
+ 1006 028b 09       		.byte	0x9
+ 1007 028c 71030000 		.4byte	0x371
+ 1008 0290 08       		.uleb128 0x8
+ 1009 0291 F7020000 		.4byte	.LASF29
+ 1010 0295 05       		.byte	0x5
+ 1011 0296 2901     		.2byte	0x129
+ 1012 0298 11       		.byte	0x11
+ 1013 0299 A0000000 		.4byte	0xa0
+ 1014 029d 02       		.byte	0x2
+ 1015 029e 23       		.byte	0x23
+ 1016 029f 00       		.uleb128 0
+ 1017 02a0 08       		.uleb128 0x8
+ 1018 02a1 A9050000 		.4byte	.LASF30
+ 1019 02a5 05       		.byte	0x5
+ 1020 02a6 2A01     		.2byte	0x12a
+ 1021 02a8 11       		.byte	0x11
+ 1022 02a9 A0000000 		.4byte	0xa0
+ 1023 02ad 02       		.byte	0x2
+ 1024 02ae 23       		.byte	0x23
+ 1025 02af 04       		.uleb128 0x4
+ 1026 02b0 08       		.uleb128 0x8
+ 1027 02b1 21030000 		.4byte	.LASF31
+ 1028 02b5 05       		.byte	0x5
+ 1029 02b6 2B01     		.2byte	0x12b
+ 1030 02b8 11       		.byte	0x11
+ 1031 02b9 A0000000 		.4byte	0xa0
+ 1032 02bd 02       		.byte	0x2
+ 1033 02be 23       		.byte	0x23
+ 1034 02bf 08       		.uleb128 0x8
+ 1035 02c0 08       		.uleb128 0x8
+ 1036 02c1 37000000 		.4byte	.LASF32
+ 1037 02c5 05       		.byte	0x5
+ 1038 02c6 2C01     		.2byte	0x12c
+ 1039 02c8 11       		.byte	0x11
+ 1040 02c9 A0000000 		.4byte	0xa0
+ 1041 02cd 02       		.byte	0x2
+ 1042 02ce 23       		.byte	0x23
+ 1043 02cf 0C       		.uleb128 0xc
+ 1044 02d0 08       		.uleb128 0x8
+ 1045 02d1 15010000 		.4byte	.LASF33
+ 1046 02d5 05       		.byte	0x5
+ 1047 02d6 2D01     		.2byte	0x12d
+ 1048 02d8 11       		.byte	0x11
+ 1049 02d9 A0000000 		.4byte	0xa0
+ 1050 02dd 02       		.byte	0x2
+ 1051 02de 23       		.byte	0x23
+ 1052 02df 10       		.uleb128 0x10
+ 1053 02e0 09       		.uleb128 0x9
+ 1054 02e1 50523100 		.ascii	"PR1\000"
+ 1055 02e5 05       		.byte	0x5
+ 1056 02e6 2E01     		.2byte	0x12e
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 31
+
+
+ 1057 02e8 11       		.byte	0x11
+ 1058 02e9 A0000000 		.4byte	0xa0
+ 1059 02ed 02       		.byte	0x2
+ 1060 02ee 23       		.byte	0x23
+ 1061 02ef 14       		.uleb128 0x14
+ 1062 02f0 08       		.uleb128 0x8
+ 1063 02f1 D2030000 		.4byte	.LASF34
+ 1064 02f5 05       		.byte	0x5
+ 1065 02f6 2F01     		.2byte	0x12f
+ 1066 02f8 11       		.byte	0x11
+ 1067 02f9 94000000 		.4byte	0x94
+ 1068 02fd 02       		.byte	0x2
+ 1069 02fe 23       		.byte	0x23
+ 1070 02ff 18       		.uleb128 0x18
+ 1071 0300 08       		.uleb128 0x8
+ 1072 0301 DC030000 		.4byte	.LASF35
+ 1073 0305 05       		.byte	0x5
+ 1074 0306 3001     		.2byte	0x130
+ 1075 0308 11       		.byte	0x11
+ 1076 0309 94000000 		.4byte	0x94
+ 1077 030d 02       		.byte	0x2
+ 1078 030e 23       		.byte	0x23
+ 1079 030f 1C       		.uleb128 0x1c
+ 1080 0310 08       		.uleb128 0x8
+ 1081 0311 FC020000 		.4byte	.LASF36
+ 1082 0315 05       		.byte	0x5
+ 1083 0316 3101     		.2byte	0x131
+ 1084 0318 11       		.byte	0x11
+ 1085 0319 A0000000 		.4byte	0xa0
+ 1086 031d 02       		.byte	0x2
+ 1087 031e 23       		.byte	0x23
+ 1088 031f 20       		.uleb128 0x20
+ 1089 0320 08       		.uleb128 0x8
+ 1090 0321 AE050000 		.4byte	.LASF37
+ 1091 0325 05       		.byte	0x5
+ 1092 0326 3201     		.2byte	0x132
+ 1093 0328 11       		.byte	0x11
+ 1094 0329 A0000000 		.4byte	0xa0
+ 1095 032d 02       		.byte	0x2
+ 1096 032e 23       		.byte	0x23
+ 1097 032f 24       		.uleb128 0x24
+ 1098 0330 08       		.uleb128 0x8
+ 1099 0331 27030000 		.4byte	.LASF38
+ 1100 0335 05       		.byte	0x5
+ 1101 0336 3301     		.2byte	0x133
+ 1102 0338 11       		.byte	0x11
+ 1103 0339 A0000000 		.4byte	0xa0
+ 1104 033d 02       		.byte	0x2
+ 1105 033e 23       		.byte	0x23
+ 1106 033f 28       		.uleb128 0x28
+ 1107 0340 08       		.uleb128 0x8
+ 1108 0341 64020000 		.4byte	.LASF39
+ 1109 0345 05       		.byte	0x5
+ 1110 0346 3401     		.2byte	0x134
+ 1111 0348 11       		.byte	0x11
+ 1112 0349 A0000000 		.4byte	0xa0
+ 1113 034d 02       		.byte	0x2
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 32
+
+
+ 1114 034e 23       		.byte	0x23
+ 1115 034f 2C       		.uleb128 0x2c
+ 1116 0350 08       		.uleb128 0x8
+ 1117 0351 62060000 		.4byte	.LASF40
+ 1118 0355 05       		.byte	0x5
+ 1119 0356 3501     		.2byte	0x135
+ 1120 0358 11       		.byte	0x11
+ 1121 0359 A0000000 		.4byte	0xa0
+ 1122 035d 02       		.byte	0x2
+ 1123 035e 23       		.byte	0x23
+ 1124 035f 30       		.uleb128 0x30
+ 1125 0360 09       		.uleb128 0x9
+ 1126 0361 50523200 		.ascii	"PR2\000"
+ 1127 0365 05       		.byte	0x5
+ 1128 0366 3601     		.2byte	0x136
+ 1129 0368 11       		.byte	0x11
+ 1130 0369 A0000000 		.4byte	0xa0
+ 1131 036d 02       		.byte	0x2
+ 1132 036e 23       		.byte	0x23
+ 1133 036f 34       		.uleb128 0x34
+ 1134 0370 00       		.byte	0
+ 1135 0371 0C       		.uleb128 0xc
+ 1136 0372 4A060000 		.4byte	.LASF41
+ 1137 0376 05       		.byte	0x5
+ 1138 0377 3701     		.2byte	0x137
+ 1139 0379 03       		.byte	0x3
+ 1140 037a 86020000 		.4byte	0x286
+ 1141 037e 07       		.uleb128 0x7
+ 1142 037f 60       		.byte	0x60
+ 1143 0380 05       		.byte	0x5
+ 1144 0381 BD01     		.2byte	0x1bd
+ 1145 0383 09       		.byte	0x9
+ 1146 0384 09050000 		.4byte	0x509
+ 1147 0388 09       		.uleb128 0x9
+ 1148 0389 43523100 		.ascii	"CR1\000"
+ 1149 038d 05       		.byte	0x5
+ 1150 038e BF01     		.2byte	0x1bf
+ 1151 0390 11       		.byte	0x11
+ 1152 0391 A0000000 		.4byte	0xa0
+ 1153 0395 02       		.byte	0x2
+ 1154 0396 23       		.byte	0x23
+ 1155 0397 00       		.uleb128 0
+ 1156 0398 09       		.uleb128 0x9
+ 1157 0399 43523200 		.ascii	"CR2\000"
+ 1158 039d 05       		.byte	0x5
+ 1159 039e C001     		.2byte	0x1c0
+ 1160 03a0 11       		.byte	0x11
+ 1161 03a1 A0000000 		.4byte	0xa0
+ 1162 03a5 02       		.byte	0x2
+ 1163 03a6 23       		.byte	0x23
+ 1164 03a7 04       		.uleb128 0x4
+ 1165 03a8 09       		.uleb128 0x9
+ 1166 03a9 43523300 		.ascii	"CR3\000"
+ 1167 03ad 05       		.byte	0x5
+ 1168 03ae C101     		.2byte	0x1c1
+ 1169 03b0 11       		.byte	0x11
+ 1170 03b1 A0000000 		.4byte	0xa0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 33
+
+
+ 1171 03b5 02       		.byte	0x2
+ 1172 03b6 23       		.byte	0x23
+ 1173 03b7 08       		.uleb128 0x8
+ 1174 03b8 09       		.uleb128 0x9
+ 1175 03b9 43523400 		.ascii	"CR4\000"
+ 1176 03bd 05       		.byte	0x5
+ 1177 03be C201     		.2byte	0x1c2
+ 1178 03c0 11       		.byte	0x11
+ 1179 03c1 A0000000 		.4byte	0xa0
+ 1180 03c5 02       		.byte	0x2
+ 1181 03c6 23       		.byte	0x23
+ 1182 03c7 0C       		.uleb128 0xc
+ 1183 03c8 09       		.uleb128 0x9
+ 1184 03c9 53523100 		.ascii	"SR1\000"
+ 1185 03cd 05       		.byte	0x5
+ 1186 03ce C301     		.2byte	0x1c3
+ 1187 03d0 11       		.byte	0x11
+ 1188 03d1 A0000000 		.4byte	0xa0
+ 1189 03d5 02       		.byte	0x2
+ 1190 03d6 23       		.byte	0x23
+ 1191 03d7 10       		.uleb128 0x10
+ 1192 03d8 09       		.uleb128 0x9
+ 1193 03d9 53523200 		.ascii	"SR2\000"
+ 1194 03dd 05       		.byte	0x5
+ 1195 03de C401     		.2byte	0x1c4
+ 1196 03e0 11       		.byte	0x11
+ 1197 03e1 A0000000 		.4byte	0xa0
+ 1198 03e5 02       		.byte	0x2
+ 1199 03e6 23       		.byte	0x23
+ 1200 03e7 14       		.uleb128 0x14
+ 1201 03e8 09       		.uleb128 0x9
+ 1202 03e9 53435200 		.ascii	"SCR\000"
+ 1203 03ed 05       		.byte	0x5
+ 1204 03ee C501     		.2byte	0x1c5
+ 1205 03f0 11       		.byte	0x11
+ 1206 03f1 A0000000 		.4byte	0xa0
+ 1207 03f5 02       		.byte	0x2
+ 1208 03f6 23       		.byte	0x23
+ 1209 03f7 18       		.uleb128 0x18
+ 1210 03f8 08       		.uleb128 0x8
+ 1211 03f9 6D040000 		.4byte	.LASF42
+ 1212 03fd 05       		.byte	0x5
+ 1213 03fe C601     		.2byte	0x1c6
+ 1214 0400 0C       		.byte	0xc
+ 1215 0401 94000000 		.4byte	0x94
+ 1216 0405 02       		.byte	0x2
+ 1217 0406 23       		.byte	0x23
+ 1218 0407 1C       		.uleb128 0x1c
+ 1219 0408 08       		.uleb128 0x8
+ 1220 0409 C0010000 		.4byte	.LASF43
+ 1221 040d 05       		.byte	0x5
+ 1222 040e C701     		.2byte	0x1c7
+ 1223 0410 11       		.byte	0x11
+ 1224 0411 A0000000 		.4byte	0xa0
+ 1225 0415 02       		.byte	0x2
+ 1226 0416 23       		.byte	0x23
+ 1227 0417 20       		.uleb128 0x20
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 34
+
+
+ 1228 0418 08       		.uleb128 0x8
+ 1229 0419 00000000 		.4byte	.LASF44
+ 1230 041d 05       		.byte	0x5
+ 1231 041e C801     		.2byte	0x1c8
+ 1232 0420 11       		.byte	0x11
+ 1233 0421 A0000000 		.4byte	0xa0
+ 1234 0425 02       		.byte	0x2
+ 1235 0426 23       		.byte	0x23
+ 1236 0427 24       		.uleb128 0x24
+ 1237 0428 08       		.uleb128 0x8
+ 1238 0429 C6010000 		.4byte	.LASF45
+ 1239 042d 05       		.byte	0x5
+ 1240 042e C901     		.2byte	0x1c9
+ 1241 0430 11       		.byte	0x11
+ 1242 0431 A0000000 		.4byte	0xa0
+ 1243 0435 02       		.byte	0x2
+ 1244 0436 23       		.byte	0x23
+ 1245 0437 28       		.uleb128 0x28
+ 1246 0438 08       		.uleb128 0x8
+ 1247 0439 06000000 		.4byte	.LASF46
+ 1248 043d 05       		.byte	0x5
+ 1249 043e CA01     		.2byte	0x1ca
+ 1250 0440 11       		.byte	0x11
+ 1251 0441 A0000000 		.4byte	0xa0
+ 1252 0445 02       		.byte	0x2
+ 1253 0446 23       		.byte	0x23
+ 1254 0447 2C       		.uleb128 0x2c
+ 1255 0448 08       		.uleb128 0x8
+ 1256 0449 CC010000 		.4byte	.LASF47
+ 1257 044d 05       		.byte	0x5
+ 1258 044e CB01     		.2byte	0x1cb
+ 1259 0450 11       		.byte	0x11
+ 1260 0451 A0000000 		.4byte	0xa0
+ 1261 0455 02       		.byte	0x2
+ 1262 0456 23       		.byte	0x23
+ 1263 0457 30       		.uleb128 0x30
+ 1264 0458 08       		.uleb128 0x8
+ 1265 0459 0C000000 		.4byte	.LASF48
+ 1266 045d 05       		.byte	0x5
+ 1267 045e CC01     		.2byte	0x1cc
+ 1268 0460 11       		.byte	0x11
+ 1269 0461 A0000000 		.4byte	0xa0
+ 1270 0465 02       		.byte	0x2
+ 1271 0466 23       		.byte	0x23
+ 1272 0467 34       		.uleb128 0x34
+ 1273 0468 08       		.uleb128 0x8
+ 1274 0469 D2010000 		.4byte	.LASF49
+ 1275 046d 05       		.byte	0x5
+ 1276 046e CD01     		.2byte	0x1cd
+ 1277 0470 11       		.byte	0x11
+ 1278 0471 A0000000 		.4byte	0xa0
+ 1279 0475 02       		.byte	0x2
+ 1280 0476 23       		.byte	0x23
+ 1281 0477 38       		.uleb128 0x38
+ 1282 0478 08       		.uleb128 0x8
+ 1283 0479 12000000 		.4byte	.LASF50
+ 1284 047d 05       		.byte	0x5
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 35
+
+
+ 1285 047e CE01     		.2byte	0x1ce
+ 1286 0480 11       		.byte	0x11
+ 1287 0481 A0000000 		.4byte	0xa0
+ 1288 0485 02       		.byte	0x2
+ 1289 0486 23       		.byte	0x23
+ 1290 0487 3C       		.uleb128 0x3c
+ 1291 0488 08       		.uleb128 0x8
+ 1292 0489 D8010000 		.4byte	.LASF51
+ 1293 048d 05       		.byte	0x5
+ 1294 048e CF01     		.2byte	0x1cf
+ 1295 0490 11       		.byte	0x11
+ 1296 0491 A0000000 		.4byte	0xa0
+ 1297 0495 02       		.byte	0x2
+ 1298 0496 23       		.byte	0x23
+ 1299 0497 40       		.uleb128 0x40
+ 1300 0498 08       		.uleb128 0x8
+ 1301 0499 18000000 		.4byte	.LASF52
+ 1302 049d 05       		.byte	0x5
+ 1303 049e D001     		.2byte	0x1d0
+ 1304 04a0 11       		.byte	0x11
+ 1305 04a1 A0000000 		.4byte	0xa0
+ 1306 04a5 02       		.byte	0x2
+ 1307 04a6 23       		.byte	0x23
+ 1308 04a7 44       		.uleb128 0x44
+ 1309 04a8 08       		.uleb128 0x8
+ 1310 04a9 D2030000 		.4byte	.LASF34
+ 1311 04ad 05       		.byte	0x5
+ 1312 04ae D101     		.2byte	0x1d1
+ 1313 04b0 0C       		.byte	0xc
+ 1314 04b1 94000000 		.4byte	0x94
+ 1315 04b5 02       		.byte	0x2
+ 1316 04b6 23       		.byte	0x23
+ 1317 04b7 48       		.uleb128 0x48
+ 1318 04b8 08       		.uleb128 0x8
+ 1319 04b9 DC030000 		.4byte	.LASF35
+ 1320 04bd 05       		.byte	0x5
+ 1321 04be D201     		.2byte	0x1d2
+ 1322 04c0 0C       		.byte	0xc
+ 1323 04c1 94000000 		.4byte	0x94
+ 1324 04c5 02       		.byte	0x2
+ 1325 04c6 23       		.byte	0x23
+ 1326 04c7 4C       		.uleb128 0x4c
+ 1327 04c8 08       		.uleb128 0x8
+ 1328 04c9 E6030000 		.4byte	.LASF53
+ 1329 04cd 05       		.byte	0x5
+ 1330 04ce D301     		.2byte	0x1d3
+ 1331 04d0 0C       		.byte	0xc
+ 1332 04d1 94000000 		.4byte	0x94
+ 1333 04d5 02       		.byte	0x2
+ 1334 04d6 23       		.byte	0x23
+ 1335 04d7 50       		.uleb128 0x50
+ 1336 04d8 08       		.uleb128 0x8
+ 1337 04d9 F0030000 		.4byte	.LASF54
+ 1338 04dd 05       		.byte	0x5
+ 1339 04de D401     		.2byte	0x1d4
+ 1340 04e0 0C       		.byte	0xc
+ 1341 04e1 94000000 		.4byte	0x94
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 36
+
+
+ 1342 04e5 02       		.byte	0x2
+ 1343 04e6 23       		.byte	0x23
+ 1344 04e7 54       		.uleb128 0x54
+ 1345 04e8 08       		.uleb128 0x8
+ 1346 04e9 DE010000 		.4byte	.LASF55
+ 1347 04ed 05       		.byte	0x5
+ 1348 04ee D501     		.2byte	0x1d5
+ 1349 04f0 11       		.byte	0x11
+ 1350 04f1 A0000000 		.4byte	0xa0
+ 1351 04f5 02       		.byte	0x2
+ 1352 04f6 23       		.byte	0x23
+ 1353 04f7 58       		.uleb128 0x58
+ 1354 04f8 08       		.uleb128 0x8
+ 1355 04f9 28000000 		.4byte	.LASF56
+ 1356 04fd 05       		.byte	0x5
+ 1357 04fe D601     		.2byte	0x1d6
+ 1358 0500 11       		.byte	0x11
+ 1359 0501 A0000000 		.4byte	0xa0
+ 1360 0505 02       		.byte	0x2
+ 1361 0506 23       		.byte	0x23
+ 1362 0507 5C       		.uleb128 0x5c
+ 1363 0508 00       		.byte	0
+ 1364 0509 0C       		.uleb128 0xc
+ 1365 050a 73050000 		.4byte	.LASF57
+ 1366 050e 05       		.byte	0x5
+ 1367 050f D701     		.2byte	0x1d7
+ 1368 0511 03       		.byte	0x3
+ 1369 0512 7E030000 		.4byte	0x37e
+ 1370 0516 07       		.uleb128 0x7
+ 1371 0517 9C       		.byte	0x9c
+ 1372 0518 05       		.byte	0x5
+ 1373 0519 F401     		.2byte	0x1f4
+ 1374 051b 09       		.byte	0x9
+ 1375 051c 97070000 		.4byte	0x797
+ 1376 0520 09       		.uleb128 0x9
+ 1377 0521 435200   		.ascii	"CR\000"
+ 1378 0524 05       		.byte	0x5
+ 1379 0525 F601     		.2byte	0x1f6
+ 1380 0527 11       		.byte	0x11
+ 1381 0528 A0000000 		.4byte	0xa0
+ 1382 052c 02       		.byte	0x2
+ 1383 052d 23       		.byte	0x23
+ 1384 052e 00       		.uleb128 0
+ 1385 052f 08       		.uleb128 0x8
+ 1386 0530 1F060000 		.4byte	.LASF58
+ 1387 0534 05       		.byte	0x5
+ 1388 0535 F701     		.2byte	0x1f7
+ 1389 0537 11       		.byte	0x11
+ 1390 0538 A0000000 		.4byte	0xa0
+ 1391 053c 02       		.byte	0x2
+ 1392 053d 23       		.byte	0x23
+ 1393 053e 04       		.uleb128 0x4
+ 1394 053f 08       		.uleb128 0x8
+ 1395 0540 45060000 		.4byte	.LASF59
+ 1396 0544 05       		.byte	0x5
+ 1397 0545 F801     		.2byte	0x1f8
+ 1398 0547 11       		.byte	0x11
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 37
+
+
+ 1399 0548 A0000000 		.4byte	0xa0
+ 1400 054c 02       		.byte	0x2
+ 1401 054d 23       		.byte	0x23
+ 1402 054e 08       		.uleb128 0x8
+ 1403 054f 08       		.uleb128 0x8
+ 1404 0550 42020000 		.4byte	.LASF60
+ 1405 0554 05       		.byte	0x5
+ 1406 0555 F901     		.2byte	0x1f9
+ 1407 0557 11       		.byte	0x11
+ 1408 0558 A0000000 		.4byte	0xa0
+ 1409 055c 02       		.byte	0x2
+ 1410 055d 23       		.byte	0x23
+ 1411 055e 0C       		.uleb128 0xc
+ 1412 055f 08       		.uleb128 0x8
+ 1413 0560 18040000 		.4byte	.LASF61
+ 1414 0564 05       		.byte	0x5
+ 1415 0565 FA01     		.2byte	0x1fa
+ 1416 0567 11       		.byte	0x11
+ 1417 0568 94000000 		.4byte	0x94
+ 1418 056c 02       		.byte	0x2
+ 1419 056d 23       		.byte	0x23
+ 1420 056e 10       		.uleb128 0x10
+ 1421 056f 08       		.uleb128 0x8
+ 1422 0570 6D040000 		.4byte	.LASF42
+ 1423 0574 05       		.byte	0x5
+ 1424 0575 FB01     		.2byte	0x1fb
+ 1425 0577 11       		.byte	0x11
+ 1426 0578 94000000 		.4byte	0x94
+ 1427 057c 02       		.byte	0x2
+ 1428 057d 23       		.byte	0x23
+ 1429 057e 14       		.uleb128 0x14
+ 1430 057f 08       		.uleb128 0x8
+ 1431 0580 4C010000 		.4byte	.LASF62
+ 1432 0584 05       		.byte	0x5
+ 1433 0585 FC01     		.2byte	0x1fc
+ 1434 0587 11       		.byte	0x11
+ 1435 0588 A0000000 		.4byte	0xa0
+ 1436 058c 02       		.byte	0x2
+ 1437 058d 23       		.byte	0x23
+ 1438 058e 18       		.uleb128 0x18
+ 1439 058f 08       		.uleb128 0x8
+ 1440 0590 4F020000 		.4byte	.LASF63
+ 1441 0594 05       		.byte	0x5
+ 1442 0595 FD01     		.2byte	0x1fd
+ 1443 0597 11       		.byte	0x11
+ 1444 0598 A0000000 		.4byte	0xa0
+ 1445 059c 02       		.byte	0x2
+ 1446 059d 23       		.byte	0x23
+ 1447 059e 1C       		.uleb128 0x1c
+ 1448 059f 08       		.uleb128 0x8
+ 1449 05a0 EA050000 		.4byte	.LASF64
+ 1450 05a4 05       		.byte	0x5
+ 1451 05a5 FE01     		.2byte	0x1fe
+ 1452 05a7 11       		.byte	0x11
+ 1453 05a8 A0000000 		.4byte	0xa0
+ 1454 05ac 02       		.byte	0x2
+ 1455 05ad 23       		.byte	0x23
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 38
+
+
+ 1456 05ae 20       		.uleb128 0x20
+ 1457 05af 08       		.uleb128 0x8
+ 1458 05b0 C8030000 		.4byte	.LASF26
+ 1459 05b4 05       		.byte	0x5
+ 1460 05b5 FF01     		.2byte	0x1ff
+ 1461 05b7 11       		.byte	0x11
+ 1462 05b8 94000000 		.4byte	0x94
+ 1463 05bc 02       		.byte	0x2
+ 1464 05bd 23       		.byte	0x23
+ 1465 05be 24       		.uleb128 0x24
+ 1466 05bf 08       		.uleb128 0x8
+ 1467 05c0 A3010000 		.4byte	.LASF65
+ 1468 05c4 05       		.byte	0x5
+ 1469 05c5 0002     		.2byte	0x200
+ 1470 05c7 11       		.byte	0x11
+ 1471 05c8 A0000000 		.4byte	0xa0
+ 1472 05cc 02       		.byte	0x2
+ 1473 05cd 23       		.byte	0x23
+ 1474 05ce 28       		.uleb128 0x28
+ 1475 05cf 08       		.uleb128 0x8
+ 1476 05d0 51050000 		.4byte	.LASF66
+ 1477 05d4 05       		.byte	0x5
+ 1478 05d5 0102     		.2byte	0x201
+ 1479 05d7 11       		.byte	0x11
+ 1480 05d8 A0000000 		.4byte	0xa0
+ 1481 05dc 02       		.byte	0x2
+ 1482 05dd 23       		.byte	0x23
+ 1483 05de 2C       		.uleb128 0x2c
+ 1484 05df 08       		.uleb128 0x8
+ 1485 05e0 D0040000 		.4byte	.LASF67
+ 1486 05e4 05       		.byte	0x5
+ 1487 05e5 0202     		.2byte	0x202
+ 1488 05e7 11       		.byte	0x11
+ 1489 05e8 A0000000 		.4byte	0xa0
+ 1490 05ec 02       		.byte	0x2
+ 1491 05ed 23       		.byte	0x23
+ 1492 05ee 30       		.uleb128 0x30
+ 1493 05ef 08       		.uleb128 0x8
+ 1494 05f0 D2030000 		.4byte	.LASF34
+ 1495 05f4 05       		.byte	0x5
+ 1496 05f5 0302     		.2byte	0x203
+ 1497 05f7 11       		.byte	0x11
+ 1498 05f8 94000000 		.4byte	0x94
+ 1499 05fc 02       		.byte	0x2
+ 1500 05fd 23       		.byte	0x23
+ 1501 05fe 34       		.uleb128 0x34
+ 1502 05ff 08       		.uleb128 0x8
+ 1503 0600 F6010000 		.4byte	.LASF68
+ 1504 0604 05       		.byte	0x5
+ 1505 0605 0402     		.2byte	0x204
+ 1506 0607 11       		.byte	0x11
+ 1507 0608 A0000000 		.4byte	0xa0
+ 1508 060c 02       		.byte	0x2
+ 1509 060d 23       		.byte	0x23
+ 1510 060e 38       		.uleb128 0x38
+ 1511 060f 08       		.uleb128 0x8
+ 1512 0610 00020000 		.4byte	.LASF69
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 39
+
+
+ 1513 0614 05       		.byte	0x5
+ 1514 0615 0502     		.2byte	0x205
+ 1515 0617 11       		.byte	0x11
+ 1516 0618 A0000000 		.4byte	0xa0
+ 1517 061c 02       		.byte	0x2
+ 1518 061d 23       		.byte	0x23
+ 1519 061e 3C       		.uleb128 0x3c
+ 1520 061f 08       		.uleb128 0x8
+ 1521 0620 ED010000 		.4byte	.LASF70
+ 1522 0624 05       		.byte	0x5
+ 1523 0625 0602     		.2byte	0x206
+ 1524 0627 11       		.byte	0x11
+ 1525 0628 A0000000 		.4byte	0xa0
+ 1526 062c 02       		.byte	0x2
+ 1527 062d 23       		.byte	0x23
+ 1528 062e 40       		.uleb128 0x40
+ 1529 062f 08       		.uleb128 0x8
+ 1530 0630 DC030000 		.4byte	.LASF35
+ 1531 0634 05       		.byte	0x5
+ 1532 0635 0702     		.2byte	0x207
+ 1533 0637 11       		.byte	0x11
+ 1534 0638 94000000 		.4byte	0x94
+ 1535 063c 02       		.byte	0x2
+ 1536 063d 23       		.byte	0x23
+ 1537 063e 44       		.uleb128 0x44
+ 1538 063f 08       		.uleb128 0x8
+ 1539 0640 3D060000 		.4byte	.LASF71
+ 1540 0644 05       		.byte	0x5
+ 1541 0645 0802     		.2byte	0x208
+ 1542 0647 11       		.byte	0x11
+ 1543 0648 A0000000 		.4byte	0xa0
+ 1544 064c 02       		.byte	0x2
+ 1545 064d 23       		.byte	0x23
+ 1546 064e 48       		.uleb128 0x48
+ 1547 064f 08       		.uleb128 0x8
+ 1548 0650 7F050000 		.4byte	.LASF72
+ 1549 0654 05       		.byte	0x5
+ 1550 0655 0902     		.2byte	0x209
+ 1551 0657 11       		.byte	0x11
+ 1552 0658 A0000000 		.4byte	0xa0
+ 1553 065c 02       		.byte	0x2
+ 1554 065d 23       		.byte	0x23
+ 1555 065e 4C       		.uleb128 0x4c
+ 1556 065f 08       		.uleb128 0x8
+ 1557 0660 D9040000 		.4byte	.LASF73
+ 1558 0664 05       		.byte	0x5
+ 1559 0665 0A02     		.2byte	0x20a
+ 1560 0667 11       		.byte	0x11
+ 1561 0668 A0000000 		.4byte	0xa0
+ 1562 066c 02       		.byte	0x2
+ 1563 066d 23       		.byte	0x23
+ 1564 066e 50       		.uleb128 0x50
+ 1565 066f 08       		.uleb128 0x8
+ 1566 0670 E6030000 		.4byte	.LASF53
+ 1567 0674 05       		.byte	0x5
+ 1568 0675 0B02     		.2byte	0x20b
+ 1569 0677 11       		.byte	0x11
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 40
+
+
+ 1570 0678 94000000 		.4byte	0x94
+ 1571 067c 02       		.byte	0x2
+ 1572 067d 23       		.byte	0x23
+ 1573 067e 54       		.uleb128 0x54
+ 1574 067f 08       		.uleb128 0x8
+ 1575 0680 8E030000 		.4byte	.LASF74
+ 1576 0684 05       		.byte	0x5
+ 1577 0685 0C02     		.2byte	0x20c
+ 1578 0687 11       		.byte	0x11
+ 1579 0688 A0000000 		.4byte	0xa0
+ 1580 068c 02       		.byte	0x2
+ 1581 068d 23       		.byte	0x23
+ 1582 068e 58       		.uleb128 0x58
+ 1583 068f 08       		.uleb128 0x8
+ 1584 0690 97030000 		.4byte	.LASF75
+ 1585 0694 05       		.byte	0x5
+ 1586 0695 0D02     		.2byte	0x20d
+ 1587 0697 11       		.byte	0x11
+ 1588 0698 A0000000 		.4byte	0xa0
+ 1589 069c 02       		.byte	0x2
+ 1590 069d 23       		.byte	0x23
+ 1591 069e 5C       		.uleb128 0x5c
+ 1592 069f 08       		.uleb128 0x8
+ 1593 06a0 C8040000 		.4byte	.LASF76
+ 1594 06a4 05       		.byte	0x5
+ 1595 06a5 0E02     		.2byte	0x20e
+ 1596 06a7 11       		.byte	0x11
+ 1597 06a8 A0000000 		.4byte	0xa0
+ 1598 06ac 02       		.byte	0x2
+ 1599 06ad 23       		.byte	0x23
+ 1600 06ae 60       		.uleb128 0x60
+ 1601 06af 08       		.uleb128 0x8
+ 1602 06b0 F0030000 		.4byte	.LASF54
+ 1603 06b4 05       		.byte	0x5
+ 1604 06b5 0F02     		.2byte	0x20f
+ 1605 06b7 11       		.byte	0x11
+ 1606 06b8 94000000 		.4byte	0x94
+ 1607 06bc 02       		.byte	0x2
+ 1608 06bd 23       		.byte	0x23
+ 1609 06be 64       		.uleb128 0x64
+ 1610 06bf 08       		.uleb128 0x8
+ 1611 06c0 AC010000 		.4byte	.LASF77
+ 1612 06c4 05       		.byte	0x5
+ 1613 06c5 1002     		.2byte	0x210
+ 1614 06c7 11       		.byte	0x11
+ 1615 06c8 A0000000 		.4byte	0xa0
+ 1616 06cc 02       		.byte	0x2
+ 1617 06cd 23       		.byte	0x23
+ 1618 06ce 68       		.uleb128 0x68
+ 1619 06cf 08       		.uleb128 0x8
+ 1620 06d0 6A020000 		.4byte	.LASF78
+ 1621 06d4 05       		.byte	0x5
+ 1622 06d5 1102     		.2byte	0x211
+ 1623 06d7 11       		.byte	0x11
+ 1624 06d8 A0000000 		.4byte	0xa0
+ 1625 06dc 02       		.byte	0x2
+ 1626 06dd 23       		.byte	0x23
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 41
+
+
+ 1627 06de 6C       		.uleb128 0x6c
+ 1628 06df 08       		.uleb128 0x8
+ 1629 06e0 06030000 		.4byte	.LASF79
+ 1630 06e4 05       		.byte	0x5
+ 1631 06e5 1202     		.2byte	0x212
+ 1632 06e7 11       		.byte	0x11
+ 1633 06e8 A0000000 		.4byte	0xa0
+ 1634 06ec 02       		.byte	0x2
+ 1635 06ed 23       		.byte	0x23
+ 1636 06ee 70       		.uleb128 0x70
+ 1637 06ef 08       		.uleb128 0x8
+ 1638 06f0 FA030000 		.4byte	.LASF80
+ 1639 06f4 05       		.byte	0x5
+ 1640 06f5 1302     		.2byte	0x213
+ 1641 06f7 11       		.byte	0x11
+ 1642 06f8 94000000 		.4byte	0x94
+ 1643 06fc 02       		.byte	0x2
+ 1644 06fd 23       		.byte	0x23
+ 1645 06fe 74       		.uleb128 0x74
+ 1646 06ff 08       		.uleb128 0x8
+ 1647 0700 69060000 		.4byte	.LASF81
+ 1648 0704 05       		.byte	0x5
+ 1649 0705 1402     		.2byte	0x214
+ 1650 0707 11       		.byte	0x11
+ 1651 0708 A0000000 		.4byte	0xa0
+ 1652 070c 02       		.byte	0x2
+ 1653 070d 23       		.byte	0x23
+ 1654 070e 78       		.uleb128 0x78
+ 1655 070f 08       		.uleb128 0x8
+ 1656 0710 74060000 		.4byte	.LASF82
+ 1657 0714 05       		.byte	0x5
+ 1658 0715 1502     		.2byte	0x215
+ 1659 0717 11       		.byte	0x11
+ 1660 0718 A0000000 		.4byte	0xa0
+ 1661 071c 02       		.byte	0x2
+ 1662 071d 23       		.byte	0x23
+ 1663 071e 7C       		.uleb128 0x7c
+ 1664 071f 08       		.uleb128 0x8
+ 1665 0720 B6010000 		.4byte	.LASF83
+ 1666 0724 05       		.byte	0x5
+ 1667 0725 1602     		.2byte	0x216
+ 1668 0727 11       		.byte	0x11
+ 1669 0728 A0000000 		.4byte	0xa0
+ 1670 072c 03       		.byte	0x3
+ 1671 072d 23       		.byte	0x23
+ 1672 072e 8001     		.uleb128 0x80
+ 1673 0730 08       		.uleb128 0x8
+ 1674 0731 04040000 		.4byte	.LASF84
+ 1675 0735 05       		.byte	0x5
+ 1676 0736 1702     		.2byte	0x217
+ 1677 0738 11       		.byte	0x11
+ 1678 0739 94000000 		.4byte	0x94
+ 1679 073d 03       		.byte	0x3
+ 1680 073e 23       		.byte	0x23
+ 1681 073f 8401     		.uleb128 0x84
+ 1682 0741 08       		.uleb128 0x8
+ 1683 0742 57040000 		.4byte	.LASF85
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 42
+
+
+ 1684 0746 05       		.byte	0x5
+ 1685 0747 1802     		.2byte	0x218
+ 1686 0749 11       		.byte	0x11
+ 1687 074a A0000000 		.4byte	0xa0
+ 1688 074e 03       		.byte	0x3
+ 1689 074f 23       		.byte	0x23
+ 1690 0750 8801     		.uleb128 0x88
+ 1691 0752 08       		.uleb128 0x8
+ 1692 0753 0E040000 		.4byte	.LASF86
+ 1693 0757 05       		.byte	0x5
+ 1694 0758 1902     		.2byte	0x219
+ 1695 075a 11       		.byte	0x11
+ 1696 075b 94000000 		.4byte	0x94
+ 1697 075f 03       		.byte	0x3
+ 1698 0760 23       		.byte	0x23
+ 1699 0761 8C01     		.uleb128 0x8c
+ 1700 0763 08       		.uleb128 0x8
+ 1701 0764 EF050000 		.4byte	.LASF87
+ 1702 0768 05       		.byte	0x5
+ 1703 0769 1A02     		.2byte	0x21a
+ 1704 076b 11       		.byte	0x11
+ 1705 076c A0000000 		.4byte	0xa0
+ 1706 0770 03       		.byte	0x3
+ 1707 0771 23       		.byte	0x23
+ 1708 0772 9001     		.uleb128 0x90
+ 1709 0774 09       		.uleb128 0x9
+ 1710 0775 43535200 		.ascii	"CSR\000"
+ 1711 0779 05       		.byte	0x5
+ 1712 077a 1B02     		.2byte	0x21b
+ 1713 077c 11       		.byte	0x11
+ 1714 077d A0000000 		.4byte	0xa0
+ 1715 0781 03       		.byte	0x3
+ 1716 0782 23       		.byte	0x23
+ 1717 0783 9401     		.uleb128 0x94
+ 1718 0785 08       		.uleb128 0x8
+ 1719 0786 67040000 		.4byte	.LASF88
+ 1720 078a 05       		.byte	0x5
+ 1721 078b 1C02     		.2byte	0x21c
+ 1722 078d 11       		.byte	0x11
+ 1723 078e A0000000 		.4byte	0xa0
+ 1724 0792 03       		.byte	0x3
+ 1725 0793 23       		.byte	0x23
+ 1726 0794 9801     		.uleb128 0x98
+ 1727 0796 00       		.byte	0
+ 1728 0797 0C       		.uleb128 0xc
+ 1729 0798 DF020000 		.4byte	.LASF89
+ 1730 079c 05       		.byte	0x5
+ 1731 079d 1D02     		.2byte	0x21d
+ 1732 079f 03       		.byte	0x3
+ 1733 07a0 16050000 		.4byte	0x516
+ 1734 07a4 0D       		.uleb128 0xd
+ 1735 07a5 07       		.byte	0x7
+ 1736 07a6 01       		.byte	0x1
+ 1737 07a7 38000000 		.4byte	0x38
+ 1738 07ab 06       		.byte	0x6
+ 1739 07ac BB       		.byte	0xbb
+ 1740 07ad 01       		.byte	0x1
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 43
+
+
+ 1741 07ae BF070000 		.4byte	0x7bf
+ 1742 07b2 0E       		.uleb128 0xe
+ 1743 07b3 58030000 		.4byte	.LASF90
+ 1744 07b7 00       		.byte	0
+ 1745 07b8 0F       		.uleb128 0xf
+ 1746 07b9 53455400 		.ascii	"SET\000"
+ 1747 07bd 01       		.byte	0x1
+ 1748 07be 00       		.byte	0
+ 1749 07bf 02       		.uleb128 0x2
+ 1750 07c0 08       		.byte	0x8
+ 1751 07c1 04       		.byte	0x4
+ 1752 07c2 28050000 		.4byte	.LASF91
+ 1753 07c6 0D       		.uleb128 0xd
+ 1754 07c7 07       		.byte	0x7
+ 1755 07c8 01       		.byte	0x1
+ 1756 07c9 38000000 		.4byte	0x38
+ 1757 07cd 07       		.byte	0x7
+ 1758 07ce 28       		.byte	0x28
+ 1759 07cf 01       		.byte	0x1
+ 1760 07d0 ED070000 		.4byte	0x7ed
+ 1761 07d4 0E       		.uleb128 0xe
+ 1762 07d5 EB020000 		.4byte	.LASF92
+ 1763 07d9 00       		.byte	0
+ 1764 07da 0E       		.uleb128 0xe
+ 1765 07db 0F050000 		.4byte	.LASF93
+ 1766 07df 01       		.byte	0x1
+ 1767 07e0 0E       		.uleb128 0xe
+ 1768 07e1 2E000000 		.4byte	.LASF94
+ 1769 07e5 02       		.byte	0x2
+ 1770 07e6 0E       		.uleb128 0xe
+ 1771 07e7 A1020000 		.4byte	.LASF95
+ 1772 07eb 03       		.byte	0x3
+ 1773 07ec 00       		.byte	0
+ 1774 07ed 03       		.uleb128 0x3
+ 1775 07ee 2D030000 		.4byte	.LASF96
+ 1776 07f2 07       		.byte	0x7
+ 1777 07f3 2D       		.byte	0x2d
+ 1778 07f4 03       		.byte	0x3
+ 1779 07f5 C6070000 		.4byte	0x7c6
+ 1780 07f9 10       		.uleb128 0x10
+ 1781 07fa 08       		.byte	0x8
+ 1782 07fb 08       		.byte	0x8
+ 1783 07fc 30       		.byte	0x30
+ 1784 07fd 09       		.byte	0x9
+ 1785 07fe 21080000 		.4byte	0x821
+ 1786 0802 11       		.uleb128 0x11
+ 1787 0803 0C010000 		.4byte	.LASF97
+ 1788 0807 08       		.byte	0x8
+ 1789 0808 32       		.byte	0x32
+ 1790 0809 0C       		.byte	0xc
+ 1791 080a 94000000 		.4byte	0x94
+ 1792 080e 02       		.byte	0x2
+ 1793 080f 23       		.byte	0x23
+ 1794 0810 00       		.uleb128 0
+ 1795 0811 11       		.uleb128 0x11
+ 1796 0812 4C050000 		.4byte	.LASF98
+ 1797 0816 08       		.byte	0x8
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 44
+
+
+ 1798 0817 35       		.byte	0x35
+ 1799 0818 0C       		.byte	0xc
+ 1800 0819 94000000 		.4byte	0x94
+ 1801 081d 02       		.byte	0x2
+ 1802 081e 23       		.byte	0x23
+ 1803 081f 04       		.uleb128 0x4
+ 1804 0820 00       		.byte	0
+ 1805 0821 03       		.uleb128 0x3
+ 1806 0822 19050000 		.4byte	.LASF99
+ 1807 0826 08       		.byte	0x8
+ 1808 0827 37       		.byte	0x37
+ 1809 0828 02       		.byte	0x2
+ 1810 0829 F9070000 		.4byte	0x7f9
+ 1811 082d 12       		.uleb128 0x12
+ 1812 082e 01       		.byte	0x1
+ 1813 082f 44030000 		.4byte	.LASF100
+ 1814 0833 01       		.byte	0x1
+ 1815 0834 7D02     		.2byte	0x27d
+ 1816 0836 0D       		.byte	0xd
+ 1817 0837 01       		.byte	0x1
+ 1818 0838 D8010000 		.4byte	.LFB148
+ 1819 083c DA010000 		.4byte	.LFE148
+ 1820 0840 02       		.byte	0x2
+ 1821 0841 7D       		.byte	0x7d
+ 1822 0842 00       		.sleb128 0
+ 1823 0843 01       		.byte	0x1
+ 1824 0844 12       		.uleb128 0x12
+ 1825 0845 01       		.byte	0x1
+ 1826 0846 1C010000 		.4byte	.LASF101
+ 1827 084a 01       		.byte	0x1
+ 1828 084b 6F02     		.2byte	0x26f
+ 1829 084d 06       		.byte	0x6
+ 1830 084e 01       		.byte	0x1
+ 1831 084f C8010000 		.4byte	.LFB147
+ 1832 0853 D8010000 		.4byte	.LFE147
+ 1833 0857 02       		.byte	0x2
+ 1834 0858 7D       		.byte	0x7d
+ 1835 0859 00       		.sleb128 0
+ 1836 085a 01       		.byte	0x1
+ 1837 085b 12       		.uleb128 0x12
+ 1838 085c 01       		.byte	0x1
+ 1839 085d 34050000 		.4byte	.LASF102
+ 1840 0861 01       		.byte	0x1
+ 1841 0862 6202     		.2byte	0x262
+ 1842 0864 06       		.byte	0x6
+ 1843 0865 01       		.byte	0x1
+ 1844 0866 B8010000 		.4byte	.LFB146
+ 1845 086a C8010000 		.4byte	.LFE146
+ 1846 086e 02       		.byte	0x2
+ 1847 086f 7D       		.byte	0x7d
+ 1848 0870 00       		.sleb128 0
+ 1849 0871 01       		.byte	0x1
+ 1850 0872 12       		.uleb128 0x12
+ 1851 0873 01       		.byte	0x1
+ 1852 0874 B3050000 		.4byte	.LASF103
+ 1853 0878 01       		.byte	0x1
+ 1854 0879 5402     		.2byte	0x254
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 45
+
+
+ 1855 087b 06       		.byte	0x6
+ 1856 087c 01       		.byte	0x1
+ 1857 087d A8010000 		.4byte	.LFB145
+ 1858 0881 B8010000 		.4byte	.LFE145
+ 1859 0885 02       		.byte	0x2
+ 1860 0886 7D       		.byte	0x7d
+ 1861 0887 00       		.sleb128 0
+ 1862 0888 01       		.byte	0x1
+ 1863 0889 12       		.uleb128 0x12
+ 1864 088a 01       		.byte	0x1
+ 1865 088b E1040000 		.4byte	.LASF104
+ 1866 088f 01       		.byte	0x1
+ 1867 0890 4702     		.2byte	0x247
+ 1868 0892 06       		.byte	0x6
+ 1869 0893 01       		.byte	0x1
+ 1870 0894 98010000 		.4byte	.LFB144
+ 1871 0898 A8010000 		.4byte	.LFE144
+ 1872 089c 02       		.byte	0x2
+ 1873 089d 7D       		.byte	0x7d
+ 1874 089e 00       		.sleb128 0
+ 1875 089f 01       		.byte	0x1
+ 1876 08a0 12       		.uleb128 0x12
+ 1877 08a1 01       		.byte	0x1
+ 1878 08a2 0A020000 		.4byte	.LASF105
+ 1879 08a6 01       		.byte	0x1
+ 1880 08a7 2D02     		.2byte	0x22d
+ 1881 08a9 06       		.byte	0x6
+ 1882 08aa 01       		.byte	0x1
+ 1883 08ab 74010000 		.4byte	.LFB143
+ 1884 08af 98010000 		.4byte	.LFE143
+ 1885 08b3 02       		.byte	0x2
+ 1886 08b4 7D       		.byte	0x7d
+ 1887 08b5 00       		.sleb128 0
+ 1888 08b6 01       		.byte	0x1
+ 1889 08b7 13       		.uleb128 0x13
+ 1890 08b8 01       		.byte	0x1
+ 1891 08b9 A0030000 		.4byte	.LASF108
+ 1892 08bd 01       		.byte	0x1
+ 1893 08be 0C02     		.2byte	0x20c
+ 1894 08c0 06       		.byte	0x6
+ 1895 08c1 01       		.byte	0x1
+ 1896 08c2 5C010000 		.4byte	.LFB142
+ 1897 08c6 74010000 		.4byte	.LFE142
+ 1898 08ca 00000000 		.4byte	.LLST6
+ 1899 08ce 01       		.byte	0x1
+ 1900 08cf 10090000 		.4byte	0x910
+ 1901 08d3 14       		.uleb128 0x14
+ 1902 08d4 CE050000 		.4byte	.LASF106
+ 1903 08d8 01       		.byte	0x1
+ 1904 08d9 0C02     		.2byte	0x20c
+ 1905 08db 25       		.byte	0x25
+ 1906 08dc 94000000 		.4byte	0x94
+ 1907 08e0 28000000 		.4byte	.LLST7
+ 1908 08e4 20000000 		.4byte	.LVUS7
+ 1909 08e8 14       		.uleb128 0x14
+ 1910 08e9 FC050000 		.4byte	.LASF107
+ 1911 08ed 01       		.byte	0x1
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 46
+
+
+ 1912 08ee 0C02     		.2byte	0x20c
+ 1913 08f0 38       		.byte	0x38
+ 1914 08f1 83000000 		.4byte	0x83
+ 1915 08f5 6A000000 		.4byte	.LLST8
+ 1916 08f9 62000000 		.4byte	.LVUS8
+ 1917 08fd 15       		.uleb128 0x15
+ 1918 08fe 6A010000 		.4byte	.LVL14
+ 1919 0902 760A0000 		.4byte	0xa76
+ 1920 0906 15       		.uleb128 0x15
+ 1921 0907 72010000 		.4byte	.LVL17
+ 1922 090b 850A0000 		.4byte	0xa85
+ 1923 090f 00       		.byte	0
+ 1924 0910 13       		.uleb128 0x13
+ 1925 0911 01       		.byte	0x1
+ 1926 0912 35010000 		.4byte	.LASF109
+ 1927 0916 01       		.byte	0x1
+ 1928 0917 BD01     		.2byte	0x1bd
+ 1929 0919 06       		.byte	0x6
+ 1930 091a 01       		.byte	0x1
+ 1931 091b 10010000 		.4byte	.LFB141
+ 1932 091f 5C010000 		.4byte	.LFE141
+ 1933 0923 A4000000 		.4byte	.LLST3
+ 1934 0927 01       		.byte	0x1
+ 1935 0928 69090000 		.4byte	0x969
+ 1936 092c 14       		.uleb128 0x14
+ 1937 092d CE050000 		.4byte	.LASF106
+ 1938 0931 01       		.byte	0x1
+ 1939 0932 BD01     		.2byte	0x1bd
+ 1940 0934 26       		.byte	0x26
+ 1941 0935 94000000 		.4byte	0x94
+ 1942 0939 D0000000 		.4byte	.LLST4
+ 1943 093d C4000000 		.4byte	.LVUS4
+ 1944 0941 14       		.uleb128 0x14
+ 1945 0942 96020000 		.4byte	.LASF110
+ 1946 0946 01       		.byte	0x1
+ 1947 0947 BD01     		.2byte	0x1bd
+ 1948 0949 39       		.byte	0x39
+ 1949 094a 83000000 		.4byte	0x83
+ 1950 094e 2F010000 		.4byte	.LLST5
+ 1951 0952 23010000 		.4byte	.LVUS5
+ 1952 0956 15       		.uleb128 0x15
+ 1953 0957 3A010000 		.4byte	.LVL9
+ 1954 095b 940A0000 		.4byte	0xa94
+ 1955 095f 15       		.uleb128 0x15
+ 1956 0960 4E010000 		.4byte	.LVL11
+ 1957 0964 A30A0000 		.4byte	0xaa3
+ 1958 0968 00       		.byte	0
+ 1959 0969 16       		.uleb128 0x16
+ 1960 096a 01       		.byte	0x1
+ 1961 096b 74020000 		.4byte	.LASF111
+ 1962 096f 01       		.byte	0x1
+ 1963 0970 9D01     		.2byte	0x19d
+ 1964 0972 06       		.byte	0x6
+ 1965 0973 01       		.byte	0x1
+ 1966 0974 FC000000 		.4byte	.LFB140
+ 1967 0978 10010000 		.4byte	.LFE140
+ 1968 097c 02       		.byte	0x2
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 47
+
+
+ 1969 097d 7D       		.byte	0x7d
+ 1970 097e 00       		.sleb128 0
+ 1971 097f 01       		.byte	0x1
+ 1972 0980 9A090000 		.4byte	0x99a
+ 1973 0984 14       		.uleb128 0x14
+ 1974 0985 E4000000 		.4byte	.LASF112
+ 1975 0989 01       		.byte	0x1
+ 1976 098a 9D01     		.2byte	0x19d
+ 1977 098c 28       		.byte	0x28
+ 1978 098d 94000000 		.4byte	0x94
+ 1979 0991 86010000 		.4byte	.LLST2
+ 1980 0995 82010000 		.4byte	.LVUS2
+ 1981 0999 00       		.byte	0
+ 1982 099a 16       		.uleb128 0x16
+ 1983 099b 01       		.byte	0x1
+ 1984 099c 25060000 		.4byte	.LASF113
+ 1985 09a0 01       		.byte	0x1
+ 1986 09a1 8801     		.2byte	0x188
+ 1987 09a3 06       		.byte	0x6
+ 1988 09a4 01       		.byte	0x1
+ 1989 09a5 DC000000 		.4byte	.LFB139
+ 1990 09a9 FC000000 		.4byte	.LFE139
+ 1991 09ad 02       		.byte	0x2
+ 1992 09ae 7D       		.byte	0x7d
+ 1993 09af 00       		.sleb128 0
+ 1994 09b0 01       		.byte	0x1
+ 1995 09b1 CB090000 		.4byte	0x9cb
+ 1996 09b5 14       		.uleb128 0x14
+ 1997 09b6 B6030000 		.4byte	.LASF114
+ 1998 09ba 01       		.byte	0x1
+ 1999 09bb 8801     		.2byte	0x188
+ 2000 09bd 27       		.byte	0x27
+ 2001 09be 94000000 		.4byte	0x94
+ 2002 09c2 AB010000 		.4byte	.LLST1
+ 2003 09c6 A7010000 		.4byte	.LVUS1
+ 2004 09ca 00       		.byte	0
+ 2005 09cb 12       		.uleb128 0x12
+ 2006 09cc 01       		.byte	0x1
+ 2007 09cd BA020000 		.4byte	.LASF115
+ 2008 09d1 01       		.byte	0x1
+ 2009 09d2 6F01     		.2byte	0x16f
+ 2010 09d4 06       		.byte	0x6
+ 2011 09d5 01       		.byte	0x1
+ 2012 09d6 CC000000 		.4byte	.LFB138
+ 2013 09da DC000000 		.4byte	.LFE138
+ 2014 09de 02       		.byte	0x2
+ 2015 09df 7D       		.byte	0x7d
+ 2016 09e0 00       		.sleb128 0
+ 2017 09e1 01       		.byte	0x1
+ 2018 09e2 12       		.uleb128 0x12
+ 2019 09e3 01       		.byte	0x1
+ 2020 09e4 5E030000 		.4byte	.LASF116
+ 2021 09e8 01       		.byte	0x1
+ 2022 09e9 6601     		.2byte	0x166
+ 2023 09eb 06       		.byte	0x6
+ 2024 09ec 01       		.byte	0x1
+ 2025 09ed BC000000 		.4byte	.LFB137
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 48
+
+
+ 2026 09f1 CC000000 		.4byte	.LFE137
+ 2027 09f5 02       		.byte	0x2
+ 2028 09f6 7D       		.byte	0x7d
+ 2029 09f7 00       		.sleb128 0
+ 2030 09f8 01       		.byte	0x1
+ 2031 09f9 17       		.uleb128 0x17
+ 2032 09fa 01       		.byte	0x1
+ 2033 09fb D8050000 		.4byte	.LASF128
+ 2034 09ff 01       		.byte	0x1
+ 2035 0a00 3801     		.2byte	0x138
+ 2036 0a02 13       		.byte	0x13
+ 2037 0a03 01       		.byte	0x1
+ 2038 0a04 ED070000 		.4byte	0x7ed
+ 2039 0a08 38000000 		.4byte	.LFB136
+ 2040 0a0c BC000000 		.4byte	.LFE136
+ 2041 0a10 02       		.byte	0x2
+ 2042 0a11 7D       		.byte	0x7d
+ 2043 0a12 00       		.sleb128 0
+ 2044 0a13 01       		.byte	0x1
+ 2045 0a14 2E0A0000 		.4byte	0xa2e
+ 2046 0a18 14       		.uleb128 0x14
+ 2047 0a19 04050000 		.4byte	.LASF117
+ 2048 0a1d 01       		.byte	0x1
+ 2049 0a1e 3801     		.2byte	0x138
+ 2050 0a20 35       		.byte	0x35
+ 2051 0a21 2E0A0000 		.4byte	0xa2e
+ 2052 0a25 D0010000 		.4byte	.LLST0
+ 2053 0a29 CC010000 		.4byte	.LVUS0
+ 2054 0a2d 00       		.byte	0
+ 2055 0a2e 18       		.uleb128 0x18
+ 2056 0a2f 04       		.byte	0x4
+ 2057 0a30 21080000 		.4byte	0x821
+ 2058 0a34 19       		.uleb128 0x19
+ 2059 0a35 01       		.byte	0x1
+ 2060 0a36 28020000 		.4byte	.LASF118
+ 2061 0a3a 01       		.byte	0x1
+ 2062 0a3b 73       		.byte	0x73
+ 2063 0a3c 06       		.byte	0x6
+ 2064 0a3d 01       		.byte	0x1
+ 2065 0a3e 28000000 		.4byte	.LFB135
+ 2066 0a42 38000000 		.4byte	.LFE135
+ 2067 0a46 02       		.byte	0x2
+ 2068 0a47 7D       		.byte	0x7d
+ 2069 0a48 00       		.sleb128 0
+ 2070 0a49 01       		.byte	0x1
+ 2071 0a4a 19       		.uleb128 0x19
+ 2072 0a4b 01       		.byte	0x1
+ 2073 0a4c 5A050000 		.4byte	.LASF119
+ 2074 0a50 01       		.byte	0x1
+ 2075 0a51 69       		.byte	0x69
+ 2076 0a52 06       		.byte	0x6
+ 2077 0a53 01       		.byte	0x1
+ 2078 0a54 18000000 		.4byte	.LFB134
+ 2079 0a58 28000000 		.4byte	.LFE134
+ 2080 0a5c 02       		.byte	0x2
+ 2081 0a5d 7D       		.byte	0x7d
+ 2082 0a5e 00       		.sleb128 0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 49
+
+
+ 2083 0a5f 01       		.byte	0x1
+ 2084 0a60 19       		.uleb128 0x19
+ 2085 0a61 01       		.byte	0x1
+ 2086 0a62 9A050000 		.4byte	.LASF120
+ 2087 0a66 01       		.byte	0x1
+ 2088 0a67 57       		.byte	0x57
+ 2089 0a68 06       		.byte	0x6
+ 2090 0a69 01       		.byte	0x1
+ 2091 0a6a 00000000 		.4byte	.LFB133
+ 2092 0a6e 18000000 		.4byte	.LFE133
+ 2093 0a72 02       		.byte	0x2
+ 2094 0a73 7D       		.byte	0x7d
+ 2095 0a74 00       		.sleb128 0
+ 2096 0a75 01       		.byte	0x1
+ 2097 0a76 1A       		.uleb128 0x1a
+ 2098 0a77 01       		.byte	0x1
+ 2099 0a78 01       		.byte	0x1
+ 2100 0a79 06060000 		.4byte	.LASF121
+ 2101 0a7d 06060000 		.4byte	.LASF121
+ 2102 0a81 09       		.byte	0x9
+ 2103 0a82 7E03     		.2byte	0x37e
+ 2104 0a84 06       		.byte	0x6
+ 2105 0a85 1A       		.uleb128 0x1a
+ 2106 0a86 01       		.byte	0x1
+ 2107 0a87 01       		.byte	0x1
+ 2108 0a88 75030000 		.4byte	.LASF122
+ 2109 0a8c 75030000 		.4byte	.LASF122
+ 2110 0a90 09       		.byte	0x9
+ 2111 0a91 7F03     		.2byte	0x37f
+ 2112 0a93 06       		.byte	0x6
+ 2113 0a94 1A       		.uleb128 0x1a
+ 2114 0a95 01       		.byte	0x1
+ 2115 0a96 01       		.byte	0x1
+ 2116 0a97 22040000 		.4byte	.LASF123
+ 2117 0a9b 22040000 		.4byte	.LASF123
+ 2118 0a9f 09       		.byte	0x9
+ 2119 0aa0 7D03     		.2byte	0x37d
+ 2120 0aa2 13       		.byte	0x13
+ 2121 0aa3 1A       		.uleb128 0x1a
+ 2122 0aa4 01       		.byte	0x1
+ 2123 0aa5 01       		.byte	0x1
+ 2124 0aa6 C4000000 		.4byte	.LASF124
+ 2125 0aaa C4000000 		.4byte	.LASF124
+ 2126 0aae 09       		.byte	0x9
+ 2127 0aaf 7C03     		.2byte	0x37c
+ 2128 0ab1 06       		.byte	0x6
+ 2129 0ab2 00       		.byte	0
+ 2130              		.section	.debug_abbrev,"",%progbits
+ 2131              	.Ldebug_abbrev0:
+ 2132 0000 01       		.uleb128 0x1
+ 2133 0001 11       		.uleb128 0x11
+ 2134 0002 01       		.byte	0x1
+ 2135 0003 25       		.uleb128 0x25
+ 2136 0004 0E       		.uleb128 0xe
+ 2137 0005 13       		.uleb128 0x13
+ 2138 0006 0B       		.uleb128 0xb
+ 2139 0007 03       		.uleb128 0x3
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 50
+
+
+ 2140 0008 0E       		.uleb128 0xe
+ 2141 0009 1B       		.uleb128 0x1b
+ 2142 000a 0E       		.uleb128 0xe
+ 2143 000b 11       		.uleb128 0x11
+ 2144 000c 01       		.uleb128 0x1
+ 2145 000d 12       		.uleb128 0x12
+ 2146 000e 01       		.uleb128 0x1
+ 2147 000f 10       		.uleb128 0x10
+ 2148 0010 06       		.uleb128 0x6
+ 2149 0011 00       		.byte	0
+ 2150 0012 00       		.byte	0
+ 2151 0013 02       		.uleb128 0x2
+ 2152 0014 24       		.uleb128 0x24
+ 2153 0015 00       		.byte	0
+ 2154 0016 0B       		.uleb128 0xb
+ 2155 0017 0B       		.uleb128 0xb
+ 2156 0018 3E       		.uleb128 0x3e
+ 2157 0019 0B       		.uleb128 0xb
+ 2158 001a 03       		.uleb128 0x3
+ 2159 001b 0E       		.uleb128 0xe
+ 2160 001c 00       		.byte	0
+ 2161 001d 00       		.byte	0
+ 2162 001e 03       		.uleb128 0x3
+ 2163 001f 16       		.uleb128 0x16
+ 2164 0020 00       		.byte	0
+ 2165 0021 03       		.uleb128 0x3
+ 2166 0022 0E       		.uleb128 0xe
+ 2167 0023 3A       		.uleb128 0x3a
+ 2168 0024 0B       		.uleb128 0xb
+ 2169 0025 3B       		.uleb128 0x3b
+ 2170 0026 0B       		.uleb128 0xb
+ 2171 0027 39       		.uleb128 0x39
+ 2172 0028 0B       		.uleb128 0xb
+ 2173 0029 49       		.uleb128 0x49
+ 2174 002a 13       		.uleb128 0x13
+ 2175 002b 00       		.byte	0
+ 2176 002c 00       		.byte	0
+ 2177 002d 04       		.uleb128 0x4
+ 2178 002e 24       		.uleb128 0x24
+ 2179 002f 00       		.byte	0
+ 2180 0030 0B       		.uleb128 0xb
+ 2181 0031 0B       		.uleb128 0xb
+ 2182 0032 3E       		.uleb128 0x3e
+ 2183 0033 0B       		.uleb128 0xb
+ 2184 0034 03       		.uleb128 0x3
+ 2185 0035 08       		.uleb128 0x8
+ 2186 0036 00       		.byte	0
+ 2187 0037 00       		.byte	0
+ 2188 0038 05       		.uleb128 0x5
+ 2189 0039 35       		.uleb128 0x35
+ 2190 003a 00       		.byte	0
+ 2191 003b 49       		.uleb128 0x49
+ 2192 003c 13       		.uleb128 0x13
+ 2193 003d 00       		.byte	0
+ 2194 003e 00       		.byte	0
+ 2195 003f 06       		.uleb128 0x6
+ 2196 0040 26       		.uleb128 0x26
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 51
+
+
+ 2197 0041 00       		.byte	0
+ 2198 0042 49       		.uleb128 0x49
+ 2199 0043 13       		.uleb128 0x13
+ 2200 0044 00       		.byte	0
+ 2201 0045 00       		.byte	0
+ 2202 0046 07       		.uleb128 0x7
+ 2203 0047 13       		.uleb128 0x13
+ 2204 0048 01       		.byte	0x1
+ 2205 0049 0B       		.uleb128 0xb
+ 2206 004a 0B       		.uleb128 0xb
+ 2207 004b 3A       		.uleb128 0x3a
+ 2208 004c 0B       		.uleb128 0xb
+ 2209 004d 3B       		.uleb128 0x3b
+ 2210 004e 05       		.uleb128 0x5
+ 2211 004f 39       		.uleb128 0x39
+ 2212 0050 0B       		.uleb128 0xb
+ 2213 0051 01       		.uleb128 0x1
+ 2214 0052 13       		.uleb128 0x13
+ 2215 0053 00       		.byte	0
+ 2216 0054 00       		.byte	0
+ 2217 0055 08       		.uleb128 0x8
+ 2218 0056 0D       		.uleb128 0xd
+ 2219 0057 00       		.byte	0
+ 2220 0058 03       		.uleb128 0x3
+ 2221 0059 0E       		.uleb128 0xe
+ 2222 005a 3A       		.uleb128 0x3a
+ 2223 005b 0B       		.uleb128 0xb
+ 2224 005c 3B       		.uleb128 0x3b
+ 2225 005d 05       		.uleb128 0x5
+ 2226 005e 39       		.uleb128 0x39
+ 2227 005f 0B       		.uleb128 0xb
+ 2228 0060 49       		.uleb128 0x49
+ 2229 0061 13       		.uleb128 0x13
+ 2230 0062 38       		.uleb128 0x38
+ 2231 0063 0A       		.uleb128 0xa
+ 2232 0064 00       		.byte	0
+ 2233 0065 00       		.byte	0
+ 2234 0066 09       		.uleb128 0x9
+ 2235 0067 0D       		.uleb128 0xd
+ 2236 0068 00       		.byte	0
+ 2237 0069 03       		.uleb128 0x3
+ 2238 006a 08       		.uleb128 0x8
+ 2239 006b 3A       		.uleb128 0x3a
+ 2240 006c 0B       		.uleb128 0xb
+ 2241 006d 3B       		.uleb128 0x3b
+ 2242 006e 05       		.uleb128 0x5
+ 2243 006f 39       		.uleb128 0x39
+ 2244 0070 0B       		.uleb128 0xb
+ 2245 0071 49       		.uleb128 0x49
+ 2246 0072 13       		.uleb128 0x13
+ 2247 0073 38       		.uleb128 0x38
+ 2248 0074 0A       		.uleb128 0xa
+ 2249 0075 00       		.byte	0
+ 2250 0076 00       		.byte	0
+ 2251 0077 0A       		.uleb128 0xa
+ 2252 0078 01       		.uleb128 0x1
+ 2253 0079 01       		.byte	0x1
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 52
+
+
+ 2254 007a 49       		.uleb128 0x49
+ 2255 007b 13       		.uleb128 0x13
+ 2256 007c 01       		.uleb128 0x1
+ 2257 007d 13       		.uleb128 0x13
+ 2258 007e 00       		.byte	0
+ 2259 007f 00       		.byte	0
+ 2260 0080 0B       		.uleb128 0xb
+ 2261 0081 21       		.uleb128 0x21
+ 2262 0082 00       		.byte	0
+ 2263 0083 49       		.uleb128 0x49
+ 2264 0084 13       		.uleb128 0x13
+ 2265 0085 2F       		.uleb128 0x2f
+ 2266 0086 0B       		.uleb128 0xb
+ 2267 0087 00       		.byte	0
+ 2268 0088 00       		.byte	0
+ 2269 0089 0C       		.uleb128 0xc
+ 2270 008a 16       		.uleb128 0x16
+ 2271 008b 00       		.byte	0
+ 2272 008c 03       		.uleb128 0x3
+ 2273 008d 0E       		.uleb128 0xe
+ 2274 008e 3A       		.uleb128 0x3a
+ 2275 008f 0B       		.uleb128 0xb
+ 2276 0090 3B       		.uleb128 0x3b
+ 2277 0091 05       		.uleb128 0x5
+ 2278 0092 39       		.uleb128 0x39
+ 2279 0093 0B       		.uleb128 0xb
+ 2280 0094 49       		.uleb128 0x49
+ 2281 0095 13       		.uleb128 0x13
+ 2282 0096 00       		.byte	0
+ 2283 0097 00       		.byte	0
+ 2284 0098 0D       		.uleb128 0xd
+ 2285 0099 04       		.uleb128 0x4
+ 2286 009a 01       		.byte	0x1
+ 2287 009b 3E       		.uleb128 0x3e
+ 2288 009c 0B       		.uleb128 0xb
+ 2289 009d 0B       		.uleb128 0xb
+ 2290 009e 0B       		.uleb128 0xb
+ 2291 009f 49       		.uleb128 0x49
+ 2292 00a0 13       		.uleb128 0x13
+ 2293 00a1 3A       		.uleb128 0x3a
+ 2294 00a2 0B       		.uleb128 0xb
+ 2295 00a3 3B       		.uleb128 0x3b
+ 2296 00a4 0B       		.uleb128 0xb
+ 2297 00a5 39       		.uleb128 0x39
+ 2298 00a6 0B       		.uleb128 0xb
+ 2299 00a7 01       		.uleb128 0x1
+ 2300 00a8 13       		.uleb128 0x13
+ 2301 00a9 00       		.byte	0
+ 2302 00aa 00       		.byte	0
+ 2303 00ab 0E       		.uleb128 0xe
+ 2304 00ac 28       		.uleb128 0x28
+ 2305 00ad 00       		.byte	0
+ 2306 00ae 03       		.uleb128 0x3
+ 2307 00af 0E       		.uleb128 0xe
+ 2308 00b0 1C       		.uleb128 0x1c
+ 2309 00b1 0B       		.uleb128 0xb
+ 2310 00b2 00       		.byte	0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 53
+
+
+ 2311 00b3 00       		.byte	0
+ 2312 00b4 0F       		.uleb128 0xf
+ 2313 00b5 28       		.uleb128 0x28
+ 2314 00b6 00       		.byte	0
+ 2315 00b7 03       		.uleb128 0x3
+ 2316 00b8 08       		.uleb128 0x8
+ 2317 00b9 1C       		.uleb128 0x1c
+ 2318 00ba 0B       		.uleb128 0xb
+ 2319 00bb 00       		.byte	0
+ 2320 00bc 00       		.byte	0
+ 2321 00bd 10       		.uleb128 0x10
+ 2322 00be 13       		.uleb128 0x13
+ 2323 00bf 01       		.byte	0x1
+ 2324 00c0 0B       		.uleb128 0xb
+ 2325 00c1 0B       		.uleb128 0xb
+ 2326 00c2 3A       		.uleb128 0x3a
+ 2327 00c3 0B       		.uleb128 0xb
+ 2328 00c4 3B       		.uleb128 0x3b
+ 2329 00c5 0B       		.uleb128 0xb
+ 2330 00c6 39       		.uleb128 0x39
+ 2331 00c7 0B       		.uleb128 0xb
+ 2332 00c8 01       		.uleb128 0x1
+ 2333 00c9 13       		.uleb128 0x13
+ 2334 00ca 00       		.byte	0
+ 2335 00cb 00       		.byte	0
+ 2336 00cc 11       		.uleb128 0x11
+ 2337 00cd 0D       		.uleb128 0xd
+ 2338 00ce 00       		.byte	0
+ 2339 00cf 03       		.uleb128 0x3
+ 2340 00d0 0E       		.uleb128 0xe
+ 2341 00d1 3A       		.uleb128 0x3a
+ 2342 00d2 0B       		.uleb128 0xb
+ 2343 00d3 3B       		.uleb128 0x3b
+ 2344 00d4 0B       		.uleb128 0xb
+ 2345 00d5 39       		.uleb128 0x39
+ 2346 00d6 0B       		.uleb128 0xb
+ 2347 00d7 49       		.uleb128 0x49
+ 2348 00d8 13       		.uleb128 0x13
+ 2349 00d9 38       		.uleb128 0x38
+ 2350 00da 0A       		.uleb128 0xa
+ 2351 00db 00       		.byte	0
+ 2352 00dc 00       		.byte	0
+ 2353 00dd 12       		.uleb128 0x12
+ 2354 00de 2E       		.uleb128 0x2e
+ 2355 00df 00       		.byte	0
+ 2356 00e0 3F       		.uleb128 0x3f
+ 2357 00e1 0C       		.uleb128 0xc
+ 2358 00e2 03       		.uleb128 0x3
+ 2359 00e3 0E       		.uleb128 0xe
+ 2360 00e4 3A       		.uleb128 0x3a
+ 2361 00e5 0B       		.uleb128 0xb
+ 2362 00e6 3B       		.uleb128 0x3b
+ 2363 00e7 05       		.uleb128 0x5
+ 2364 00e8 39       		.uleb128 0x39
+ 2365 00e9 0B       		.uleb128 0xb
+ 2366 00ea 27       		.uleb128 0x27
+ 2367 00eb 0C       		.uleb128 0xc
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 54
+
+
+ 2368 00ec 11       		.uleb128 0x11
+ 2369 00ed 01       		.uleb128 0x1
+ 2370 00ee 12       		.uleb128 0x12
+ 2371 00ef 01       		.uleb128 0x1
+ 2372 00f0 40       		.uleb128 0x40
+ 2373 00f1 0A       		.uleb128 0xa
+ 2374 00f2 9742     		.uleb128 0x2117
+ 2375 00f4 0C       		.uleb128 0xc
+ 2376 00f5 00       		.byte	0
+ 2377 00f6 00       		.byte	0
+ 2378 00f7 13       		.uleb128 0x13
+ 2379 00f8 2E       		.uleb128 0x2e
+ 2380 00f9 01       		.byte	0x1
+ 2381 00fa 3F       		.uleb128 0x3f
+ 2382 00fb 0C       		.uleb128 0xc
+ 2383 00fc 03       		.uleb128 0x3
+ 2384 00fd 0E       		.uleb128 0xe
+ 2385 00fe 3A       		.uleb128 0x3a
+ 2386 00ff 0B       		.uleb128 0xb
+ 2387 0100 3B       		.uleb128 0x3b
+ 2388 0101 05       		.uleb128 0x5
+ 2389 0102 39       		.uleb128 0x39
+ 2390 0103 0B       		.uleb128 0xb
+ 2391 0104 27       		.uleb128 0x27
+ 2392 0105 0C       		.uleb128 0xc
+ 2393 0106 11       		.uleb128 0x11
+ 2394 0107 01       		.uleb128 0x1
+ 2395 0108 12       		.uleb128 0x12
+ 2396 0109 01       		.uleb128 0x1
+ 2397 010a 40       		.uleb128 0x40
+ 2398 010b 06       		.uleb128 0x6
+ 2399 010c 9742     		.uleb128 0x2117
+ 2400 010e 0C       		.uleb128 0xc
+ 2401 010f 01       		.uleb128 0x1
+ 2402 0110 13       		.uleb128 0x13
+ 2403 0111 00       		.byte	0
+ 2404 0112 00       		.byte	0
+ 2405 0113 14       		.uleb128 0x14
+ 2406 0114 05       		.uleb128 0x5
+ 2407 0115 00       		.byte	0
+ 2408 0116 03       		.uleb128 0x3
+ 2409 0117 0E       		.uleb128 0xe
+ 2410 0118 3A       		.uleb128 0x3a
+ 2411 0119 0B       		.uleb128 0xb
+ 2412 011a 3B       		.uleb128 0x3b
+ 2413 011b 05       		.uleb128 0x5
+ 2414 011c 39       		.uleb128 0x39
+ 2415 011d 0B       		.uleb128 0xb
+ 2416 011e 49       		.uleb128 0x49
+ 2417 011f 13       		.uleb128 0x13
+ 2418 0120 02       		.uleb128 0x2
+ 2419 0121 06       		.uleb128 0x6
+ 2420 0122 B742     		.uleb128 0x2137
+ 2421 0124 06       		.uleb128 0x6
+ 2422 0125 00       		.byte	0
+ 2423 0126 00       		.byte	0
+ 2424 0127 15       		.uleb128 0x15
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 55
+
+
+ 2425 0128 898201   		.uleb128 0x4109
+ 2426 012b 00       		.byte	0
+ 2427 012c 11       		.uleb128 0x11
+ 2428 012d 01       		.uleb128 0x1
+ 2429 012e 31       		.uleb128 0x31
+ 2430 012f 13       		.uleb128 0x13
+ 2431 0130 00       		.byte	0
+ 2432 0131 00       		.byte	0
+ 2433 0132 16       		.uleb128 0x16
+ 2434 0133 2E       		.uleb128 0x2e
+ 2435 0134 01       		.byte	0x1
+ 2436 0135 3F       		.uleb128 0x3f
+ 2437 0136 0C       		.uleb128 0xc
+ 2438 0137 03       		.uleb128 0x3
+ 2439 0138 0E       		.uleb128 0xe
+ 2440 0139 3A       		.uleb128 0x3a
+ 2441 013a 0B       		.uleb128 0xb
+ 2442 013b 3B       		.uleb128 0x3b
+ 2443 013c 05       		.uleb128 0x5
+ 2444 013d 39       		.uleb128 0x39
+ 2445 013e 0B       		.uleb128 0xb
+ 2446 013f 27       		.uleb128 0x27
+ 2447 0140 0C       		.uleb128 0xc
+ 2448 0141 11       		.uleb128 0x11
+ 2449 0142 01       		.uleb128 0x1
+ 2450 0143 12       		.uleb128 0x12
+ 2451 0144 01       		.uleb128 0x1
+ 2452 0145 40       		.uleb128 0x40
+ 2453 0146 0A       		.uleb128 0xa
+ 2454 0147 9742     		.uleb128 0x2117
+ 2455 0149 0C       		.uleb128 0xc
+ 2456 014a 01       		.uleb128 0x1
+ 2457 014b 13       		.uleb128 0x13
+ 2458 014c 00       		.byte	0
+ 2459 014d 00       		.byte	0
+ 2460 014e 17       		.uleb128 0x17
+ 2461 014f 2E       		.uleb128 0x2e
+ 2462 0150 01       		.byte	0x1
+ 2463 0151 3F       		.uleb128 0x3f
+ 2464 0152 0C       		.uleb128 0xc
+ 2465 0153 03       		.uleb128 0x3
+ 2466 0154 0E       		.uleb128 0xe
+ 2467 0155 3A       		.uleb128 0x3a
+ 2468 0156 0B       		.uleb128 0xb
+ 2469 0157 3B       		.uleb128 0x3b
+ 2470 0158 05       		.uleb128 0x5
+ 2471 0159 39       		.uleb128 0x39
+ 2472 015a 0B       		.uleb128 0xb
+ 2473 015b 27       		.uleb128 0x27
+ 2474 015c 0C       		.uleb128 0xc
+ 2475 015d 49       		.uleb128 0x49
+ 2476 015e 13       		.uleb128 0x13
+ 2477 015f 11       		.uleb128 0x11
+ 2478 0160 01       		.uleb128 0x1
+ 2479 0161 12       		.uleb128 0x12
+ 2480 0162 01       		.uleb128 0x1
+ 2481 0163 40       		.uleb128 0x40
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 56
+
+
+ 2482 0164 0A       		.uleb128 0xa
+ 2483 0165 9742     		.uleb128 0x2117
+ 2484 0167 0C       		.uleb128 0xc
+ 2485 0168 01       		.uleb128 0x1
+ 2486 0169 13       		.uleb128 0x13
+ 2487 016a 00       		.byte	0
+ 2488 016b 00       		.byte	0
+ 2489 016c 18       		.uleb128 0x18
+ 2490 016d 0F       		.uleb128 0xf
+ 2491 016e 00       		.byte	0
+ 2492 016f 0B       		.uleb128 0xb
+ 2493 0170 0B       		.uleb128 0xb
+ 2494 0171 49       		.uleb128 0x49
+ 2495 0172 13       		.uleb128 0x13
+ 2496 0173 00       		.byte	0
+ 2497 0174 00       		.byte	0
+ 2498 0175 19       		.uleb128 0x19
+ 2499 0176 2E       		.uleb128 0x2e
+ 2500 0177 00       		.byte	0
+ 2501 0178 3F       		.uleb128 0x3f
+ 2502 0179 0C       		.uleb128 0xc
+ 2503 017a 03       		.uleb128 0x3
+ 2504 017b 0E       		.uleb128 0xe
+ 2505 017c 3A       		.uleb128 0x3a
+ 2506 017d 0B       		.uleb128 0xb
+ 2507 017e 3B       		.uleb128 0x3b
+ 2508 017f 0B       		.uleb128 0xb
+ 2509 0180 39       		.uleb128 0x39
+ 2510 0181 0B       		.uleb128 0xb
+ 2511 0182 27       		.uleb128 0x27
+ 2512 0183 0C       		.uleb128 0xc
+ 2513 0184 11       		.uleb128 0x11
+ 2514 0185 01       		.uleb128 0x1
+ 2515 0186 12       		.uleb128 0x12
+ 2516 0187 01       		.uleb128 0x1
+ 2517 0188 40       		.uleb128 0x40
+ 2518 0189 0A       		.uleb128 0xa
+ 2519 018a 9742     		.uleb128 0x2117
+ 2520 018c 0C       		.uleb128 0xc
+ 2521 018d 00       		.byte	0
+ 2522 018e 00       		.byte	0
+ 2523 018f 1A       		.uleb128 0x1a
+ 2524 0190 2E       		.uleb128 0x2e
+ 2525 0191 00       		.byte	0
+ 2526 0192 3F       		.uleb128 0x3f
+ 2527 0193 0C       		.uleb128 0xc
+ 2528 0194 3C       		.uleb128 0x3c
+ 2529 0195 0C       		.uleb128 0xc
+ 2530 0196 8740     		.uleb128 0x2007
+ 2531 0198 0E       		.uleb128 0xe
+ 2532 0199 03       		.uleb128 0x3
+ 2533 019a 0E       		.uleb128 0xe
+ 2534 019b 3A       		.uleb128 0x3a
+ 2535 019c 0B       		.uleb128 0xb
+ 2536 019d 3B       		.uleb128 0x3b
+ 2537 019e 05       		.uleb128 0x5
+ 2538 019f 39       		.uleb128 0x39
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 57
+
+
+ 2539 01a0 0B       		.uleb128 0xb
+ 2540 01a1 00       		.byte	0
+ 2541 01a2 00       		.byte	0
+ 2542 01a3 00       		.byte	0
+ 2543              		.section	.debug_loc,"",%progbits
+ 2544              	.Ldebug_loc0:
+ 2545              	.LLST6:
+ 2546 0000 5C010000 		.4byte	.LFB142-.Ltext0
+ 2547 0004 5E010000 		.4byte	.LCFI1-.Ltext0
+ 2548 0008 0200     		.2byte	0x2
+ 2549 000a 7D       		.byte	0x7d
+ 2550 000b 00       		.sleb128 0
+ 2551 000c 5E010000 		.4byte	.LCFI1-.Ltext0
+ 2552 0010 74010000 		.4byte	.LFE142-.Ltext0
+ 2553 0014 0200     		.2byte	0x2
+ 2554 0016 7D       		.byte	0x7d
+ 2555 0017 08       		.sleb128 8
+ 2556 0018 00000000 		.4byte	0
+ 2557 001c 00000000 		.4byte	0
+ 2558              	.LVUS7:
+ 2559 0020 00       		.uleb128 0
+ 2560 0021 00       		.uleb128 .LVU85
+ 2561 0022 00       		.uleb128 .LVU85
+ 2562 0023 00       		.uleb128 .LVU87
+ 2563 0024 00       		.uleb128 .LVU87
+ 2564 0025 00       		.uleb128 .LVU88
+ 2565 0026 00       		.uleb128 .LVU88
+ 2566 0027 00       		.uleb128 0
+ 2567              	.LLST7:
+ 2568 0028 5C010000 		.4byte	.LVL12-.Ltext0
+ 2569 002c 66010000 		.4byte	.LVL13-.Ltext0
+ 2570 0030 0100     		.2byte	0x1
+ 2571 0032 50       		.byte	0x50
+ 2572 0033 66010000 		.4byte	.LVL13-.Ltext0
+ 2573 0037 6C010000 		.4byte	.LVL15-.Ltext0
+ 2574 003b 0400     		.2byte	0x4
+ 2575 003d F3       		.byte	0xf3
+ 2576 003e 01       		.uleb128 0x1
+ 2577 003f 50       		.byte	0x50
+ 2578 0040 9F       		.byte	0x9f
+ 2579 0041 6C010000 		.4byte	.LVL15-.Ltext0
+ 2580 0045 6E010000 		.4byte	.LVL16-.Ltext0
+ 2581 0049 0100     		.2byte	0x1
+ 2582 004b 50       		.byte	0x50
+ 2583 004c 6E010000 		.4byte	.LVL16-.Ltext0
+ 2584 0050 74010000 		.4byte	.LFE142-.Ltext0
+ 2585 0054 0400     		.2byte	0x4
+ 2586 0056 F3       		.byte	0xf3
+ 2587 0057 01       		.uleb128 0x1
+ 2588 0058 50       		.byte	0x50
+ 2589 0059 9F       		.byte	0x9f
+ 2590 005a 00000000 		.4byte	0
+ 2591 005e 00000000 		.4byte	0
+ 2592              	.LVUS8:
+ 2593 0062 00       		.uleb128 0
+ 2594 0063 00       		.uleb128 .LVU86
+ 2595 0064 00       		.uleb128 .LVU86
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 58
+
+
+ 2596 0065 00       		.uleb128 .LVU87
+ 2597 0066 00       		.uleb128 .LVU87
+ 2598 0067 00       		.uleb128 .LVU89
+ 2599 0068 00       		.uleb128 .LVU89
+ 2600 0069 00       		.uleb128 0
+ 2601              	.LLST8:
+ 2602 006a 5C010000 		.4byte	.LVL12-.Ltext0
+ 2603 006e 69010000 		.4byte	.LVL14-1-.Ltext0
+ 2604 0072 0100     		.2byte	0x1
+ 2605 0074 51       		.byte	0x51
+ 2606 0075 69010000 		.4byte	.LVL14-1-.Ltext0
+ 2607 0079 6C010000 		.4byte	.LVL15-.Ltext0
+ 2608 007d 0400     		.2byte	0x4
+ 2609 007f F3       		.byte	0xf3
+ 2610 0080 01       		.uleb128 0x1
+ 2611 0081 51       		.byte	0x51
+ 2612 0082 9F       		.byte	0x9f
+ 2613 0083 6C010000 		.4byte	.LVL15-.Ltext0
+ 2614 0087 71010000 		.4byte	.LVL17-1-.Ltext0
+ 2615 008b 0100     		.2byte	0x1
+ 2616 008d 51       		.byte	0x51
+ 2617 008e 71010000 		.4byte	.LVL17-1-.Ltext0
+ 2618 0092 74010000 		.4byte	.LFE142-.Ltext0
+ 2619 0096 0400     		.2byte	0x4
+ 2620 0098 F3       		.byte	0xf3
+ 2621 0099 01       		.uleb128 0x1
+ 2622 009a 51       		.byte	0x51
+ 2623 009b 9F       		.byte	0x9f
+ 2624 009c 00000000 		.4byte	0
+ 2625 00a0 00000000 		.4byte	0
+ 2626              	.LLST3:
+ 2627 00a4 10010000 		.4byte	.LFB141-.Ltext0
+ 2628 00a8 12010000 		.4byte	.LCFI0-.Ltext0
+ 2629 00ac 0200     		.2byte	0x2
+ 2630 00ae 7D       		.byte	0x7d
+ 2631 00af 00       		.sleb128 0
+ 2632 00b0 12010000 		.4byte	.LCFI0-.Ltext0
+ 2633 00b4 5C010000 		.4byte	.LFE141-.Ltext0
+ 2634 00b8 0200     		.2byte	0x2
+ 2635 00ba 7D       		.byte	0x7d
+ 2636 00bb 08       		.sleb128 8
+ 2637 00bc 00000000 		.4byte	0
+ 2638 00c0 00000000 		.4byte	0
+ 2639              	.LVUS4:
+ 2640 00c4 00       		.uleb128 0
+ 2641 00c5 00       		.uleb128 .LVU63
+ 2642 00c6 00       		.uleb128 .LVU63
+ 2643 00c7 00       		.uleb128 .LVU70
+ 2644 00c8 00       		.uleb128 .LVU70
+ 2645 00c9 00       		.uleb128 .LVU72
+ 2646 00ca 00       		.uleb128 .LVU72
+ 2647 00cb 00       		.uleb128 .LVU73
+ 2648 00cc 00       		.uleb128 .LVU73
+ 2649 00cd 00       		.uleb128 .LVU77
+ 2650 00ce 00       		.uleb128 .LVU77
+ 2651 00cf 00       		.uleb128 0
+ 2652              	.LLST4:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 59
+
+
+ 2653 00d0 10010000 		.4byte	.LVL6-.Ltext0
+ 2654 00d4 20010000 		.4byte	.LVL7-.Ltext0
+ 2655 00d8 0100     		.2byte	0x1
+ 2656 00da 50       		.byte	0x50
+ 2657 00db 20010000 		.4byte	.LVL7-.Ltext0
+ 2658 00df 36010000 		.4byte	.LVL8-.Ltext0
+ 2659 00e3 0400     		.2byte	0x4
+ 2660 00e5 F3       		.byte	0xf3
+ 2661 00e6 01       		.uleb128 0x1
+ 2662 00e7 50       		.byte	0x50
+ 2663 00e8 9F       		.byte	0x9f
+ 2664 00e9 36010000 		.4byte	.LVL8-.Ltext0
+ 2665 00ed 39010000 		.4byte	.LVL9-1-.Ltext0
+ 2666 00f1 0100     		.2byte	0x1
+ 2667 00f3 50       		.byte	0x50
+ 2668 00f4 39010000 		.4byte	.LVL9-1-.Ltext0
+ 2669 00f8 40010000 		.4byte	.LVL10-.Ltext0
+ 2670 00fc 0400     		.2byte	0x4
+ 2671 00fe F3       		.byte	0xf3
+ 2672 00ff 01       		.uleb128 0x1
+ 2673 0100 50       		.byte	0x50
+ 2674 0101 9F       		.byte	0x9f
+ 2675 0102 40010000 		.4byte	.LVL10-.Ltext0
+ 2676 0106 4D010000 		.4byte	.LVL11-1-.Ltext0
+ 2677 010a 0100     		.2byte	0x1
+ 2678 010c 50       		.byte	0x50
+ 2679 010d 4D010000 		.4byte	.LVL11-1-.Ltext0
+ 2680 0111 5C010000 		.4byte	.LFE141-.Ltext0
+ 2681 0115 0400     		.2byte	0x4
+ 2682 0117 F3       		.byte	0xf3
+ 2683 0118 01       		.uleb128 0x1
+ 2684 0119 50       		.byte	0x50
+ 2685 011a 9F       		.byte	0x9f
+ 2686 011b 00000000 		.4byte	0
+ 2687 011f 00000000 		.4byte	0
+ 2688              	.LVUS5:
+ 2689 0123 00       		.uleb128 0
+ 2690 0124 00       		.uleb128 .LVU63
+ 2691 0125 00       		.uleb128 .LVU63
+ 2692 0126 00       		.uleb128 .LVU70
+ 2693 0127 00       		.uleb128 .LVU70
+ 2694 0128 00       		.uleb128 .LVU72
+ 2695 0129 00       		.uleb128 .LVU72
+ 2696 012a 00       		.uleb128 .LVU73
+ 2697 012b 00       		.uleb128 .LVU73
+ 2698 012c 00       		.uleb128 .LVU77
+ 2699 012d 00       		.uleb128 .LVU77
+ 2700 012e 00       		.uleb128 0
+ 2701              	.LLST5:
+ 2702 012f 10010000 		.4byte	.LVL6-.Ltext0
+ 2703 0133 20010000 		.4byte	.LVL7-.Ltext0
+ 2704 0137 0100     		.2byte	0x1
+ 2705 0139 51       		.byte	0x51
+ 2706 013a 20010000 		.4byte	.LVL7-.Ltext0
+ 2707 013e 36010000 		.4byte	.LVL8-.Ltext0
+ 2708 0142 0400     		.2byte	0x4
+ 2709 0144 F3       		.byte	0xf3
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 60
+
+
+ 2710 0145 01       		.uleb128 0x1
+ 2711 0146 51       		.byte	0x51
+ 2712 0147 9F       		.byte	0x9f
+ 2713 0148 36010000 		.4byte	.LVL8-.Ltext0
+ 2714 014c 39010000 		.4byte	.LVL9-1-.Ltext0
+ 2715 0150 0100     		.2byte	0x1
+ 2716 0152 51       		.byte	0x51
+ 2717 0153 39010000 		.4byte	.LVL9-1-.Ltext0
+ 2718 0157 40010000 		.4byte	.LVL10-.Ltext0
+ 2719 015b 0400     		.2byte	0x4
+ 2720 015d F3       		.byte	0xf3
+ 2721 015e 01       		.uleb128 0x1
+ 2722 015f 51       		.byte	0x51
+ 2723 0160 9F       		.byte	0x9f
+ 2724 0161 40010000 		.4byte	.LVL10-.Ltext0
+ 2725 0165 4D010000 		.4byte	.LVL11-1-.Ltext0
+ 2726 0169 0100     		.2byte	0x1
+ 2727 016b 51       		.byte	0x51
+ 2728 016c 4D010000 		.4byte	.LVL11-1-.Ltext0
+ 2729 0170 5C010000 		.4byte	.LFE141-.Ltext0
+ 2730 0174 0400     		.2byte	0x4
+ 2731 0176 F3       		.byte	0xf3
+ 2732 0177 01       		.uleb128 0x1
+ 2733 0178 51       		.byte	0x51
+ 2734 0179 9F       		.byte	0x9f
+ 2735 017a 00000000 		.4byte	0
+ 2736 017e 00000000 		.4byte	0
+ 2737              	.LVUS2:
+ 2738 0182 00       		.uleb128 0
+ 2739 0183 00       		.uleb128 .LVU52
+ 2740 0184 00       		.uleb128 .LVU52
+ 2741 0185 00       		.uleb128 0
+ 2742              	.LLST2:
+ 2743 0186 FC000000 		.4byte	.LVL4-.Ltext0
+ 2744 018a 04010000 		.4byte	.LVL5-.Ltext0
+ 2745 018e 0100     		.2byte	0x1
+ 2746 0190 50       		.byte	0x50
+ 2747 0191 04010000 		.4byte	.LVL5-.Ltext0
+ 2748 0195 10010000 		.4byte	.LFE140-.Ltext0
+ 2749 0199 0400     		.2byte	0x4
+ 2750 019b F3       		.byte	0xf3
+ 2751 019c 01       		.uleb128 0x1
+ 2752 019d 50       		.byte	0x50
+ 2753 019e 9F       		.byte	0x9f
+ 2754 019f 00000000 		.4byte	0
+ 2755 01a3 00000000 		.4byte	0
+ 2756              	.LVUS1:
+ 2757 01a7 00       		.uleb128 0
+ 2758 01a8 00       		.uleb128 .LVU46
+ 2759 01a9 00       		.uleb128 .LVU46
+ 2760 01aa 00       		.uleb128 0
+ 2761              	.LLST1:
+ 2762 01ab DC000000 		.4byte	.LVL2-.Ltext0
+ 2763 01af EC000000 		.4byte	.LVL3-.Ltext0
+ 2764 01b3 0100     		.2byte	0x1
+ 2765 01b5 50       		.byte	0x50
+ 2766 01b6 EC000000 		.4byte	.LVL3-.Ltext0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 61
+
+
+ 2767 01ba FC000000 		.4byte	.LFE139-.Ltext0
+ 2768 01be 0400     		.2byte	0x4
+ 2769 01c0 F3       		.byte	0xf3
+ 2770 01c1 01       		.uleb128 0x1
+ 2771 01c2 50       		.byte	0x50
+ 2772 01c3 9F       		.byte	0x9f
+ 2773 01c4 00000000 		.4byte	0
+ 2774 01c8 00000000 		.4byte	0
+ 2775              	.LVUS0:
+ 2776 01cc 00       		.uleb128 0
+ 2777 01cd 00       		.uleb128 .LVU36
+ 2778 01ce 00       		.uleb128 .LVU36
+ 2779 01cf 00       		.uleb128 0
+ 2780              	.LLST0:
+ 2781 01d0 38000000 		.4byte	.LVL0-.Ltext0
+ 2782 01d4 B2000000 		.4byte	.LVL1-.Ltext0
+ 2783 01d8 0100     		.2byte	0x1
+ 2784 01da 50       		.byte	0x50
+ 2785 01db B2000000 		.4byte	.LVL1-.Ltext0
+ 2786 01df BC000000 		.4byte	.LFE136-.Ltext0
+ 2787 01e3 0400     		.2byte	0x4
+ 2788 01e5 F3       		.byte	0xf3
+ 2789 01e6 01       		.uleb128 0x1
+ 2790 01e7 50       		.byte	0x50
+ 2791 01e8 9F       		.byte	0x9f
+ 2792 01e9 00000000 		.4byte	0
+ 2793 01ed 00000000 		.4byte	0
+ 2794              		.section	.debug_aranges,"",%progbits
+ 2795 0000 1C000000 		.4byte	0x1c
+ 2796 0004 0200     		.2byte	0x2
+ 2797 0006 00000000 		.4byte	.Ldebug_info0
+ 2798 000a 04       		.byte	0x4
+ 2799 000b 00       		.byte	0
+ 2800 000c 0000     		.2byte	0
+ 2801 000e 0000     		.2byte	0
+ 2802 0010 00000000 		.4byte	.Ltext0
+ 2803 0014 DA010000 		.4byte	.Letext0-.Ltext0
+ 2804 0018 00000000 		.4byte	0
+ 2805 001c 00000000 		.4byte	0
+ 2806              		.section	.debug_line,"",%progbits
+ 2807              	.Ldebug_line0:
+ 2808 0000 3F040000 		.section	.debug_str,"MS",%progbits,1
+ 2808      03007B02 
+ 2808      00000201 
+ 2808      FB0E0D00 
+ 2808      01010101 
+ 2809              	.LASF44:
+ 2810 0000 50444352 		.ascii	"PDCRA\000"
+ 2810      4100
+ 2811              	.LASF46:
+ 2812 0006 50444352 		.ascii	"PDCRB\000"
+ 2812      4200
+ 2813              	.LASF48:
+ 2814 000c 50444352 		.ascii	"PDCRC\000"
+ 2814      4300
+ 2815              	.LASF50:
+ 2816 0012 50444352 		.ascii	"PDCRD\000"
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 62
+
+
+ 2816      4400
+ 2817              	.LASF52:
+ 2818 0018 50444352 		.ascii	"PDCRE\000"
+ 2818      4500
+ 2819              	.LASF5:
+ 2820 001e 5F5F7569 		.ascii	"__uint8_t\000"
+ 2820      6E74385F 
+ 2820      7400
+ 2821              	.LASF56:
+ 2822 0028 50444352 		.ascii	"PDCRH\000"
+ 2822      4800
+ 2823              	.LASF94:
+ 2824 002e 48414C5F 		.ascii	"HAL_BUSY\000"
+ 2824      42555359 
+ 2824      00
+ 2825              	.LASF32:
+ 2826 0037 46545352 		.ascii	"FTSR1\000"
+ 2826      3100
+ 2827              	.LASF125:
+ 2828 003d 474E5520 		.ascii	"GNU C17 10.2.1 20201103 (release) -mthumb -mapcs-fr"
+ 2828      43313720 
+ 2828      31302E32 
+ 2828      2E312032 
+ 2828      30323031 
+ 2829 0070 616D6520 		.ascii	"ame -mthumb-interwork -mcpu=cortex-m4 -mfloat-abi=s"
+ 2829      2D6D7468 
+ 2829      756D622D 
+ 2829      696E7465 
+ 2829      72776F72 
+ 2830 00a3 6F667420 		.ascii	"oft -march=armv7e-m -gdwarf-2 -O\000"
+ 2830      2D6D6172 
+ 2830      63683D61 
+ 2830      726D7637 
+ 2830      652D6D20 
+ 2831              	.LASF124:
+ 2832 00c4 48414C5F 		.ascii	"HAL_PWREx_EnableLowPowerRunMode\000"
+ 2832      50575245 
+ 2832      785F456E 
+ 2832      61626C65 
+ 2832      4C6F7750 
+ 2833              	.LASF112:
+ 2834 00e4 57616B65 		.ascii	"WakeUpPinx\000"
+ 2834      55705069 
+ 2834      6E7800
+ 2835              	.LASF9:
+ 2836 00ef 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2836      206C6F6E 
+ 2836      6720756E 
+ 2836      7369676E 
+ 2836      65642069 
+ 2837              	.LASF13:
+ 2838 0106 43505549 		.ascii	"CPUID\000"
+ 2838      4400
+ 2839              	.LASF97:
+ 2840 010c 5056444C 		.ascii	"PVDLevel\000"
+ 2840      6576656C 
+ 2840      00
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 63
+
+
+ 2841              	.LASF33:
+ 2842 0115 53574945 		.ascii	"SWIER1\000"
+ 2842      523100
+ 2843              	.LASF101:
+ 2844 011c 48414C5F 		.ascii	"HAL_PWR_DisableSEVOnPend\000"
+ 2844      5057525F 
+ 2844      44697361 
+ 2844      626C6553 
+ 2844      45564F6E 
+ 2845              	.LASF109:
+ 2846 0135 48414C5F 		.ascii	"HAL_PWR_EnterSLEEPMode\000"
+ 2846      5057525F 
+ 2846      456E7465 
+ 2846      72534C45 
+ 2846      45504D6F 
+ 2847              	.LASF62:
+ 2848 014c 43494552 		.ascii	"CIER\000"
+ 2848      00
+ 2849              	.LASF126:
+ 2850 0151 2E2E2F44 		.ascii	"../Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_p"
+ 2850      72697665 
+ 2850      72732F53 
+ 2850      544D3332 
+ 2850      4C347878 
+ 2851 0184 77722E63 		.ascii	"wr.c\000"
+ 2851      00
+ 2852              	.LASF8:
+ 2853 0189 6C6F6E67 		.ascii	"long long int\000"
+ 2853      206C6F6E 
+ 2853      6720696E 
+ 2853      7400
+ 2854              	.LASF0:
+ 2855 0197 7369676E 		.ascii	"signed char\000"
+ 2855      65642063 
+ 2855      68617200 
+ 2856              	.LASF65:
+ 2857 01a3 41484231 		.ascii	"AHB1RSTR\000"
+ 2857      52535452 
+ 2857      00
+ 2858              	.LASF77:
+ 2859 01ac 41484231 		.ascii	"AHB1SMENR\000"
+ 2859      534D454E 
+ 2859      5200
+ 2860              	.LASF83:
+ 2861 01b6 41504232 		.ascii	"APB2SMENR\000"
+ 2861      534D454E 
+ 2861      5200
+ 2862              	.LASF43:
+ 2863 01c0 50554352 		.ascii	"PUCRA\000"
+ 2863      4100
+ 2864              	.LASF45:
+ 2865 01c6 50554352 		.ascii	"PUCRB\000"
+ 2865      4200
+ 2866              	.LASF47:
+ 2867 01cc 50554352 		.ascii	"PUCRC\000"
+ 2867      4300
+ 2868              	.LASF49:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 64
+
+
+ 2869 01d2 50554352 		.ascii	"PUCRD\000"
+ 2869      4400
+ 2870              	.LASF51:
+ 2871 01d8 50554352 		.ascii	"PUCRE\000"
+ 2871      4500
+ 2872              	.LASF55:
+ 2873 01de 50554352 		.ascii	"PUCRH\000"
+ 2873      4800
+ 2874              	.LASF4:
+ 2875 01e4 6C6F6E67 		.ascii	"long int\000"
+ 2875      20696E74 
+ 2875      00
+ 2876              	.LASF70:
+ 2877 01ed 41504232 		.ascii	"APB2RSTR\000"
+ 2877      52535452 
+ 2877      00
+ 2878              	.LASF68:
+ 2879 01f6 41504231 		.ascii	"APB1RSTR1\000"
+ 2879      52535452 
+ 2879      3100
+ 2880              	.LASF69:
+ 2881 0200 41504231 		.ascii	"APB1RSTR2\000"
+ 2881      52535452 
+ 2881      3200
+ 2882              	.LASF105:
+ 2883 020a 48414C5F 		.ascii	"HAL_PWR_EnterSTANDBYMode\000"
+ 2883      5057525F 
+ 2883      456E7465 
+ 2883      72535441 
+ 2883      4E444259 
+ 2884              	.LASF25:
+ 2885 0223 49534152 		.ascii	"ISAR\000"
+ 2885      00
+ 2886              	.LASF118:
+ 2887 0228 48414C5F 		.ascii	"HAL_PWR_DisableBkUpAccess\000"
+ 2887      5057525F 
+ 2887      44697361 
+ 2887      626C6542 
+ 2887      6B557041 
+ 2888              	.LASF60:
+ 2889 0242 504C4C43 		.ascii	"PLLCFGR\000"
+ 2889      46475200 
+ 2890              	.LASF22:
+ 2891 024a 42464152 		.ascii	"BFAR\000"
+ 2891      00
+ 2892              	.LASF63:
+ 2893 024f 43494652 		.ascii	"CIFR\000"
+ 2893      00
+ 2894              	.LASF23:
+ 2895 0254 41465352 		.ascii	"AFSR\000"
+ 2895      00
+ 2896              	.LASF6:
+ 2897 0259 5F5F7569 		.ascii	"__uint32_t\000"
+ 2897      6E743332 
+ 2897      5F7400
+ 2898              	.LASF39:
+ 2899 0264 46545352 		.ascii	"FTSR2\000"
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 65
+
+
+ 2899      3200
+ 2900              	.LASF78:
+ 2901 026a 41484232 		.ascii	"AHB2SMENR\000"
+ 2901      534D454E 
+ 2901      5200
+ 2902              	.LASF111:
+ 2903 0274 48414C5F 		.ascii	"HAL_PWR_DisableWakeUpPin\000"
+ 2903      5057525F 
+ 2903      44697361 
+ 2903      626C6557 
+ 2903      616B6555 
+ 2904              	.LASF28:
+ 2905 028d 5343425F 		.ascii	"SCB_Type\000"
+ 2905      54797065 
+ 2905      00
+ 2906              	.LASF110:
+ 2907 0296 534C4545 		.ascii	"SLEEPEntry\000"
+ 2907      50456E74 
+ 2907      727900
+ 2908              	.LASF95:
+ 2909 02a1 48414C5F 		.ascii	"HAL_TIMEOUT\000"
+ 2909      54494D45 
+ 2909      4F555400 
+ 2910              	.LASF10:
+ 2911 02ad 756E7369 		.ascii	"unsigned int\000"
+ 2911      676E6564 
+ 2911      20696E74 
+ 2911      00
+ 2912              	.LASF115:
+ 2913 02ba 48414C5F 		.ascii	"HAL_PWR_DisablePVD\000"
+ 2913      5057525F 
+ 2913      44697361 
+ 2913      626C6550 
+ 2913      564400
+ 2914              	.LASF7:
+ 2915 02cd 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2915      20756E73 
+ 2915      69676E65 
+ 2915      6420696E 
+ 2915      7400
+ 2916              	.LASF89:
+ 2917 02df 5243435F 		.ascii	"RCC_TypeDef\000"
+ 2917      54797065 
+ 2917      44656600 
+ 2918              	.LASF92:
+ 2919 02eb 48414C5F 		.ascii	"HAL_OK\000"
+ 2919      4F4B00
+ 2920              	.LASF15:
+ 2921 02f2 56544F52 		.ascii	"VTOR\000"
+ 2921      00
+ 2922              	.LASF29:
+ 2923 02f7 494D5231 		.ascii	"IMR1\000"
+ 2923      00
+ 2924              	.LASF36:
+ 2925 02fc 494D5232 		.ascii	"IMR2\000"
+ 2925      00
+ 2926              	.LASF14:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 66
+
+
+ 2927 0301 49435352 		.ascii	"ICSR\000"
+ 2927      00
+ 2928              	.LASF79:
+ 2929 0306 41484233 		.ascii	"AHB3SMENR\000"
+ 2929      534D454E 
+ 2929      5200
+ 2930              	.LASF16:
+ 2931 0310 41495243 		.ascii	"AIRCR\000"
+ 2931      5200
+ 2932              	.LASF20:
+ 2933 0316 44465352 		.ascii	"DFSR\000"
+ 2933      00
+ 2934              	.LASF21:
+ 2935 031b 4D4D4641 		.ascii	"MMFAR\000"
+ 2935      5200
+ 2936              	.LASF31:
+ 2937 0321 52545352 		.ascii	"RTSR1\000"
+ 2937      3100
+ 2938              	.LASF38:
+ 2939 0327 52545352 		.ascii	"RTSR2\000"
+ 2939      3200
+ 2940              	.LASF96:
+ 2941 032d 48414C5F 		.ascii	"HAL_StatusTypeDef\000"
+ 2941      53746174 
+ 2941      75735479 
+ 2941      70654465 
+ 2941      6600
+ 2942              	.LASF24:
+ 2943 033f 4D4D4652 		.ascii	"MMFR\000"
+ 2943      00
+ 2944              	.LASF100:
+ 2945 0344 48414C5F 		.ascii	"HAL_PWR_PVDCallback\000"
+ 2945      5057525F 
+ 2945      50564443 
+ 2945      616C6C62 
+ 2945      61636B00 
+ 2946              	.LASF90:
+ 2947 0358 52455345 		.ascii	"RESET\000"
+ 2947      5400
+ 2948              	.LASF116:
+ 2949 035e 48414C5F 		.ascii	"HAL_PWR_EnablePVD\000"
+ 2949      5057525F 
+ 2949      456E6162 
+ 2949      6C655056 
+ 2949      4400
+ 2950              	.LASF18:
+ 2951 0370 43465352 		.ascii	"CFSR\000"
+ 2951      00
+ 2952              	.LASF122:
+ 2953 0375 48414C5F 		.ascii	"HAL_PWREx_EnterSTOP1Mode\000"
+ 2953      50575245 
+ 2953      785F456E 
+ 2953      74657253 
+ 2953      544F5031 
+ 2954              	.LASF74:
+ 2955 038e 41504231 		.ascii	"APB1ENR1\000"
+ 2955      454E5231 
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 67
+
+
+ 2955      00
+ 2956              	.LASF75:
+ 2957 0397 41504231 		.ascii	"APB1ENR2\000"
+ 2957      454E5232 
+ 2957      00
+ 2958              	.LASF108:
+ 2959 03a0 48414C5F 		.ascii	"HAL_PWR_EnterSTOPMode\000"
+ 2959      5057525F 
+ 2959      456E7465 
+ 2959      7253544F 
+ 2959      504D6F64 
+ 2960              	.LASF114:
+ 2961 03b6 57616B65 		.ascii	"WakeUpPinPolarity\000"
+ 2961      55705069 
+ 2961      6E506F6C 
+ 2961      61726974 
+ 2961      7900
+ 2962              	.LASF26:
+ 2963 03c8 52455345 		.ascii	"RESERVED0\000"
+ 2963      52564544 
+ 2963      3000
+ 2964              	.LASF34:
+ 2965 03d2 52455345 		.ascii	"RESERVED1\000"
+ 2965      52564544 
+ 2965      3100
+ 2966              	.LASF35:
+ 2967 03dc 52455345 		.ascii	"RESERVED2\000"
+ 2967      52564544 
+ 2967      3200
+ 2968              	.LASF53:
+ 2969 03e6 52455345 		.ascii	"RESERVED3\000"
+ 2969      52564544 
+ 2969      3300
+ 2970              	.LASF54:
+ 2971 03f0 52455345 		.ascii	"RESERVED4\000"
+ 2971      52564544 
+ 2971      3400
+ 2972              	.LASF80:
+ 2973 03fa 52455345 		.ascii	"RESERVED5\000"
+ 2973      52564544 
+ 2973      3500
+ 2974              	.LASF84:
+ 2975 0404 52455345 		.ascii	"RESERVED6\000"
+ 2975      52564544 
+ 2975      3600
+ 2976              	.LASF86:
+ 2977 040e 52455345 		.ascii	"RESERVED7\000"
+ 2977      52564544 
+ 2977      3700
+ 2978              	.LASF61:
+ 2979 0418 52455345 		.ascii	"RESERVED8\000"
+ 2979      52564544 
+ 2979      3800
+ 2980              	.LASF123:
+ 2981 0422 48414C5F 		.ascii	"HAL_PWREx_DisableLowPowerRunMode\000"
+ 2981      50575245 
+ 2981      785F4469 
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 68
+
+
+ 2981      7361626C 
+ 2981      654C6F77 
+ 2982              	.LASF1:
+ 2983 0443 756E7369 		.ascii	"unsigned char\000"
+ 2983      676E6564 
+ 2983      20636861 
+ 2983      7200
+ 2984              	.LASF17:
+ 2985 0451 53484353 		.ascii	"SHCSR\000"
+ 2985      5200
+ 2986              	.LASF85:
+ 2987 0457 43434950 		.ascii	"CCIPR\000"
+ 2987      5200
+ 2988              	.LASF2:
+ 2989 045d 73686F72 		.ascii	"short int\000"
+ 2989      7420696E 
+ 2989      7400
+ 2990              	.LASF88:
+ 2991 0467 43525243 		.ascii	"CRRCR\000"
+ 2991      5200
+ 2992              	.LASF42:
+ 2993 046d 52455345 		.ascii	"RESERVED\000"
+ 2993      52564544 
+ 2993      00
+ 2994              	.LASF127:
+ 2995 0476 433A5C55 		.ascii	"C:\\Users\\hoodc\\Documents\\Github\\indago-embedde"
+ 2995      73657273 
+ 2995      5C686F6F 
+ 2995      64635C44 
+ 2995      6F63756D 
+ 2996 04a4 642D6465 		.ascii	"d-dev\\Indago-Smart-Board-v4\\MDK-ARM\000"
+ 2996      765C496E 
+ 2996      6461676F 
+ 2996      2D536D61 
+ 2996      72742D42 
+ 2997              	.LASF76:
+ 2998 04c8 41504232 		.ascii	"APB2ENR\000"
+ 2998      454E5200 
+ 2999              	.LASF67:
+ 3000 04d0 41484233 		.ascii	"AHB3RSTR\000"
+ 3000      52535452 
+ 3000      00
+ 3001              	.LASF73:
+ 3002 04d9 41484233 		.ascii	"AHB3ENR\000"
+ 3002      454E5200 
+ 3003              	.LASF104:
+ 3004 04e1 48414C5F 		.ascii	"HAL_PWR_EnableSleepOnExit\000"
+ 3004      5057525F 
+ 3004      456E6162 
+ 3004      6C65536C 
+ 3004      6565704F 
+ 3005              	.LASF12:
+ 3006 04fb 75696E74 		.ascii	"uint32_t\000"
+ 3006      33325F74 
+ 3006      00
+ 3007              	.LASF117:
+ 3008 0504 73436F6E 		.ascii	"sConfigPVD\000"
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 69
+
+
+ 3008      66696750 
+ 3008      564400
+ 3009              	.LASF93:
+ 3010 050f 48414C5F 		.ascii	"HAL_ERROR\000"
+ 3010      4552524F 
+ 3010      5200
+ 3011              	.LASF99:
+ 3012 0519 5057525F 		.ascii	"PWR_PVDTypeDef\000"
+ 3012      50564454 
+ 3012      79706544 
+ 3012      656600
+ 3013              	.LASF91:
+ 3014 0528 6C6F6E67 		.ascii	"long double\000"
+ 3014      20646F75 
+ 3014      626C6500 
+ 3015              	.LASF102:
+ 3016 0534 48414C5F 		.ascii	"HAL_PWR_EnableSEVOnPend\000"
+ 3016      5057525F 
+ 3016      456E6162 
+ 3016      6C655345 
+ 3016      564F6E50 
+ 3017              	.LASF98:
+ 3018 054c 4D6F6465 		.ascii	"Mode\000"
+ 3018      00
+ 3019              	.LASF66:
+ 3020 0551 41484232 		.ascii	"AHB2RSTR\000"
+ 3020      52535452 
+ 3020      00
+ 3021              	.LASF119:
+ 3022 055a 48414C5F 		.ascii	"HAL_PWR_EnableBkUpAccess\000"
+ 3022      5057525F 
+ 3022      456E6162 
+ 3022      6C65426B 
+ 3022      55704163 
+ 3023              	.LASF57:
+ 3024 0573 5057525F 		.ascii	"PWR_TypeDef\000"
+ 3024      54797065 
+ 3024      44656600 
+ 3025              	.LASF72:
+ 3026 057f 41484232 		.ascii	"AHB2ENR\000"
+ 3026      454E5200 
+ 3027              	.LASF3:
+ 3028 0587 73686F72 		.ascii	"short unsigned int\000"
+ 3028      7420756E 
+ 3028      7369676E 
+ 3028      65642069 
+ 3028      6E7400
+ 3029              	.LASF120:
+ 3030 059a 48414C5F 		.ascii	"HAL_PWR_DeInit\000"
+ 3030      5057525F 
+ 3030      4465496E 
+ 3030      697400
+ 3031              	.LASF30:
+ 3032 05a9 454D5231 		.ascii	"EMR1\000"
+ 3032      00
+ 3033              	.LASF37:
+ 3034 05ae 454D5232 		.ascii	"EMR2\000"
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 70
+
+
+ 3034      00
+ 3035              	.LASF103:
+ 3036 05b3 48414C5F 		.ascii	"HAL_PWR_DisableSleepOnExit\000"
+ 3036      5057525F 
+ 3036      44697361 
+ 3036      626C6553 
+ 3036      6C656570 
+ 3037              	.LASF106:
+ 3038 05ce 52656775 		.ascii	"Regulator\000"
+ 3038      6C61746F 
+ 3038      7200
+ 3039              	.LASF128:
+ 3040 05d8 48414C5F 		.ascii	"HAL_PWR_ConfigPVD\000"
+ 3040      5057525F 
+ 3040      436F6E66 
+ 3040      69675056 
+ 3040      4400
+ 3041              	.LASF64:
+ 3042 05ea 43494352 		.ascii	"CICR\000"
+ 3042      00
+ 3043              	.LASF87:
+ 3044 05ef 42444352 		.ascii	"BDCR\000"
+ 3044      00
+ 3045              	.LASF11:
+ 3046 05f4 75696E74 		.ascii	"uint8_t\000"
+ 3046      385F7400 
+ 3047              	.LASF107:
+ 3048 05fc 53544F50 		.ascii	"STOPEntry\000"
+ 3048      456E7472 
+ 3048      7900
+ 3049              	.LASF121:
+ 3050 0606 48414C5F 		.ascii	"HAL_PWREx_EnterSTOP0Mode\000"
+ 3050      50575245 
+ 3050      785F456E 
+ 3050      74657253 
+ 3050      544F5030 
+ 3051              	.LASF58:
+ 3052 061f 49435343 		.ascii	"ICSCR\000"
+ 3052      5200
+ 3053              	.LASF113:
+ 3054 0625 48414C5F 		.ascii	"HAL_PWR_EnableWakeUpPin\000"
+ 3054      5057525F 
+ 3054      456E6162 
+ 3054      6C655761 
+ 3054      6B655570 
+ 3055              	.LASF71:
+ 3056 063d 41484231 		.ascii	"AHB1ENR\000"
+ 3056      454E5200 
+ 3057              	.LASF59:
+ 3058 0645 43464752 		.ascii	"CFGR\000"
+ 3058      00
+ 3059              	.LASF41:
+ 3060 064a 45585449 		.ascii	"EXTI_TypeDef\000"
+ 3060      5F547970 
+ 3060      65446566 
+ 3060      00
+ 3061              	.LASF27:
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 71
+
+
+ 3062 0657 43504143 		.ascii	"CPACR\000"
+ 3062      5200
+ 3063              	.LASF19:
+ 3064 065d 48465352 		.ascii	"HFSR\000"
+ 3064      00
+ 3065              	.LASF40:
+ 3066 0662 53574945 		.ascii	"SWIER2\000"
+ 3066      523200
+ 3067              	.LASF81:
+ 3068 0669 41504231 		.ascii	"APB1SMENR1\000"
+ 3068      534D454E 
+ 3068      523100
+ 3069              	.LASF82:
+ 3070 0674 41504231 		.ascii	"APB1SMENR2\000"
+ 3070      534D454E 
+ 3070      523200
+ 3071              		.ident	"GCC: (GNU Arm Embedded Toolchain 10-2020-q4-major) 10.2.1 20201103 (release)"
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s 			page 72
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32l4xx_hal_pwr.c
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:15     .text:00000000 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:23     .text:00000000 HAL_PWR_DeInit
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:45     .text:00000014 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:49     .text:00000018 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:56     .text:00000018 HAL_PWR_EnableBkUpAccess
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:73     .text:00000024 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:77     .text:00000028 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:84     .text:00000028 HAL_PWR_DisableBkUpAccess
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:101    .text:00000034 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:105    .text:00000038 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:112    .text:00000038 HAL_PWR_ConfigPVD
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:203    .text:000000b4 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:208    .text:000000bc $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:215    .text:000000bc HAL_PWR_EnablePVD
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:232    .text:000000c8 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:236    .text:000000cc $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:243    .text:000000cc HAL_PWR_DisablePVD
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:260    .text:000000d8 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:264    .text:000000dc $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:271    .text:000000dc HAL_PWR_EnableWakeUpPin
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:298    .text:000000f8 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:302    .text:000000fc $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:309    .text:000000fc HAL_PWR_DisableWakeUpPin
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:331    .text:0000010c $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:335    .text:00000110 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:342    .text:00000110 HAL_PWR_EnterSLEEPMode
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:433    .text:00000154 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:438    .text:0000015c $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:445    .text:0000015c HAL_PWR_EnterSTOPMode
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:492    .text:00000174 HAL_PWR_EnterSTANDBYMode
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:522    .text:00000190 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:527    .text:00000198 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:534    .text:00000198 HAL_PWR_EnableSleepOnExit
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:551    .text:000001a4 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:555    .text:000001a8 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:562    .text:000001a8 HAL_PWR_DisableSleepOnExit
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:579    .text:000001b4 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:583    .text:000001b8 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:590    .text:000001b8 HAL_PWR_EnableSEVOnPend
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:607    .text:000001c4 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:611    .text:000001c8 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:618    .text:000001c8 HAL_PWR_DisableSEVOnPend
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:635    .text:000001d4 $d
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:639    .text:000001d8 $t
+C:\Users\hoodc\AppData\Local\Temp\ccswjCB2.s:646    .text:000001d8 HAL_PWR_PVDCallback
+
+UNDEFINED SYMBOLS
+HAL_PWREx_DisableLowPowerRunMode
+HAL_PWREx_EnableLowPowerRunMode
+HAL_PWREx_EnterSTOP0Mode
+HAL_PWREx_EnterSTOP1Mode

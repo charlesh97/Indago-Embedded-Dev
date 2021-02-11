@@ -1,54 +1,47 @@
-"C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Libraries\PahoMQTT\src\MQTTPacket.c"
+"C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTPacket.c"
 -std=c11
 -ferror-limit=0
 -fbracket-depth=512
+-funsigned-char
 -MD
 -MF
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM\Indago-Smart-Board-v4\Obj\MQTTPacket.pbi.dep
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM\Indago-Smart-Board-v4\Obj\MQTTPacket.pbi.dep
 -o
 MQTTPacket.pbi
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Libraries\PahoMQTT\src
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Inc
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Inc\
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Libraries/libjwt/include
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Drivers/STM32L4xx_HAL_Driver/Inc\
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Libraries/Jansson/src
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy\
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Libraries/OpenSSL/include
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Drivers/CMSIS/Device/ST/STM32L4xx/Include\
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Libraries/PahoMQTT/src
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Drivers/CMSIS/Include\
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Drivers/STM32L4xx_HAL_Driver/Inc
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM\..\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src\
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy
--I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Drivers/CMSIS/Device/ST/STM32L4xx/Include
--I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Drivers/CMSIS/Include
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4\arm\inc\c
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Inc
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Inc
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Libraries\libjwt\include
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Inc
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Libraries\Jansson\src
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Libraries\OpenSSL\include
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\CMSIS\Device\ST\STM32L4xx\Include
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Libraries\PahoMQTT\src
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\CMSIS\Include
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Inc
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src
 -I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy
--I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\CMSIS\Device\ST\STM32L4xx\Include
--I
-C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\CMSIS\Include
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
@@ -199,8 +192,8 @@ C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart
 -D__JMP_BUF_ELEMENT_TYPE__=unsigned long long int
 -D__JMP_BUF_NUM_ELEMENTS__=16
 -D__TID__=0xcf60
--D__VER__=8042001
--D__BUILD_NUMBER__=236
+-D__VER__=8050009
+-D__BUILD_NUMBER__=278
 -D__IAR_SYSTEMS_ICC__=9
 -D_MAX_ALIGNMENT=8
 -D__LITTLE_ENDIAN__=1
@@ -294,8 +287,8 @@ C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart
 -D__HAS_JOINED_TYPES__=1
 -D__HAS_LOCATED_DECLARATION__=1
 -D__HAS_LOCATED_WITH_INIT__=1
--D__IAR_COMPILERBASE__=656899
--D__IAR_COMPILERBASE_STR__=10.6.3.1217
+-D__IAR_COMPILERBASE__=656909
+-D__IAR_COMPILERBASE_STR__=10.6.13.1289
 -D__UNICODE_SOURCE_SUPPORTED__=1
 -D__VTABLE_MEM__=
 -D__PRAGMA_REDEFINE_EXTNAME=1
@@ -342,9 +335,9 @@ C:\Users\hoodc\Documents\Github\Gitlab-Personal\indago-embedded-dev\Indago-Smart
 -D__EDG_INT128_EXTENSIONS_ALLOWED=0
 -DUSE_HAL_DRIVER=1
 -DSTM32L422xx=1
--D_DLIB_CONFIG_FILE_HEADER_NAME="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.4\\arm\\inc\\c\\DLib_Config_Full.h"
+-D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4\arm\inc\c\DLib_Config_Full.h"
 -D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.4\\arm\\inc\\c\\DLib_Config_Full.h"
--D__VERSION__="IAR ANSI C/C++ Compiler V8.42.1.236/W32 for ARM"
+-D__VERSION__="IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM"
 -D_VA_DEFINED=
 -D_VA_LIST=struct __va_list
 -D__ICCARM_OLD_DEFINED_VAARGS__=1

@@ -1,0 +1,237 @@
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccqCPNPm.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"print.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              	.Letext0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18 0000 6E000000 		.4byte	0x6e
+  19 0004 0200     		.2byte	0x2
+  20 0006 00000000 		.4byte	.Ldebug_abbrev0
+  21 000a 04       		.byte	0x4
+  22 000b 01       		.uleb128 0x1
+  23 000c 2B000000 		.4byte	.LASF11
+  24 0010 0C       		.byte	0xc
+  25 0011 25010000 		.4byte	.LASF12
+  26 0015 D3000000 		.4byte	.LASF13
+  27 0019 00000000 		.4byte	.Ldebug_line0
+  28 001d 02       		.uleb128 0x2
+  29 001e 01       		.byte	0x1
+  30 001f 06       		.byte	0x6
+  31 0020 1F000000 		.4byte	.LASF0
+  32 0024 02       		.uleb128 0x2
+  33 0025 01       		.byte	0x1
+  34 0026 08       		.byte	0x8
+  35 0027 34010000 		.4byte	.LASF1
+  36 002b 02       		.uleb128 0x2
+  37 002c 02       		.byte	0x2
+  38 002d 05       		.byte	0x5
+  39 002e B2000000 		.4byte	.LASF2
+  40 0032 02       		.uleb128 0x2
+  41 0033 02       		.byte	0x2
+  42 0034 07       		.byte	0x7
+  43 0035 5C010000 		.4byte	.LASF3
+  44 0039 02       		.uleb128 0x2
+  45 003a 04       		.byte	0x4
+  46 003b 05       		.byte	0x5
+  47 003c 42010000 		.4byte	.LASF4
+  48 0040 02       		.uleb128 0x2
+  49 0041 04       		.byte	0x4
+  50 0042 07       		.byte	0x7
+  51 0043 0D000000 		.4byte	.LASF5
+  52 0047 02       		.uleb128 0x2
+  53 0048 08       		.byte	0x8
+  54 0049 05       		.byte	0x5
+  55 004a 6F010000 		.4byte	.LASF6
+  56 004e 02       		.uleb128 0x2
+  57 004f 08       		.byte	0x8
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccqCPNPm.s 			page 2
+
+
+  58 0050 07       		.byte	0x7
+  59 0051 BC000000 		.4byte	.LASF7
+  60 0055 03       		.uleb128 0x3
+  61 0056 04       		.byte	0x4
+  62 0057 05       		.byte	0x5
+  63 0058 696E7400 		.ascii	"int\000"
+  64 005c 02       		.uleb128 0x2
+  65 005d 04       		.byte	0x4
+  66 005e 07       		.byte	0x7
+  67 005f 00000000 		.4byte	.LASF8
+  68 0063 02       		.uleb128 0x2
+  69 0064 08       		.byte	0x8
+  70 0065 04       		.byte	0x4
+  71 0066 4B010000 		.4byte	.LASF9
+  72 006a 02       		.uleb128 0x2
+  73 006b 01       		.byte	0x1
+  74 006c 08       		.byte	0x8
+  75 006d 57010000 		.4byte	.LASF10
+  76 0071 00       		.byte	0
+  77              		.section	.debug_abbrev,"",%progbits
+  78              	.Ldebug_abbrev0:
+  79 0000 01       		.uleb128 0x1
+  80 0001 11       		.uleb128 0x11
+  81 0002 01       		.byte	0x1
+  82 0003 25       		.uleb128 0x25
+  83 0004 0E       		.uleb128 0xe
+  84 0005 13       		.uleb128 0x13
+  85 0006 0B       		.uleb128 0xb
+  86 0007 03       		.uleb128 0x3
+  87 0008 0E       		.uleb128 0xe
+  88 0009 1B       		.uleb128 0x1b
+  89 000a 0E       		.uleb128 0xe
+  90 000b 10       		.uleb128 0x10
+  91 000c 06       		.uleb128 0x6
+  92 000d 00       		.byte	0
+  93 000e 00       		.byte	0
+  94 000f 02       		.uleb128 0x2
+  95 0010 24       		.uleb128 0x24
+  96 0011 00       		.byte	0
+  97 0012 0B       		.uleb128 0xb
+  98 0013 0B       		.uleb128 0xb
+  99 0014 3E       		.uleb128 0x3e
+ 100 0015 0B       		.uleb128 0xb
+ 101 0016 03       		.uleb128 0x3
+ 102 0017 0E       		.uleb128 0xe
+ 103 0018 00       		.byte	0
+ 104 0019 00       		.byte	0
+ 105 001a 03       		.uleb128 0x3
+ 106 001b 24       		.uleb128 0x24
+ 107 001c 00       		.byte	0
+ 108 001d 0B       		.uleb128 0xb
+ 109 001e 0B       		.uleb128 0xb
+ 110 001f 3E       		.uleb128 0x3e
+ 111 0020 0B       		.uleb128 0xb
+ 112 0021 03       		.uleb128 0x3
+ 113 0022 08       		.uleb128 0x8
+ 114 0023 00       		.byte	0
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccqCPNPm.s 			page 3
+
+
+ 115 0024 00       		.byte	0
+ 116 0025 00       		.byte	0
+ 117              		.section	.debug_aranges,"",%progbits
+ 118 0000 14000000 		.4byte	0x14
+ 119 0004 0200     		.2byte	0x2
+ 120 0006 00000000 		.4byte	.Ldebug_info0
+ 121 000a 04       		.byte	0x4
+ 122 000b 00       		.byte	0
+ 123 000c 0000     		.2byte	0
+ 124 000e 0000     		.2byte	0
+ 125 0010 00000000 		.4byte	0
+ 126 0014 00000000 		.4byte	0
+ 127              		.section	.debug_line,"",%progbits
+ 128              	.Ldebug_line0:
+ 129 0000 19000000 		.section	.debug_str,"MS",%progbits,1
+ 129      03001300 
+ 129      00000201 
+ 129      FB0E0D00 
+ 129      01010101 
+ 130              	.LASF8:
+ 131 0000 756E7369 		.ascii	"unsigned int\000"
+ 131      676E6564 
+ 131      20696E74 
+ 131      00
+ 132              	.LASF5:
+ 133 000d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 133      20756E73 
+ 133      69676E65 
+ 133      6420696E 
+ 133      7400
+ 134              	.LASF0:
+ 135 001f 7369676E 		.ascii	"signed char\000"
+ 135      65642063 
+ 135      68617200 
+ 136              	.LASF11:
+ 137 002b 474E5520 		.ascii	"GNU C17 10.2.1 20201103 (release) -mthumb -mapcs-fr"
+ 137      43313720 
+ 137      31302E32 
+ 137      2E312032 
+ 137      30323031 
+ 138 005e 616D6520 		.ascii	"ame -mthumb-interwork -mcpu=cortex-m4 -mfloat-abi=s"
+ 138      2D6D7468 
+ 138      756D622D 
+ 138      696E7465 
+ 138      72776F72 
+ 139 0091 6F667420 		.ascii	"oft -march=armv7e-m -gdwarf-2 -O\000"
+ 139      2D6D6172 
+ 139      63683D61 
+ 139      726D7637 
+ 139      652D6D20 
+ 140              	.LASF2:
+ 141 00b2 73686F72 		.ascii	"short int\000"
+ 141      7420696E 
+ 141      7400
+ 142              	.LASF7:
+ 143 00bc 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 143      206C6F6E 
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccqCPNPm.s 			page 4
+
+
+ 143      6720756E 
+ 143      7369676E 
+ 143      65642069 
+ 144              	.LASF13:
+ 145 00d3 433A5C55 		.ascii	"C:\\Users\\hoodc\\Documents\\Github\\indago-embedde"
+ 145      73657273 
+ 145      5C686F6F 
+ 145      64635C44 
+ 145      6F63756D 
+ 146 0101 642D6465 		.ascii	"d-dev\\Indago-Smart-Board-v4\\MDK-ARM\000"
+ 146      765C496E 
+ 146      6461676F 
+ 146      2D536D61 
+ 146      72742D42 
+ 147              	.LASF12:
+ 148 0125 2E2E2F53 		.ascii	"../Src/print.c\000"
+ 148      72632F70 
+ 148      72696E74 
+ 148      2E6300
+ 149              	.LASF1:
+ 150 0134 756E7369 		.ascii	"unsigned char\000"
+ 150      676E6564 
+ 150      20636861 
+ 150      7200
+ 151              	.LASF4:
+ 152 0142 6C6F6E67 		.ascii	"long int\000"
+ 152      20696E74 
+ 152      00
+ 153              	.LASF9:
+ 154 014b 6C6F6E67 		.ascii	"long double\000"
+ 154      20646F75 
+ 154      626C6500 
+ 155              	.LASF10:
+ 156 0157 63686172 		.ascii	"char\000"
+ 156      00
+ 157              	.LASF3:
+ 158 015c 73686F72 		.ascii	"short unsigned int\000"
+ 158      7420756E 
+ 158      7369676E 
+ 158      65642069 
+ 158      6E7400
+ 159              	.LASF6:
+ 160 016f 6C6F6E67 		.ascii	"long long int\000"
+ 160      206C6F6E 
+ 160      6720696E 
+ 160      7400
+ 161              		.ident	"GCC: (GNU Arm Embedded Toolchain 10-2020-q4-major) 10.2.1 20201103 (release)"
+ARM GAS  C:\Users\hoodc\AppData\Local\Temp\ccqCPNPm.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 print.c
+
+NO UNDEFINED SYMBOLS
