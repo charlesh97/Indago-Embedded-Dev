@@ -18,6 +18,7 @@
 #define MSG_BUFFER_SIZE     5
 
 
+// Enums
 typedef enum SARA_R4_Msg {
   AT_COMMAND_ECHO,
   AT_COMMAND_RESPONSE,
@@ -32,6 +33,18 @@ typedef enum SARA_R4_Status {
   SARA_TIMEOUT,
   SARA_ERROR, //TODO: List some of the other errors
 } SARA_R4_Status_t;
+
+typedef enum SARA_R4_Connection {
+  SARA_CONNECTED,
+  SARA_DISCONNECTED
+} SARA_R4_Connection_t;
+
+typedef struct SARA_R4 {
+  UART_HandleTypeDef huart;
+  // TODO: ADD SETTINGS HERE
+  SARA_R4_Socket_t socket; 
+  SARA_R4_Operator_t operator;
+} SARA_R4_t;
 
 typedef struct SARA_R4_Resp {
   uint8_t len;
@@ -62,6 +75,16 @@ typedef struct SARA_R4_Operator {
   uint8_t status;
   uint8_t accessTechnology;
 } SARA_R4_Operator_t;
+
+typedef struct SARA_R4_Socket {
+  uint8_t id;
+  uint8_t port;
+  uint8_t protocol;
+  SARA_R4_Connection_t status;
+  uint8_t ssl_profile_id;
+  uint8_t ssl_enabled;
+
+} SARA_R4_Socket_t;
 
 // Function Definitions
 bool SARA_R4_Init(UART_HandleTypeDef *uart);

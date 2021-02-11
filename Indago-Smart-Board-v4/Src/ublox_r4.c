@@ -19,7 +19,8 @@
 
 
 // Globals
-static UART_HandleTypeDef *huart;
+SARA_R4_t *hmodem;
+static UART_HandleTypeDef huart; //SARA-R4
 Queue_t cell_tx_queue;//, cell_rx_queue;
 Queue_t message_queue;
 
@@ -34,8 +35,9 @@ uint32_t Convert_From_ASCII(char *msg, uint8_t len);
 /** MAIN UBLOX FUNCTIONS **/
 
 //Init
-bool SARA_R4_Init(UART_HandleTypeDef *uart){
-  huart = uart;
+bool SARA_R4_Init(SARA_R4_t *modem){
+  hmodem = modem;
+  huart = modem->huart;
 
   // Initialize Queues
   if(Queue_Init(&cell_tx_queue, sizeof(uint8_t), TX_BUFFER_SIZE) != QUEUE_OK)
@@ -119,12 +121,12 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
   HAL_Delay(100);
   SARA_R4_Connect_Socket(socket, (char*)AWS_ADDR, AWS_PORT);
 
-  HAL_Delay(150);
-  char send[150] = "AT+USOWR=0,32,\"301E0009746573742F64617465323032302D31312D32335432303A34363A3235\"\r\n";
-  SARA_R4_Send(send);
+  // HAL_Delay(150);
+  // char send[150] = "AT+USOWR=0,32,\"301E0009746573742F64617465323032302D31312D32335432303A34363A3235\"\r\n";
+  // SARA_R4_Send(send);
 
-  HAL_Delay(150);
-  SARA_R4_Send(send);
+  // HAL_Delay(150);
+  // SARA_R4_Send(send);
 
   //HAL_Delay(5000);
   //SARA_R4_Send(send);
@@ -134,9 +136,6 @@ bool SARA_R4_Init(UART_HandleTypeDef *uart){
 //  if(ret != SARA_OK)
 //    Error_Handler();
 //  printf("%d, %d, %d, %d, %d, %d", rxlev, ber, rscp, enc0, rsrq, rsrp);
-
-
-
   return true;
 }
 
