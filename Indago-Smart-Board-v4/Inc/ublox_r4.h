@@ -39,13 +39,6 @@ typedef enum SARA_R4_Connection {
   SARA_DISCONNECTED
 } SARA_R4_Connection_t;
 
-typedef struct SARA_R4 {
-  UART_HandleTypeDef huart;
-  // TODO: ADD SETTINGS HERE
-  SARA_R4_Socket_t socket; 
-  SARA_R4_Operator_t operator;
-} SARA_R4_t;
-
 typedef struct SARA_R4_Resp {
   uint8_t len;
   char message[100];
@@ -86,8 +79,15 @@ typedef struct SARA_R4_Socket {
 
 } SARA_R4_Socket_t;
 
+typedef struct SARA_R4 {
+  UART_HandleTypeDef huart;
+  // TODO: ADD SETTINGS HERE
+  SARA_R4_Socket_t socket; 
+  SARA_R4_Operator_t operator;
+} SARA_R4_t;
+
 // Function Definitions
-bool SARA_R4_Init(UART_HandleTypeDef *uart);
+bool SARA_R4_Init(SARA_R4_t *modem);
 void SARA_R4_HW_Power_On(void);
 void SARA_R4_HW_Reset(void);
 

@@ -16,11 +16,9 @@
 #include "print.h"
 #include "aws.h"
 
-
-
 // Globals
 SARA_R4_t *hmodem;
-static UART_HandleTypeDef huart; //SARA-R4
+static UART_HandleTypeDef *huart; //SARA-R4
 Queue_t cell_tx_queue;//, cell_rx_queue;
 Queue_t message_queue;
 
@@ -37,7 +35,7 @@ uint32_t Convert_From_ASCII(char *msg, uint8_t len);
 //Init
 bool SARA_R4_Init(SARA_R4_t *modem){
   hmodem = modem;
-  huart = modem->huart;
+  huart = &(modem->huart);
 
   // Initialize Queues
   if(Queue_Init(&cell_tx_queue, sizeof(uint8_t), TX_BUFFER_SIZE) != QUEUE_OK)

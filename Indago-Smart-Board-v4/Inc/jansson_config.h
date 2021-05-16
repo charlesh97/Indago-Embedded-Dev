@@ -18,6 +18,14 @@
 #ifndef JANSSON_CONFIG_H
 #define JANSSON_CONFIG_H
 
+#include <stdint.h>
+
+#define HAVE_CONFIG_H 1
+#define HAVE_STDINT_H 1
+
+
+
+
 /* If your compiler supports the inline keyword in C, JSON_INLINE is
    defined to `inline', otherwise empty. In C++, the inline is always
    supported. */
@@ -26,6 +34,7 @@
 #else
 #define JSON_INLINE inline
 #endif
+
 
 /* If your compiler supports the `long long` type and the strtoll()
    library function, JSON_INTEGER_IS_LONG_LONG is defined to 1,
@@ -46,6 +55,6 @@
 
 /* Maximum recursion depth for parsing JSON input.
    This limits the depth of e.g. array-within-array constructions. */
-#define JSON_PARSER_MAX_DEPTH 2048
+#define JSON_PARSER_MAX_DEPTH 1024
 
 #endif

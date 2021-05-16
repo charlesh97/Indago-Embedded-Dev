@@ -6,13 +6,16 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include <stdio.h>
 
+#include "main.h"
 #include "ublox_gps.h"
 #include "ublox_r4.h"
 #include "print.h"
-#include <stdio.h>
-//#include <jansson.h>
+
+    
+    
+#include "MQTTPacket.h"
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1; //MAX-8Q
@@ -51,16 +54,16 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
-  SET_BIT(huart1.Instance->CR3, USART_CR3_EIE);                                 // Turn on RNE IRQ (Main UART IRQ)
-  SET_BIT(huart1.Instance->CR1, USART_CR1_RXNEIE);
-
-  //printf("Testing");
+  //SET_BIT(huart1.Instance->CR3, USART_CR3_EIE);                                 // Turn on RNE IRQ (Main UART IRQ)
+  //SET_BIT(huart1.Instance->CR1, USART_CR1_RXNEIE);
+  printf("Testing");
 
   for(uint8_t i = 0; i < 4; i++){
     HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
     HAL_Delay(250);
   }
-
+ 
+  
   // PA1     ------> USART2_RTS
   /*GPIO_InitTypeDef GPIO_InitStruct = {0};
   GPIO_InitStruct.Pin = GPIO_PIN_1;

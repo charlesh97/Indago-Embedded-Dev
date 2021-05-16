@@ -355,8 +355,8 @@
                     <state>$PROJ_DIR$/../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Device/ST/STM32L4xx/Include</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
-                    <state>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src</state>
                     <state>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src</state>
+                    <state>$PROJ_DIR$\..\Drivers\Jansson\src</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1081,6 +1081,15 @@
                 <name>$PROJ_DIR$\..\Inc\aws.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Inc\cloud.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Inc\jansson_config.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\jansson_private_config.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Inc\list.h</name>
             </file>
             <file>
@@ -1108,6 +1117,9 @@
         <group>
             <name>Src</name>
             <file>
+                <name>$PROJ_DIR$\..\Src\cloud.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\list.c</name>
             </file>
             <file>
@@ -1124,6 +1136,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\stm32l4xx_it.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\syscalls.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\ublox_gps.c</name>
@@ -1143,15 +1158,63 @@
         </group>
         <group>
             <name>Jansson</name>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\dump.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\error.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\hashtable.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\hashtable.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\hashtable_seed.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\jansson.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\jansson_private.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\load.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\lookup3.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\memory.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\pack_unpack.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\strbuffer.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\strbuffer.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\strconv.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\utf.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\utf.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\value.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\Jansson\src\version.c</name>
+            </file>
         </group>
         <group>
-            <name>Paho MQTT</name>
-            <file>
-                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src\MQTTClient.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src\MQTTClient.h</name>
-            </file>
+            <name>Paho MQTTPacket</name>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\MQTTConnect.h</name>
             </file>

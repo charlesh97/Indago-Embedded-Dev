@@ -16,4 +16,11 @@ value.pbi: \
   C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\Jansson\src/hashtable.h \
   C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\Jansson\src/jansson.h \
   C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\stdarg.h \
-  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\stdio.h
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\stdio.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Inc\jansson_config.h \
+  C:\Program\ Files\ (x86)\IAR\ Systems\Embedded\ Workbench\ 8.4\arm\inc\c\stdint.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\Jansson\src/jansson_private.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\Jansson\src/jansson_private_config.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\Jansson\src/strbuffer.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\Jansson\src/utf.h \
+  C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\Jansson\src\jansson_private_config.h

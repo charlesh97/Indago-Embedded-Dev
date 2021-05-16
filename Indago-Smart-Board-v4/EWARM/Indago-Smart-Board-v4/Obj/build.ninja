@@ -20,16 +20,29 @@ rule browsedata
 
 
 #Build steps
+build cloud.pbi : index cloud.xcl
 build list.pbi : index list.xcl
 build main.pbi : index main.xcl
 build print.pbi : index print.xcl
 build queue.pbi : index queue.xcl
 build stm32l4xx_hal_msp.pbi : index stm32l4xx_hal_msp.xcl
 build stm32l4xx_it.pbi : index stm32l4xx_it.xcl
+build syscalls.pbi : index syscalls.xcl
 build ublox_gps.pbi : index ublox_gps.xcl
 build ublox_r4.pbi : index ublox_r4.xcl
 build system_stm32l4xx.pbi : index system_stm32l4xx.xcl
-build MQTTClient.pbi : index MQTTClient.xcl
+build dump.pbi : index dump.xcl
+build error.pbi : index error.xcl
+build hashtable.pbi : index hashtable.xcl
+build hashtable_seed.pbi : index hashtable_seed.xcl
+build load.pbi : index load.xcl
+build memory.pbi : index memory.xcl
+build pack_unpack.pbi : index pack_unpack.xcl
+build strbuffer.pbi : index strbuffer.xcl
+build strconv.pbi : index strconv.xcl
+build utf.pbi : index utf.xcl
+build value.pbi : index value.xcl
+build version.pbi : index version.xcl
 build MQTTConnectClient.pbi : index MQTTConnectClient.xcl
 build MQTTConnectServer.pbi : index MQTTConnectServer.xcl
 build MQTTDeserializePublish.pbi : index MQTTDeserializePublish.xcl
@@ -59,14 +72,15 @@ build stm32l4xx_hal_tim.pbi : index stm32l4xx_hal_tim.xcl
 build stm32l4xx_hal_tim_ex.pbi : index stm32l4xx_hal_tim_ex.xcl
 build stm32l4xx_hal_uart.pbi : index stm32l4xx_hal_uart.xcl
 build stm32l4xx_hal_uart_ex.pbi : index stm32l4xx_hal_uart_ex.xcl
-build Indago-Smart-Board-v4_part0.pbi : link list.pbi main.pbi print.pbi queue.pbi stm32l4xx_hal_msp.pbi stm32l4xx_it.pbi
-build Indago-Smart-Board-v4_part1.pbi : link ublox_gps.pbi ublox_r4.pbi system_stm32l4xx.pbi MQTTClient.pbi MQTTConnectClient.pbi MQTTConnectServer.pbi
-build Indago-Smart-Board-v4_part2.pbi : link MQTTDeserializePublish.pbi MQTTFormat.pbi MQTTPacket.pbi MQTTSerializePublish.pbi MQTTSubscribeClient.pbi MQTTSubscribeServer.pbi
-build Indago-Smart-Board-v4_part3.pbi : link MQTTUnsubscribeClient.pbi MQTTUnsubscribeServer.pbi stm32l4xx_hal.pbi stm32l4xx_hal_cortex.pbi stm32l4xx_hal_dma.pbi stm32l4xx_hal_dma_ex.pbi
-build Indago-Smart-Board-v4_part4.pbi : link stm32l4xx_hal_exti.pbi stm32l4xx_hal_flash.pbi stm32l4xx_hal_flash_ex.pbi stm32l4xx_hal_flash_ramfunc.pbi stm32l4xx_hal_gpio.pbi stm32l4xx_hal_i2c.pbi
-build Indago-Smart-Board-v4_part5.pbi : link stm32l4xx_hal_i2c_ex.pbi stm32l4xx_hal_pwr.pbi stm32l4xx_hal_pwr_ex.pbi stm32l4xx_hal_rcc.pbi stm32l4xx_hal_rcc_ex.pbi stm32l4xx_hal_tim.pbi
-build Indago-Smart-Board-v4_part6.pbi : link stm32l4xx_hal_tim_ex.pbi stm32l4xx_hal_uart.pbi stm32l4xx_hal_uart_ex.pbi
-build Indago-Smart-Board-v4.pbd : link Indago-Smart-Board-v4_part0.pbi Indago-Smart-Board-v4_part1.pbi Indago-Smart-Board-v4_part2.pbi Indago-Smart-Board-v4_part3.pbi Indago-Smart-Board-v4_part4.pbi Indago-Smart-Board-v4_part5.pbi Indago-Smart-Board-v4_part6.pbi
+build Indago-Smart-Board-v4_part0.pbi : link cloud.pbi list.pbi main.pbi print.pbi queue.pbi stm32l4xx_hal_msp.pbi stm32l4xx_it.pbi
+build Indago-Smart-Board-v4_part1.pbi : link syscalls.pbi ublox_gps.pbi ublox_r4.pbi system_stm32l4xx.pbi dump.pbi error.pbi hashtable.pbi
+build Indago-Smart-Board-v4_part2.pbi : link hashtable_seed.pbi load.pbi memory.pbi pack_unpack.pbi strbuffer.pbi strconv.pbi utf.pbi
+build Indago-Smart-Board-v4_part3.pbi : link value.pbi version.pbi MQTTConnectClient.pbi MQTTConnectServer.pbi MQTTDeserializePublish.pbi MQTTFormat.pbi MQTTPacket.pbi
+build Indago-Smart-Board-v4_part4.pbi : link MQTTSerializePublish.pbi MQTTSubscribeClient.pbi MQTTSubscribeServer.pbi MQTTUnsubscribeClient.pbi MQTTUnsubscribeServer.pbi stm32l4xx_hal.pbi stm32l4xx_hal_cortex.pbi
+build Indago-Smart-Board-v4_part5.pbi : link stm32l4xx_hal_dma.pbi stm32l4xx_hal_dma_ex.pbi stm32l4xx_hal_exti.pbi stm32l4xx_hal_flash.pbi stm32l4xx_hal_flash_ex.pbi stm32l4xx_hal_flash_ramfunc.pbi stm32l4xx_hal_gpio.pbi
+build Indago-Smart-Board-v4_part6.pbi : link stm32l4xx_hal_i2c.pbi stm32l4xx_hal_i2c_ex.pbi stm32l4xx_hal_pwr.pbi stm32l4xx_hal_pwr_ex.pbi stm32l4xx_hal_rcc.pbi stm32l4xx_hal_rcc_ex.pbi stm32l4xx_hal_tim.pbi
+build Indago-Smart-Board-v4_part7.pbi : link stm32l4xx_hal_tim_ex.pbi stm32l4xx_hal_uart.pbi stm32l4xx_hal_uart_ex.pbi
+build Indago-Smart-Board-v4.pbd : link Indago-Smart-Board-v4_part0.pbi Indago-Smart-Board-v4_part1.pbi Indago-Smart-Board-v4_part2.pbi Indago-Smart-Board-v4_part3.pbi Indago-Smart-Board-v4_part4.pbi Indago-Smart-Board-v4_part5.pbi Indago-Smart-Board-v4_part6.pbi Indago-Smart-Board-v4_part7.pbi
 build Indago-Smart-Board-v4.pbw : browsedata Indago-Smart-Board-v4.pbd
 
 

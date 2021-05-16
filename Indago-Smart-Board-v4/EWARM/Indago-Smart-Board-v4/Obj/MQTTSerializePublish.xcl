@@ -21,9 +21,9 @@ C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/
 -I
 C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM/../Drivers/CMSIS/Include\
 -I
-C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM\..\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src\
--I
 C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM\..\Drivers\paho.mqtt.embedded-c\MQTTPacket\src\
+-I
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\EWARM\..\Drivers\Jansson\src\
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4\arm\inc
 -I
@@ -39,9 +39,9 @@ C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Driver
 -I
 C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\CMSIS\Include
 -I
-C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTClient-C\src
--I
 C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\paho.mqtt.embedded-c\MQTTPacket\src
+-I
+C:\Users\hoodc\Documents\Github\indago-embedded-dev\Indago-Smart-Board-v4\Drivers\Jansson\src
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
